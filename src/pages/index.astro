@@ -1,0 +1,21 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import FactPost from '../components/FactPost.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('posts')).sort((a, b) => a.data.order - b.data.order);
+---
+<Layout title="Feed">
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-10">
+    <p class="text-sm text-ink/60 mb-8 max-w-lg">
+      Vantage explains the story behind the headline — one fact at a time.
+    </p>
+    <div class="grid gap-4">
+      {posts.map((post) => (
+        <FactPost category={post.data.category} headline={post.data.headline} highlight={post.data.highlight} />
+      ))}
+    </div>
+  </main>
+</Layout>

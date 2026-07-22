@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@theme {
+  --color-ink: #2C2C2A;
+  --color-paper: #F1EFE8;
+  --color-teal: #1D9E75;
+  --color-teal-light: #9FE1CB;
+  --color-teal-dark: #04342C;
+
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+body {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}

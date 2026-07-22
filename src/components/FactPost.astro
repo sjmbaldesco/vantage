@@ -1,0 +1,26 @@
+---
+// FactPost enforces Vantage's signature device: exactly one highlighted fact
+// per post. This is intentionally a hard build error, not a lint warning —
+// the whole point of the device is that it stays rare. If a story needs two
+// facts called out, it should be two posts.
+interface Props {
+  headline: string;
+  highlight: string;
+  category?: string;
+}
+const { headline, highlight, category = "Explained" } = Astro.props;
+
+const parts = headline.split(highlight);
+if (parts.length !== 2) {
+  throw new Error(
+    `FactPost: "highlight" must appear exactly once in "headline". ` +
+    `Found ${parts.length - 1} occurrence(s) of "${highlight}" in "${headline}".`
+  );
+}
+---
+<article class="bg-paper border border-ink/10 rounded-lg p-5">
+  <p class="text-xs font-medium text-teal-dark uppercase tracking-wide mb-2">{category}</p>
+  <p class="text-base font-medium leading-snug text-ink">
+    {parts[0]}<mark class="bg-teal-light text-teal-dark px-1 rounded-none">{highlight}</mark>{parts[1]}
+  </p>
+</article>
