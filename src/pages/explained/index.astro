@@ -9,19 +9,40 @@ const explainers = (await getCollection('explainers')).sort((a, b) =>
 ---
 <Layout title="Explained" description="In-depth explainers on the stories that matter.">
   <Header />
-  <main class="max-w-3xl mx-auto px-6 py-10">
-    <p class="text-sm text-ink/60 mb-8 max-w-lg">
-      The story behind the story — Vantage's long-form explainers.
+  <main class="max-w-3xl mx-auto px-6 py-12">
+    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Explained</p>
+    <h1 class="text-3xl font-display font-bold text-paper leading-tight mb-4">
+      The long-form explainers
+    </h1>
+    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
+      The stories behind the feed — each one walks through what's happening and why it matters.
     </p>
+
     <div class="grid gap-4">
       {explainers.map((entry) => (
         <a
           href={`/explained/${entry.id}`}
-          class="block bg-paper border border-ink/10 rounded-lg p-5 hover:border-teal transition-colors"
+          class="block bg-ink border border-paper/15 rounded-xl overflow-hidden hover:border-teal transition-colors"
         >
-          <p class="text-xs font-medium text-teal-dark uppercase tracking-wide mb-2">{entry.data.category}</p>
-          <h2 class="text-lg font-display font-semibold text-ink leading-snug mb-1">{entry.data.title}</h2>
-          <p class="text-sm text-ink/70 leading-relaxed">{entry.data.description}</p>
+          {entry.data.image && (
+            <div class="h-[150px] bg-black/40">
+              <img
+                src={entry.data.image}
+                alt=""
+                class="w-full h-full object-cover block saturate-[0.9] brightness-90"
+              />
+            </div>
+          )}
+          <div class="p-5">
+            <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-2">
+              {entry.data.category}
+            </p>
+            <h2 class="text-lg font-display font-bold text-paper leading-tight mb-2">
+              {entry.data.title}
+            </h2>
+            <p class="text-sm leading-relaxed text-paper/60 mb-3">{entry.data.description}</p>
+            <span class="text-[13px] font-medium text-teal-light">Read explainer →</span>
+          </div>
         </a>
       ))}
     </div>

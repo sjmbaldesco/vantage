@@ -20,6 +20,9 @@ const explainers = defineCollection({
     category: z.string().default('Explained'),
     leadParagraph: z.string(),
     highlight: z.string(),
+    // Optional hero art for the Explained index card. Cards render text-only
+    // until a real licensed image is supplied.
+    image: z.string().optional(),
     drivers: z.array(z.object({ heading: z.string(), body: z.string() })),
   }),
 });

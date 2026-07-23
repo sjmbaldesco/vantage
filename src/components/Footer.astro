@@ -1,28 +1,39 @@
 ---
-// Global footer. Mirrors the Header's ink/teal lockup and holds the site's
-// secondary navigation plus the Facebook cross-link slot (wired up in Phase 4).
+import { FACEBOOK_URL, NAV_LINKS } from '../consts';
+
+// Ink bar that bookends the page like the header, but calmer: smaller wordmark,
+// tagline, vertical nav, and one teal-light Facebook button as the sole signal.
+// Mobile stacks; from `sm` up it splits into wordmark-left / nav-right.
 ---
-<footer class="bg-ink mt-16">
-  <div class="mx-auto max-w-3xl px-6 py-10">
-    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+<footer class="bg-ink border-t border-paper/10 mt-16">
+  <div class="mx-auto max-w-3xl px-6 py-9">
+    <div class="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between">
       <div>
         <div class="text-lg font-display font-bold tracking-tight text-paper leading-none">VANTAGE</div>
-        <div class="h-[3px] w-10 bg-teal mt-2"></div>
-        <p class="text-sm text-teal-light/70 mt-3 max-w-xs">Explained, not spun.</p>
+        <div class="h-[3px] w-11 bg-teal mt-2"></div>
+        <p class="text-[12.5px] leading-relaxed text-teal-light/80 mt-4 max-w-[250px]">
+          Explanatory journalism for a Philippine audience — built for the feed.
+        </p>
       </div>
-      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-teal-light">
-        <a href="/" class="hover:text-paper transition-colors">Feed</a>
-        <a href="/explained" class="hover:text-paper transition-colors">Explained</a>
-        <a href="/about" class="hover:text-paper transition-colors">About</a>
-        <a href="/contact" class="hover:text-paper transition-colors">Contact</a>
+
+      <div class="flex flex-col gap-6 sm:items-end">
+        <nav class="flex flex-col gap-3 text-sm sm:flex-row sm:gap-6 sm:items-center">
+          {NAV_LINKS.map((link) => (
+            <a href={link.href} class="text-paper hover:text-teal-light transition-colors">{link.label}</a>
+          ))}
+        </nav>
         <a
-          href="https://www.facebook.com/profile.php?id=61592073608643"
+          href={FACEBOOK_URL}
           target="_blank"
           rel="noopener noreferrer"
-          class="hover:text-paper transition-colors"
-        >Facebook</a>
-      </nav>
+          class="inline-flex items-center gap-2 self-start sm:self-end bg-teal-light text-ink text-[13px] font-medium px-3.5 py-2.5 rounded-md hover:bg-paper transition-colors"
+        >Follow on Facebook</a>
+      </div>
     </div>
-    <p class="text-xs text-teal-light/50 mt-8">© 2026 Vantage. All rights reserved.</p>
+
+    <div class="border-t border-paper/10 mt-7 pt-4 flex flex-wrap justify-between items-center gap-2">
+      <span class="text-[11.5px] text-teal-light/60">© 2026 Vantage</span>
+      <span class="text-[11.5px] text-teal-light/60">Corrections welcome</span>
+    </div>
   </div>
 </footer>

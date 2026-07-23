@@ -6,12 +6,14 @@
   --color-teal: #1D9E75;
   --color-teal-light: #9FE1CB;
   --color-teal-dark: #04342C;
+  /* Dark-mode page ground. Ink is the surface for bars and cards on top of it. */
+  --color-ground: #171614;
 
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
 }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
+  background-color: var(--color-ground);
+  color: var(--color-paper);
 }
