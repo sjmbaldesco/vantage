@@ -3,9 +3,9 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
-  // TODO: replace with the real production domain before launch. This drives
-  // canonical URLs, Open Graph tags, sitemap-index.xml, and robots.txt.
-  site: 'https://vantage.example.com',
+  // Production URL — drives canonical URLs, Open Graph tags, sitemap-index.xml,
+  // and robots.txt. Update if a custom domain is added later.
+  site: 'https://vantage-xi-two.vercel.app',
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
