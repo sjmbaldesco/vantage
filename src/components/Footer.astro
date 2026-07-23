@@ -1,0 +1,24 @@
+---
+// Global footer. Mirrors the Header's ink/teal lockup and holds the site's
+// secondary navigation plus the Facebook cross-link slot (wired up in Phase 4).
+---
+<footer class="bg-ink mt-16">
+  <div class="mx-auto max-w-3xl px-6 py-10">
+    <div class="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
+      <div>
+        <div class="text-lg font-display font-bold tracking-tight text-paper leading-none">VANTAGE</div>
+        <div class="h-[3px] w-10 bg-teal mt-2"></div>
+        <p class="text-sm text-teal-light/70 mt-3 max-w-xs">Explained, not spun.</p>
+      </div>
+      <nav class="flex flex-wrap gap-x-6 gap-y-2 text-sm text-teal-light">
+        <a href="/" class="hover:text-paper transition-colors">Feed</a>
+        <a href="/explained" class="hover:text-paper transition-colors">Explained</a>
+        <a href="/about" class="hover:text-paper transition-colors">About</a>
+        <a href="/contact" class="hover:text-paper transition-colors">Contact</a>
+        {/* TODO Phase 4: replace "#" with the real Facebook Page URL */}
+        <a href="#" class="hover:text-paper transition-colors">Facebook</a>
+      </nav>
+    </div>
+    <p class="text-xs text-teal-light/50 mt-8">© 2026 Vantage. All rights reserved.</p>
+  </div>
+</footer>

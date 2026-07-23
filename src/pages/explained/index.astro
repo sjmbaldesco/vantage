@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getCollection } from 'astro:content';
+
+const explainers = (await getCollection('explainers')).sort((a, b) =>
+  a.data.title.localeCompare(b.data.title)
+);
+---
+<Layout title="Explained" description="In-depth explainers on the stories that matter.">
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-10">
+    <p class="text-sm text-ink/60 mb-8 max-w-lg">
+      The story behind the story — Vantage's long-form explainers.
+    </p>
+    <div class="grid gap-4">
+      {explainers.map((entry) => (
+        <a
+          href={`/explained/${entry.id}`}
+          class="block bg-paper border border-ink/10 rounded-lg p-5 hover:border-teal transition-colors"
+        >
+          <p class="text-xs font-medium text-teal-dark uppercase tracking-wide mb-2">{entry.data.category}</p>
+          <h2 class="text-lg font-display font-semibold text-ink leading-snug mb-1">{entry.data.title}</h2>
+          <p class="text-sm text-ink/70 leading-relaxed">{entry.data.description}</p>
+        </a>
+      ))}
+    </div>
+  </main>
+</Layout>

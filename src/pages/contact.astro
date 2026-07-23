@@ -1,0 +1,32 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+
+// Swap for a dedicated inbox (e.g. tips@ / corrections@) once the domain is live.
+const email = 'sirjairus@macabuhay.asia';
+---
+<Layout title="Contact" description="Get in touch with Vantage — tips, corrections, and questions.">
+  <Header />
+  <main class="max-w-2xl mx-auto px-6 py-12">
+    <p class="text-xs font-medium text-teal-dark uppercase tracking-wide mb-3">Contact</p>
+    <h1 class="text-3xl font-display font-bold text-ink leading-tight mb-6">
+      Get in touch
+    </h1>
+    <p class="text-lg leading-relaxed text-ink/80 mb-4">
+      Have a tip, a question, or a correction? We read every message.
+    </p>
+    <p class="text-lg leading-relaxed text-ink/80 mb-8">
+      Corrections matter to us — if we got a fact wrong, tell us and we'll fix it.
+    </p>
+    <a
+      href={`mailto:${email}`}
+      class="inline-block bg-teal text-paper font-medium px-5 py-3 rounded-lg hover:bg-teal-dark transition-colors"
+    >
+      Email Vantage
+    </a>
+    <p class="text-sm text-ink/60 mt-4">
+      Or write to us directly at{" "}
+      <a href={`mailto:${email}`} class="text-teal underline underline-offset-2 hover:text-teal-dark">{email}</a>.
+    </p>
+  </main>
+</Layout>
