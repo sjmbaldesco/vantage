@@ -1,0 +1,50 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { SOCIAL_LINKS } from '../consts';
+
+// Placeholder route. "Videos" is in the primary nav, so this page exists to
+// keep that link from 404-ing. There is no videos collection yet — how video
+// is modelled (embeds vs. a content collection, and which platform is the
+// source of truth) is still an open decision.
+const facebook = SOCIAL_LINKS.find((s) => s.icon === 'facebook');
+---
+<Layout title="Videos" description="Vantage explainers in video form.">
+  <Header />
+  <main class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
+    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Videos</p>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-5">
+      Explainers, in video
+    </h1>
+    <p class="text-lg leading-relaxed text-paper/70 mb-8">
+      [Placeholder — this section is not live yet. Replace with the real video
+      library once the format and hosting are settled.]
+    </p>
+
+    <div class="bg-ink border border-paper/15 rounded-xl p-6">
+      <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-2">
+        Nothing published yet
+      </p>
+      <p class="text-sm leading-relaxed text-paper/60 mb-4">
+        When video explainers start going out, they'll be collected here. In the
+        meantime, the written explainers cover the same ground.
+      </p>
+      <a
+        href="/explained"
+        class="text-sm font-medium text-teal-light underline underline-offset-2 hover:text-paper transition-colors"
+      >Read the articles →</a>
+    </div>
+
+    {facebook && (
+      <p class="text-sm text-paper/50 mt-6">
+        Until then, updates go out on{" "}
+        <a
+          href={facebook.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors"
+        >Facebook</a>.
+      </p>
+    )}
+  </main>
+</Layout>

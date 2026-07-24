@@ -3,26 +3,65 @@ import { NAV_LINKS } from '../consts';
 
 const path = Astro.url.pathname;
 // "/" matches only itself; section roots also match their child pages so an
-// explainer detail page still marks "Explained" as current.
+// explainer detail page still marks "Articles" as current.
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`);
+
+// NOTE: the query string is deliberately NOT read here. Pages are prerendered
+// at build time, so Astro.url.searchParams is always empty in the output —
+// prefilling the box has to happen client-side (see the script below).
 ---
 {/*
-  data-pagefind-ignore: nav text appears on every page and would otherwise
-  match every search query.
+  data-pagefind-ignore: nav and search chrome appear on every page and would
+  otherwise match every query.
 
-  The mobile menu is a <details> rather than a JS-driven panel so it still
-  opens without JavaScript and gets native keyboard/ARIA behaviour for free.
-  The script below only adds the niceties (Escape, click-outside).
+  The search field is a plain GET form pointing at /search, so it works with no
+  JavaScript at all — the browser builds /search?q=… and the results page reads
+  it. The mobile menu is a <details> for the same reason: it opens without JS
+  and gets native keyboard/ARIA behaviour. The script below only adds
+  Escape-to-close and click-outside-to-close.
 */}
 <header class="bg-ink" data-pagefind-ignore>
-  <div class="mx-auto max-w-3xl px-6 py-6 flex items-start justify-between gap-4">
+  <div class="mx-auto max-w-3xl px-6 py-6 flex flex-wrap items-center justify-between gap-y-4">
     <a href="/" class="inline-block shrink-0">
       <div class="text-2xl font-display font-bold tracking-tight text-paper leading-none">VANTAGE</div>
       <div class="h-[3px] w-14 bg-teal mt-2"></div>
     </a>
 
-    <nav class="hidden sm:flex flex-wrap justify-end gap-x-6 gap-y-1 text-sm pt-1">
+    <form
+      action="/search"
+      method="get"
+      role="search"
+      class="order-last w-full sm:order-none sm:w-auto sm:flex-1 sm:max-w-xs sm:mx-6"
+    >
+      <label for="nav-search" class="sr-only">Search Vantage</label>
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-paper/40"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="16.5" y1="16.5" x2="21" y2="21" />
+        </svg>
+        <input
+          id="nav-search"
+          type="search"
+          name="q"
+          autocomplete="off"
+          placeholder="Search…"
+          class="w-full bg-ground border border-paper/15 rounded-lg pl-9 pr-3 py-2 text-sm text-paper placeholder:text-paper/40 focus:border-teal focus:outline-none transition-colors"
+        />
+      </div>
+    </form>
+
+    <nav class="hidden sm:flex flex-wrap justify-end gap-x-6 gap-y-1 text-sm">
       {NAV_LINKS.map((link) => (
         <a
           href={link.href}
@@ -78,6 +117,13 @@ const isActive = (href: string) =>
 </header>
 
 <script>
+  // Pages are prerendered, so the ?q= value can only be read in the browser.
+  // Mirroring it back into the box means refining a search doesn't mean
+  // retyping the query.
+  const navSearch = document.getElementById('nav-search') as HTMLInputElement | null;
+  const activeQuery = new URLSearchParams(window.location.search).get('q');
+  if (navSearch && activeQuery && !navSearch.value) navSearch.value = activeQuery;
+
   // Progressive enhancement only — the <details> element already opens and
   // closes on its own without any of this.
   function closeAll() {
