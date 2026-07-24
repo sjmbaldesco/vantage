@@ -4,18 +4,41 @@ import Header from '../components/Header.astro';
 import FactPost from '../components/FactPost.astro';
 import { getCollection } from 'astro:content';
 
-const posts = (await getCollection('posts')).sort((a, b) => a.data.order - b.data.order);
+// The home page is the latest uploads only — /archive ("Articles" in the nav)
+// is the complete run. Without this cap the two pages would be the same list.
+const LATEST_COUNT = 6;
+
+const allPosts = (await getCollection('posts')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+const posts = allPosts.slice(0, LATEST_COUNT);
+const hasMore = allPosts.length > posts.length;
 ---
 <Layout title="Feed">
   <Header />
-  <main class="max-w-3xl mx-auto px-6 py-10">
-    <p class="text-sm text-paper/60 mb-8 max-w-lg">
+  <main class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
+    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Latest</p>
+    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
       Vantage explains the story behind the headline — one fact at a time.
     </p>
+
     <div class="grid gap-4">
       {posts.map((post) => (
-        <FactPost category={post.data.category} headline={post.data.headline} highlight={post.data.highlight} />
+        <FactPost
+          category={post.data.category}
+          headline={post.data.headline}
+          highlight={post.data.highlight}
+        />
       ))}
+    </div>
+
+    <div class="border-t border-paper/10 mt-10 pt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
+      <a href="/archive" class="font-medium text-teal-light hover:text-paper transition-colors">
+        {hasMore ? 'See all articles →' : 'Browse the archive →'}
+      </a>
+      <a href="/explained" class="font-medium text-teal-light hover:text-paper transition-colors">
+        Read the long-form explainers →
+      </a>
     </div>
   </main>
 </Layout>

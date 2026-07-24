@@ -64,10 +64,10 @@ All current content is placeholder and must be replaced with real reporting befo
 
 | Route | File | Notes |
 |---|---|---|
-| `/` | `src/pages/index.astro` | Feed of `FactPost` cards from the `posts` collection |
+| `/` | `src/pages/index.astro` | Home — the latest posts only (capped by `LATEST_COUNT`) |
 | `/explained` | `src/pages/explained/index.astro` | Card index of the `explainers` collection |
 | `/explained/<slug>` | `src/pages/explained/[slug].astro` | Long-form explainer, generated per collection entry |
-| `/archive` | `src/pages/archive/[...page].astro` | Paginated run of all posts (10/page), reusing `FactPost` |
+| `/archive` | `src/pages/archive/[...page].astro` | "Articles" in the nav — complete paginated run of all posts (10/page) |
 | `/category/<slug>` | `src/pages/category/[category].astro` | One route per distinct `category` on posts; slug from `src/utils.ts` |
 | `/search` | `src/pages/search.astro` | Client-side Pagefind search over the built site |
 | `/about` | `src/pages/about.astro` | Masthead — placeholder names pending real copy |
