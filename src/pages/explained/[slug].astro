@@ -24,9 +24,9 @@ if (leadParts.length !== 2) {
 ---
 <Layout title={title} description={description}>
   <Header />
-  <article class="max-w-2xl mx-auto px-6 py-12">
+  <article class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">{category}</p>
-    <h1 class="text-3xl font-display font-bold text-paper leading-tight mb-6">{title}</h1>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-6">{title}</h1>
     <p class="text-lg leading-relaxed text-paper/80 mb-4">
       {leadParts[0]}<mark class="bg-teal-light text-teal-dark px-1">{highlight}</mark>{leadParts[1]}
     </p>

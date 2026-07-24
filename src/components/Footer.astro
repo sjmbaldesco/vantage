@@ -1,39 +1,68 @@
 ---
-import { FACEBOOK_URL, NAV_LINKS } from '../consts';
+import { SOCIAL_LINKS } from '../consts';
 
 // Ink bar that bookends the page like the header, but calmer: smaller wordmark,
-// tagline, vertical nav, and one teal-light Facebook button as the sole signal.
-// Mobile stacks; from `sm` up it splits into wordmark-left / nav-right.
+// tagline, and a row of social icons. Navigation deliberately lives only in the
+// header — duplicating it here added a second place to keep in sync without
+// giving the reader anything new.
 ---
 <footer class="bg-ink border-t border-paper/10 mt-16" data-pagefind-ignore>
-  <div class="mx-auto max-w-3xl px-6 py-9">
-    <div class="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between">
+  <div class="mx-auto max-w-3xl px-6 py-9 sm:py-11">
+    <div class="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div class="text-lg font-display font-bold tracking-tight text-paper leading-none">VANTAGE</div>
         <div class="h-[3px] w-11 bg-teal mt-2"></div>
-        <p class="text-[12.5px] leading-relaxed text-teal-light/80 mt-4 max-w-[250px]">
+        <p class="text-[12.5px] leading-relaxed text-teal-light/80 mt-4 max-w-[280px]">
           Explanatory journalism for a Philippine audience — built for the feed.
         </p>
       </div>
 
-      <div class="flex flex-col gap-6 sm:items-end">
-        <nav class="flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:justify-end sm:gap-x-6 sm:gap-y-2 sm:items-center">
-          {NAV_LINKS.map((link) => (
-            <a href={link.href} class="text-paper hover:text-teal-light transition-colors">{link.label}</a>
-          ))}
-        </nav>
-        <a
-          href={FACEBOOK_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 self-start sm:self-end bg-teal-light text-ink text-[13px] font-medium px-3.5 py-2.5 rounded-md hover:bg-paper transition-colors"
-        >Follow on Facebook</a>
-      </div>
+      <ul class="flex items-center gap-2 shrink-0">
+        {SOCIAL_LINKS.map((social) => (
+          <li>
+            <a
+              href={social.href}
+              target={social.placeholder ? undefined : '_blank'}
+              rel={social.placeholder ? undefined : 'noopener noreferrer'}
+              aria-label={social.placeholder ? `${social.label} — coming soon` : social.label}
+              aria-disabled={social.placeholder ? 'true' : undefined}
+              class:list={[
+                'inline-flex items-center justify-center w-10 h-10 rounded-lg border border-paper/15 transition-colors',
+                social.placeholder
+                  ? 'text-paper/30 hover:border-paper/25'
+                  : 'text-teal-light hover:text-ink hover:bg-teal-light hover:border-teal-light',
+              ]}
+            >
+              {social.icon === 'facebook' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.33-.04-1.56-.14-2.86-.14C11.93 2 10 3.66 10 6.7v2.8H7v4h3V22h4v-8.5z" />
+                </svg>
+              )}
+              {social.icon === 'instagram' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="20" rx="5.5" />
+                  <circle cx="12" cy="12" r="4.2" />
+                  <circle cx="17.6" cy="6.4" r="1.3" fill="currentColor" stroke="none" />
+                </svg>
+              )}
+              {social.icon === 'youtube' && (
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M23 12s0-3.5-.4-5.2a2.9 2.9 0 0 0-2-2C18.8 4.4 12 4.4 12 4.4s-6.8 0-8.6.4a2.9 2.9 0 0 0-2 2C1 8.5 1 12 1 12s0 3.5.4 5.2a2.9 2.9 0 0 0 2 2c1.8.4 8.6.4 8.6.4s6.8 0 8.6-.4a2.9 2.9 0 0 0 2-2C23 15.5 23 12 23 12zM9.8 15.5v-7l6 3.5-6 3.5z" />
+                </svg>
+              )}
+              {social.icon === 'x' && (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M18.24 2.25h3.31l-7.23 8.26 8.5 11.24h-6.66l-5.21-6.82-5.97 6.82H1.68l7.73-8.84L1.25 2.25h6.83l4.71 6.23zm-1.16 17.52h1.83L7.08 4.13H5.12z" />
+                </svg>
+              )}
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
 
-    <div class="border-t border-paper/10 mt-7 pt-4 flex flex-wrap justify-between items-center gap-2">
+    <div class="border-t border-paper/10 mt-7 pt-4">
       <span class="text-[11.5px] text-teal-light/60">© 2026 Vantage</span>
-      <span class="text-[11.5px] text-teal-light/60">Corrections welcome</span>
     </div>
   </div>
 </footer>

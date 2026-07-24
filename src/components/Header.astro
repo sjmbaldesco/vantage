@@ -3,19 +3,65 @@ import { NAV_LINKS } from '../consts';
 
 const path = Astro.url.pathname;
 // "/" matches only itself; section roots also match their child pages so an
-// explainer detail page still marks "Explained" as current.
+// explainer detail page still marks "Articles" as current.
 const isActive = (href: string) =>
   href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`);
+
+// NOTE: the query string is deliberately NOT read here. Pages are prerendered
+// at build time, so Astro.url.searchParams is always empty in the output —
+// prefilling the box has to happen client-side (see the script below).
 ---
-<!-- data-pagefind-ignore: nav text appears on every page and would otherwise
-     match every search query. -->
+{/*
+  data-pagefind-ignore: nav and search chrome appear on every page and would
+  otherwise match every query.
+
+  The search field is a plain GET form pointing at /search, so it works with no
+  JavaScript at all — the browser builds /search?q=… and the results page reads
+  it. The mobile menu is a <details> for the same reason: it opens without JS
+  and gets native keyboard/ARIA behaviour. The script below only adds
+  Escape-to-close and click-outside-to-close.
+*/}
 <header class="bg-ink" data-pagefind-ignore>
-  <div class="mx-auto max-w-3xl px-6 py-6 flex items-start justify-between">
-    <a href="/" class="inline-block">
+  <div class="mx-auto max-w-3xl px-6 py-6 flex flex-wrap items-center justify-between gap-y-4">
+    <a href="/" class="inline-block shrink-0">
       <div class="text-2xl font-display font-bold tracking-tight text-paper leading-none">VANTAGE</div>
       <div class="h-[3px] w-14 bg-teal mt-2"></div>
     </a>
-    <nav class="flex flex-wrap justify-end gap-x-6 gap-y-1 text-sm pt-1">
+
+    <form
+      action="/search"
+      method="get"
+      role="search"
+      class="order-last w-full sm:order-none sm:w-auto sm:flex-1 sm:max-w-xs sm:mx-6"
+    >
+      <label for="nav-search" class="sr-only">Search Vantage</label>
+      <div class="relative">
+        <svg
+          class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-paper/40"
+          width="15"
+          height="15"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <circle cx="11" cy="11" r="7" />
+          <line x1="16.5" y1="16.5" x2="21" y2="21" />
+        </svg>
+        <input
+          id="nav-search"
+          type="search"
+          name="q"
+          autocomplete="off"
+          placeholder="Search…"
+          class="w-full bg-ground border border-paper/15 rounded-lg pl-9 pr-3 py-2 text-sm text-paper placeholder:text-paper/40 focus:border-teal focus:outline-none transition-colors"
+        />
+      </div>
+    </form>
+
+    <nav class="hidden sm:flex flex-wrap justify-end gap-x-6 gap-y-1 text-sm">
       {NAV_LINKS.map((link) => (
         <a
           href={link.href}
@@ -27,5 +73,76 @@ const isActive = (href: string) =>
         >{link.label}</a>
       ))}
     </nav>
+
+    <details class="relative sm:hidden" data-mobile-nav>
+      <summary
+        class="list-none [&::-webkit-details-marker]:hidden cursor-pointer select-none inline-flex items-center gap-2 -mr-2 px-2 py-1.5 rounded-md text-teal-light hover:text-paper transition-colors"
+        aria-label="Toggle navigation menu"
+      >
+        <span class="text-sm font-medium">Menu</span>
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <line x1="3" y1="6" x2="21" y2="6" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="18" x2="21" y2="18" />
+        </svg>
+      </summary>
+
+      <nav
+        class="absolute right-0 top-full z-50 mt-3 w-52 flex flex-col p-2 bg-ink border border-paper/15 rounded-xl shadow-xl shadow-black/40"
+      >
+        {NAV_LINKS.map((link) => (
+          <a
+            href={link.href}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+            class:list={[
+              'rounded-lg px-3 py-2.5 text-sm transition-colors',
+              isActive(link.href)
+                ? 'bg-paper/10 text-paper font-medium'
+                : 'text-teal-light hover:bg-paper/5 hover:text-paper',
+            ]}
+          >{link.label}</a>
+        ))}
+      </nav>
+    </details>
   </div>
 </header>
+
+<script>
+  // Pages are prerendered, so the ?q= value can only be read in the browser.
+  // Mirroring it back into the box means refining a search doesn't mean
+  // retyping the query.
+  const navSearch = document.getElementById('nav-search') as HTMLInputElement | null;
+  const activeQuery = new URLSearchParams(window.location.search).get('q');
+  if (navSearch && activeQuery && !navSearch.value) navSearch.value = activeQuery;
+
+  // Progressive enhancement only — the <details> element already opens and
+  // closes on its own without any of this.
+  function closeAll() {
+    document
+      .querySelectorAll<HTMLDetailsElement>('details[data-mobile-nav][open]')
+      .forEach((menu) => {
+        menu.open = false;
+      });
+  }
+
+  document.addEventListener('click', (event) => {
+    document
+      .querySelectorAll<HTMLDetailsElement>('details[data-mobile-nav][open]')
+      .forEach((menu) => {
+        if (!menu.contains(event.target as Node)) menu.open = false;
+      });
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeAll();
+  });
+</script>

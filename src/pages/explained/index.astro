@@ -9,13 +9,19 @@ const explainers = (await getCollection('explainers')).sort((a, b) =>
 ---
 <Layout title="Explained" description="In-depth explainers on the stories that matter.">
   <Header />
-  <main class="max-w-3xl mx-auto px-6 py-12">
+  <main class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Explained</p>
-    <h1 class="text-3xl font-display font-bold text-paper leading-tight mb-4">
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
       The long-form explainers
     </h1>
-    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
+    <p class="text-lg leading-relaxed text-paper/70 mb-4 max-w-xl">
       The stories behind the feed — each one walks through what's happening and why it matters.
+    </p>
+    <p class="text-sm text-paper/50 mb-8">
+      Looking for something shorter? Browse the{" "}
+      <a href="/" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">feed</a>{" "}
+      or the{" "}
+      <a href="/archive" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">full archive</a>.
     </p>
 
     <div class="grid gap-4">
