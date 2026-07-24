@@ -1,0 +1,54 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import FactPost from '../../components/FactPost.astro';
+import { getCollection } from 'astro:content';
+import { categorySlug } from '../../utils';
+import type { GetStaticPaths } from 'astro';
+
+// Routes are generated from the categories posts actually carry, so a new
+// category appears simply by authoring a post with it — no route list to keep
+// in sync.
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts = await getCollection('posts');
+  const categories = [...new Set(posts.map((p) => p.data.category))];
+
+  return categories.map((category) => ({
+    params: { category: categorySlug(category) },
+    props: {
+      category,
+      posts: posts
+        .filter((p) => p.data.category === category)
+        .sort((a, b) => a.data.order - b.data.order),
+    },
+  }));
+};
+
+const { category, posts } = Astro.props;
+---
+<Layout
+  title={category}
+  description={`Vantage posts filed under ${category}.`}
+>
+  <Header />
+  <main class="max-w-3xl mx-auto px-6 py-12">
+    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Category</p>
+    <h1 class="text-3xl font-display font-bold text-paper leading-tight mb-4">
+      {category}
+    </h1>
+    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
+      {posts.length} {posts.length === 1 ? 'post' : 'posts'} filed under {category}.{" "}
+      <a href="/archive" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">See the full archive</a>.
+    </p>
+
+    <div class="grid gap-4">
+      {posts.map((post) => (
+        <FactPost
+          category={post.data.category}
+          headline={post.data.headline}
+          highlight={post.data.highlight}
+        />
+      ))}
+    </div>
+  </main>
+</Layout>

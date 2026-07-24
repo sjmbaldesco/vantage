@@ -67,6 +67,9 @@ All current content is placeholder and must be replaced with real reporting befo
 | `/` | `src/pages/index.astro` | Feed of `FactPost` cards from the `posts` collection |
 | `/explained` | `src/pages/explained/index.astro` | Card index of the `explainers` collection |
 | `/explained/<slug>` | `src/pages/explained/[slug].astro` | Long-form explainer, generated per collection entry |
+| `/archive` | `src/pages/archive/[...page].astro` | Paginated run of all posts (10/page), reusing `FactPost` |
+| `/category/<slug>` | `src/pages/category/[category].astro` | One route per distinct `category` on posts; slug from `src/utils.ts` |
+| `/search` | `src/pages/search.astro` | Client-side Pagefind search over the built site |
 | `/about` | `src/pages/about.astro` | Masthead — placeholder names pending real copy |
 | `/contact` | `src/pages/contact.astro` | Mailto channel block + corrections callout |
 | `/robots.txt` | `src/pages/robots.txt.ts` | Derives the sitemap URL from `site` config |
@@ -94,3 +97,5 @@ Auto-deploys to Vercel from `main` — every push triggers a build. No adapter o
 ## Stack
 
 Astro 7 + Tailwind CSS v4 (`@tailwindcss/vite`, CSS-first config — there is no `tailwind.config.js`; tokens live in `src/styles/global.css`), plus `@astrojs/sitemap`. Deployed on Vercel.
+
+**Search:** Pagefind builds a static index from `dist` — `npm run build` runs `astro build && pagefind --site dist`. There is no backend. Because the index is a build artifact, search does **not** work under `astro dev`; use `npm run build && npm run preview` to test it. `Header.astro` and `Footer.astro` carry `data-pagefind-ignore` so sitewide nav text doesn't match every query. Pagefind wraps matches in `<mark>`, which is styled deliberately *unlike* the one-highlight-per-post device (underline, not a highlight block) so the signature signal stays unique.
