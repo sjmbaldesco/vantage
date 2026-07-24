@@ -5,7 +5,7 @@ import { FACEBOOK_URL, NAV_LINKS } from '../consts';
 // tagline, vertical nav, and one teal-light Facebook button as the sole signal.
 // Mobile stacks; from `sm` up it splits into wordmark-left / nav-right.
 ---
-<footer class="bg-ink border-t border-paper/10 mt-16">
+<footer class="bg-ink border-t border-paper/10 mt-16" data-pagefind-ignore>
   <div class="mx-auto max-w-3xl px-6 py-9">
     <div class="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between">
       <div>
@@ -17,7 +17,7 @@ import { FACEBOOK_URL, NAV_LINKS } from '../consts';
       </div>
 
       <div class="flex flex-col gap-6 sm:items-end">
-        <nav class="flex flex-col gap-3 text-sm sm:flex-row sm:gap-6 sm:items-center">
+        <nav class="flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:justify-end sm:gap-x-6 sm:gap-y-2 sm:items-center">
           {NAV_LINKS.map((link) => (
             <a href={link.href} class="text-paper hover:text-teal-light transition-colors">{link.label}</a>
           ))}

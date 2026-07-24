@@ -6,6 +6,8 @@ export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61592073608
 export const NAV_LINKS = [
   { href: '/', label: 'Feed' },
   { href: '/explained', label: 'Explained' },
+  { href: '/archive', label: 'Archive' },
+  { href: '/search', label: 'Search' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },
 ];
