@@ -1,34 +1,28 @@
 ---
-import { FACEBOOK_URL, NAV_LINKS } from '../consts';
+import { FACEBOOK_URL } from '../consts';
 
 // Ink bar that bookends the page like the header, but calmer: smaller wordmark,
-// tagline, vertical nav, and one teal-light Facebook button as the sole signal.
-// Mobile stacks; from `sm` up it splits into wordmark-left / nav-right.
+// tagline, and one teal-light Facebook button as the sole signal. Navigation
+// deliberately lives only in the header — duplicating it here added a second
+// place to maintain without giving the reader anything new.
 ---
 <footer class="bg-ink border-t border-paper/10 mt-16" data-pagefind-ignore>
-  <div class="mx-auto max-w-3xl px-6 py-9">
-    <div class="flex flex-col gap-7 sm:flex-row sm:items-start sm:justify-between">
+  <div class="mx-auto max-w-3xl px-6 py-9 sm:py-11">
+    <div class="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
       <div>
         <div class="text-lg font-display font-bold tracking-tight text-paper leading-none">VANTAGE</div>
         <div class="h-[3px] w-11 bg-teal mt-2"></div>
-        <p class="text-[12.5px] leading-relaxed text-teal-light/80 mt-4 max-w-[250px]">
+        <p class="text-[12.5px] leading-relaxed text-teal-light/80 mt-4 max-w-[280px]">
           Explanatory journalism for a Philippine audience — built for the feed.
         </p>
       </div>
 
-      <div class="flex flex-col gap-6 sm:items-end">
-        <nav class="flex flex-col gap-3 text-sm sm:flex-row sm:flex-wrap sm:justify-end sm:gap-x-6 sm:gap-y-2 sm:items-center">
-          {NAV_LINKS.map((link) => (
-            <a href={link.href} class="text-paper hover:text-teal-light transition-colors">{link.label}</a>
-          ))}
-        </nav>
-        <a
-          href={FACEBOOK_URL}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="inline-flex items-center gap-2 self-start sm:self-end bg-teal-light text-ink text-[13px] font-medium px-3.5 py-2.5 rounded-md hover:bg-paper transition-colors"
-        >Follow on Facebook</a>
-      </div>
+      <a
+        href={FACEBOOK_URL}
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center gap-2 self-start sm:self-auto shrink-0 bg-teal-light text-ink text-[13px] font-medium px-3.5 py-2.5 rounded-md hover:bg-paper transition-colors"
+      >Follow on Facebook</a>
     </div>
 
     <div class="border-t border-paper/10 mt-7 pt-4 flex flex-wrap justify-between items-center gap-2">
