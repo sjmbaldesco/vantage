@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import Footer from '../components/Footer.astro';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title: string;
@@ -49,5 +50,9 @@ const ogImage = image ? new URL(image, Astro.site) : undefined;
       <slot />
     </div>
     <Footer />
+    <!-- Vercel Web Analytics. Reports the route pattern (not the raw path) for
+         dynamic routes, so /explained/<slug> aggregates correctly. Requires
+         Web Analytics to be enabled in the Vercel project dashboard. -->
+    <Analytics />
   </body>
 </html>
