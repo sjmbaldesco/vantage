@@ -82,6 +82,8 @@ Auto-deploys to Vercel from `main` — every push triggers a build. No adapter o
 
 `site` in `astro.config.mjs` drives canonical URLs, OG tags, the sitemap, and robots.txt. It currently points at the Vercel URL and must be updated if a custom domain is added.
 
+**Analytics:** Vercel Web Analytics is wired via the `<Analytics />` component from `@vercel/analytics/astro`, mounted once in `src/layouts/Layout.astro` so it covers every route. No API keys live in the repo — it only reports once Web Analytics is toggled on in the Vercel project dashboard.
+
 ## What's left
 
 1. **Real content** — masthead copy and names for `/about`, and real stories in both collections.
