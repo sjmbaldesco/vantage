@@ -1,5 +1,23 @@
 @import "tailwindcss";
 
+/* Mont Heavy (Fontfabric free/DEMO release, converted to woff2). Self-hosted
+   rather than loaded from Google Fonts, which does not carry Mont.
+
+   Only the Heavy cut ships. The free release includes just ExtraLight (300)
+   and Heavy (900) — no 400/500 — so Mont is the display face only and Inter
+   still carries body copy. Mont also has no ₱ glyph, which the content uses
+   heavily; keeping it off body text avoids a fallback glyph mid-sentence.
+
+   The weight range is declared 700–900 so existing `font-bold` (700) headings
+   resolve to this file instead of the browser synthesising a faux-bold. */
+@font-face {
+  font-family: "Mont";
+  src: url("/fonts/Mont-Heavy.woff2") format("woff2");
+  font-weight: 700 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
   --color-ink: #2C2C2A;
   --color-paper: #F1EFE8;
@@ -9,7 +27,7 @@
   /* Dark-mode page ground. Ink is the surface for bars and cards on top of it. */
   --color-ground: #171614;
 
-  --font-display: "Space Grotesk", sans-serif;
+  --font-display: "Mont", system-ui, sans-serif;
   --font-body: "Inter", sans-serif;
 }
 
