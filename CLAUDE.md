@@ -31,13 +31,19 @@ Why teal and not red or amber: red/coral reads as aligned with a party color and
 
 ### Type
 
-- Headline: Space Grotesk, weight 500/700 — Tailwind utility `font-display`
-- Body: Inter, weight 400/500 — Tailwind utility `font-body`
-- Both loaded via Google Fonts in `src/layouts/Layout.astro`.
+- Display: **Mont Heavy** — Tailwind utility `font-display`. Self-hosted at `public/fonts/Mont-Heavy.woff2` and declared in `src/styles/global.css`; Google Fonts does not carry Mont.
+- Body: Inter, weight 400/500 — Tailwind utility `font-body`, loaded via Google Fonts in `src/layouts/Layout.astro`.
+
+Mont is **display only** — headings and the wordmark — and Inter carries all body copy. Two hard constraints drive that split, both from the free Fontfabric release:
+
+1. It ships only ExtraLight (300) and Heavy (900). There is no 400/500 cut to set body text in.
+2. It has **no ₱ glyph**, and the content uses the peso sign constantly. On body text every amount would fall back to another face mid-sentence.
+
+The `@font-face` declares a `700 900` weight range so existing `font-bold` headings resolve to the Heavy file rather than getting a synthesised faux-bold. Anything set in `font-display` must therefore be 700 or heavier; lighter supporting text (an explainer standfirst, say) belongs in the body face.
 
 ### Logo
 
-- Primary lockup: "VANTAGE" set in Space Grotesk bold, tight tracking, with a short signal-teal bar underneath. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
+- Primary lockup: "VANTAGE" set in Mont Heavy at `font-black`, tight tracking (`-0.03em`), with a short signal-teal bar underneath. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
 - Profile/avatar mark: a single teal "V" on an ink square, in `public/favicon.svg`. Still a placeholder pending a real commissioned mark — it is intentionally simple, not final. Any replacement needs to work at favicon size, hold up on ink *and* on the near-black ground, and keep signal teal as the only color signal.
 
 ### The signature device — one highlight per post, no exceptions
