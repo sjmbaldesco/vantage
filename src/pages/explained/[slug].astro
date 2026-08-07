@@ -12,8 +12,23 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
-const { title, description, category, leadParagraph, highlight, drivers } = entry.data;
+const {
+  title,
+  description,
+  category,
+  subtitle,
+  leadParagraph,
+  highlight,
+  publishedAt,
+  author,
+  currentAsOf,
+  drivers,
+  sources,
+} = entry.data;
 
+// Same guarantee FactPost makes, applied to the lead: exactly one highlighted
+// fact per piece. Deliberately duplicated rather than shared, so FactPost's
+// check stays singly owned — see CLAUDE.md.
 const leadParts = leadParagraph.split(highlight);
 if (leadParts.length !== 2) {
   throw new Error(
@@ -21,20 +36,110 @@ if (leadParts.length !== 2) {
     `Found ${leadParts.length - 1} occurrence(s) of "${highlight}".`
   );
 }
+
+const dateline = publishedAt
+  ? new Intl.DateTimeFormat('en-PH', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }).format(publishedAt)
+  : null;
+
+// Panels are authored as blank-line-separated paragraphs; HTML collapses the
+// newlines, so they have to be split into real elements here.
+const paragraphs = (body: string) =>
+  body.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
 ---
 <Layout title={title} description={description}>
   <Header />
   <article class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">{category}</p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-6">{title}</h1>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-3">{title}</h1>
+
+    {subtitle && (
+      <p class="text-lg font-display text-paper/60 leading-snug mb-5">{subtitle}</p>
+    )}
+
+    {(dateline || author) && (
+      <p class="text-[13px] text-paper/50 border-b border-paper/10 pb-5 mb-6">
+        {author}{author && dateline ? ' · ' : ''}{dateline && <time datetime={publishedAt?.toISOString()}>{dateline}</time>}
+      </p>
+    )}
+
     <p class="text-lg leading-relaxed text-paper/80 mb-4">
       {leadParts[0]}<mark class="bg-teal-light text-teal-dark px-1">{highlight}</mark>{leadParts[1]}
     </p>
+
     {drivers.map((driver) => (
-      <>
+      <section>
         <h2 class="text-xl font-display font-bold text-paper mt-8 mb-3">{driver.heading}</h2>
-        <p class="text-base leading-relaxed text-paper/70 mb-4">{driver.body}</p>
-      </>
+
+        {paragraphs(driver.body).map((p) => (
+          <p class="text-base leading-relaxed text-paper/70 mb-4">{p}</p>
+        ))}
+
+        {driver.bullets && (
+          <ul class="list-disc pl-5 mb-4 space-y-1.5">
+            {driver.bullets.map((item) => (
+              <li class="text-base leading-relaxed text-paper/70">{item}</li>
+            ))}
+          </ul>
+        )}
+
+        {driver.table && (
+          <div class="overflow-x-auto mb-4 -mx-1">
+            <table class="w-full border-collapse text-left">
+              <thead>
+                <tr>
+                  {driver.table.rows.some((r) => r.label) && <th class="w-px"></th>}
+                  {driver.table.columns.map((column) => (
+                    <th class="text-[11px] font-semibold uppercase tracking-[0.08em] text-teal-light align-bottom border-b border-paper/15 px-3 py-2">
+                      {column}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                {driver.table.rows.map((row) => (
+                  <tr class="border-b border-paper/10">
+                    {row.label !== undefined && (
+                      <th class="text-[13px] font-medium text-paper/50 align-top whitespace-nowrap px-3 py-3">
+                        {row.label}
+                      </th>
+                    )}
+                    {row.cells.map((cell) => (
+                      <td class="text-[15px] leading-relaxed text-paper/70 align-top px-3 py-3">{cell}</td>
+                    ))}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+
+        {driver.coda && (
+          <p class="text-base leading-relaxed text-paper/70 mb-4">{driver.coda}</p>
+        )}
+
+        {driver.sourceNote && (
+          <p class="text-[13px] leading-relaxed text-paper/40 mb-4">{driver.sourceNote}</p>
+        )}
+      </section>
     ))}
+
+    {sources.length > 0 && (
+      <section class="border-t border-paper/15 mt-12 pt-8">
+        <h2 class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-4">Sources</h2>
+        <ul class="space-y-2">
+          {sources.map((source) => (
+            <li class="text-[13px] leading-relaxed text-paper/55">{source}</li>
+          ))}
+        </ul>
+        {currentAsOf && (
+          <p class="text-[13px] text-paper/40 mt-5">{currentAsOf}</p>
+        )}
+      </section>
+    )}
   </article>
 </Layout>

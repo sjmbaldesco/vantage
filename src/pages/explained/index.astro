@@ -1,11 +1,11 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import ExplainerCard from '../../components/ExplainerCard.astro';
 import { getCollection } from 'astro:content';
+import { sortExplainers } from '../../utils';
 
-const explainers = (await getCollection('explainers')).sort((a, b) =>
-  a.data.title.localeCompare(b.data.title)
-);
+const explainers = sortExplainers(await getCollection('explainers'));
 ---
 <Layout title="Explained" description="In-depth explainers on the stories that matter.">
   <Header />
@@ -26,30 +26,14 @@ const explainers = (await getCollection('explainers')).sort((a, b) =>
 
     <div class="grid gap-4">
       {explainers.map((entry) => (
-        <a
-          href={`/explained/${entry.id}`}
-          class="block bg-ink border border-paper/15 rounded-xl overflow-hidden hover:border-teal transition-colors"
-        >
-          {entry.data.image && (
-            <div class="h-[150px] bg-black/40">
-              <img
-                src={entry.data.image}
-                alt=""
-                class="w-full h-full object-cover block saturate-[0.9] brightness-90"
-              />
-            </div>
-          )}
-          <div class="p-5">
-            <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-2">
-              {entry.data.category}
-            </p>
-            <h2 class="text-lg font-display font-bold text-paper leading-tight mb-2">
-              {entry.data.title}
-            </h2>
-            <p class="text-sm leading-relaxed text-paper/60 mb-3">{entry.data.description}</p>
-            <span class="text-[13px] font-medium text-teal-light">Read explainer →</span>
-          </div>
-        </a>
+        <ExplainerCard
+          slug={entry.id}
+          category={entry.data.category}
+          title={entry.data.title}
+          description={entry.data.description}
+          image={entry.data.image}
+          publishedAt={entry.data.publishedAt}
+        />
       ))}
     </div>
   </main>

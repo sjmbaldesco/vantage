@@ -1,18 +1,22 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import FactPost from '../components/FactPost.astro';
+import ExplainerCard from '../components/ExplainerCard.astro';
 import { getCollection } from 'astro:content';
+import { sortExplainers } from '../utils';
 
-// The home page is the latest uploads only — /archive ("Articles" in the nav)
-// is the complete run. Without this cap the two pages would be the same list.
+// The home page is the latest explainers only — /archive ("Articles" in the
+// nav) is the complete run. Without this cap the two pages would be the same
+// list.
+//
+// This reads from `explainers`, not `posts`. The posts collection still exists
+// for short single-fact items, but Vantage publishes long-form explainers and
+// nothing else right now, so pointing the feed at posts left it empty.
 const LATEST_COUNT = 6;
 
-const allPosts = (await getCollection('posts')).sort(
-  (a, b) => a.data.order - b.data.order
-);
-const posts = allPosts.slice(0, LATEST_COUNT);
-const hasMore = allPosts.length > posts.length;
+const allExplainers = sortExplainers(await getCollection('explainers'));
+const explainers = allExplainers.slice(0, LATEST_COUNT);
+const hasMore = allExplainers.length > explainers.length;
 ---
 <Layout title="Feed">
   <Header />
@@ -23,11 +27,14 @@ const hasMore = allPosts.length > posts.length;
     </p>
 
     <div class="grid gap-4">
-      {posts.map((post) => (
-        <FactPost
-          category={post.data.category}
-          headline={post.data.headline}
-          highlight={post.data.highlight}
+      {explainers.map((entry) => (
+        <ExplainerCard
+          slug={entry.id}
+          category={entry.data.category}
+          title={entry.data.title}
+          description={entry.data.description}
+          image={entry.data.image}
+          publishedAt={entry.data.publishedAt}
         />
       ))}
     </div>
