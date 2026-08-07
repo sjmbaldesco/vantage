@@ -6,11 +6,11 @@ export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61592073608
 // Primary navigation. Search is deliberately absent — it lives as a search bar
 // in the header rather than a nav destination.
 //
-// "Articles" points at the explainers index: those are the written articles,
-// where the feed (/) is the short social-native format and /archive is a
-// utility listing. Retargeting it is a one-line change here.
+// "Articles" points at /archive — the complete, paginated run of everything
+// published. The home page shows only the latest uploads, so the two are not
+// the same listing.
 export const NAV_LINKS = [
-  { href: '/explained', label: 'Articles' },
+  { href: '/archive', label: 'Articles' },
   { href: '/videos', label: 'Videos' },
   { href: '/about', label: 'About' },
   { href: '/contact', label: 'Contact' },

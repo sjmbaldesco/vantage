@@ -1,0 +1,53 @@
+---
+// The single card used for an explainer anywhere it appears in a listing —
+// home feed, archive, category page, /explained index. Extracted so the four
+// listings can't drift apart in styling the way four copies of the markup
+// would.
+interface Props {
+  slug: string;
+  category: string;
+  title: string;
+  description: string;
+  image?: string;
+  publishedAt?: Date;
+}
+const { slug, category, title, description, image, publishedAt } = Astro.props;
+
+const dateline = publishedAt
+  ? new Intl.DateTimeFormat('en-PH', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric',
+      timeZone: 'UTC',
+    }).format(publishedAt)
+  : null;
+---
+<a
+  href={`/explained/${slug}`}
+  class="block bg-ink border border-paper/15 rounded-xl overflow-hidden hover:border-teal transition-colors"
+>
+  {image && (
+    <div class="h-[150px] bg-black/40">
+      <img
+        src={image}
+        alt=""
+        class="w-full h-full object-cover block saturate-[0.9] brightness-90"
+      />
+    </div>
+  )}
+  <div class="p-5">
+    <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-2">
+      {category}
+    </p>
+    <h2 class="text-lg font-display font-bold text-paper leading-tight mb-2">{title}</h2>
+    <p class="text-sm leading-relaxed text-paper/60 mb-3">{description}</p>
+    <div class="flex items-center gap-3">
+      <span class="text-[13px] font-medium text-teal-light">Read explainer →</span>
+      {dateline && (
+        <span class="text-[12px] text-paper/40">
+          <time datetime={publishedAt?.toISOString()}>{dateline}</time>
+        </span>
+      )}
+    </div>
+  </div>
+</a>

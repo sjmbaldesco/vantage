@@ -3,3 +3,7 @@ dist/
 .astro/
 .env
 .DS_Store
+
+# Source carousel art (228 MB of PNG/PDF). Kept locally, not in git —
+# GitHub rejects files over 100 MB and this would bloat the repo permanently.
+Vantage Content/
