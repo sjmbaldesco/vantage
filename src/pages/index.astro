@@ -20,13 +20,13 @@ const hasMore = allExplainers.length > explainers.length;
 ---
 <Layout title="Feed">
   <Header />
-  <main class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
+  <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Latest</p>
     <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
       Vantage explains the story behind the headline — one fact at a time.
     </p>
 
-    <div class="grid gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
       {explainers.map((entry) => (
         <ExplainerCard
           slug={entry.id}

@@ -9,7 +9,7 @@ const explainers = sortExplainers(await getCollection('explainers'));
 ---
 <Layout title="Explained" description="In-depth explainers on the stories that matter.">
   <Header />
-  <main class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
+  <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Explained</p>
     <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
       The long-form explainers
@@ -24,7 +24,7 @@ const explainers = sortExplainers(await getCollection('explainers'));
       <a href="/archive" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">full archive</a>.
     </p>
 
-    <div class="grid gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
       {explainers.map((entry) => (
         <ExplainerCard
           slug={entry.id}

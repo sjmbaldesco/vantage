@@ -29,7 +29,7 @@ const pageLabel = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
   description="Every Vantage article, newest first."
 >
   <Header />
-  <main class="max-w-3xl mx-auto px-6 py-12 sm:py-16">
+  <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Archive</p>
     <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
       Everything we've published
@@ -50,7 +50,7 @@ const pageLabel = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
       </div>
     )}
 
-    <div class="grid gap-4">
+    <div class="grid gap-4 sm:grid-cols-2">
       {page.data.map((entry) => (
         <ExplainerCard
           slug={entry.id}
