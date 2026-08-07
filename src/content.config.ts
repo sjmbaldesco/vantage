@@ -58,7 +58,6 @@ const explainers = defineCollection({
     // signing". Optional because not every explainer runs as a carousel first.
     subtitle: z.string().optional(),
     leadParagraph: z.string(),
-    highlight: z.string(),
     // Optional hero art for the Explained index card. Cards render text-only
     // until a real licensed image is supplied.
     image: z.string().optional(),

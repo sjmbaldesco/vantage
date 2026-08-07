@@ -40,23 +40,20 @@ Why teal and not red or amber: red/coral reads as aligned with a party color and
 - Primary lockup: "VANTAGE" set in Space Grotesk bold, tight tracking, with a short signal-teal bar underneath. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
 - Profile/avatar mark: a single teal "V" on an ink square, in `public/favicon.svg`. Still a placeholder pending a real commissioned mark — it is intentionally simple, not final. Any replacement needs to work at favicon size, hold up on ink *and* on the near-black ground, and keep signal teal as the only color signal.
 
-### The signature device — one highlight per post, no exceptions
+### The signature device — one highlight per FactPost, no exceptions
 
-Every post highlights exactly one fact: the number or phrase that makes the story worth reading. This is Vantage's own version of Vox's yellow-highlighter device — a single, disciplined signal used constantly, rather than decoration used occasionally. It only works if it stays rare. The moment more than one thing is highlighted in a post, it stops signaling anything.
+Every `FactPost` (the short feed-card format) highlights exactly one fact: the number or phrase that makes the story worth reading. This is Vantage's own version of Vox's yellow-highlighter device — a single, disciplined signal used constantly, rather than decoration used occasionally. It only works if it stays rare. The moment more than one thing is highlighted in a card, it stops signaling anything.
 
-This is enforced in code, not just convention:
+This is enforced in code, not just convention: `src/components/FactPost.astro` takes a `headline` and a `highlight`, and throws a build error if `highlight` doesn't appear in `headline` exactly once. Don't work around it by concatenating strings or disabling the check — if a headline needs two facts called out, it should be two posts.
 
-- `src/components/FactPost.astro` takes a `headline` and a `highlight`, and throws a build error if `highlight` doesn't appear in `headline` exactly once.
-- `src/pages/explained/[slug].astro` applies the same check to each explainer's `leadParagraph` / `highlight` pair.
-
-Don't work around these by concatenating strings or disabling the check — if a headline needs two facts called out, it should be two posts. The check is deliberately duplicated rather than extracted into a shared helper, so FactPost's guarantee stays singly owned.
+The device is scoped to `FactPost` only. Long-form explainers (`src/pages/explained/[slug].astro`) deliberately render their lead paragraph as **plain text** — a single accent-highlighted word inside a full paragraph of body copy read as odd rather than signal, so explainers carry no `highlight` field.
 
 ## Content architecture
 
 Content lives in **Astro content collections**, not hand-written pages. Adding a story means adding a YAML file — never a new `.astro` file. Schemas are in `src/content.config.ts`.
 
 - **`posts`** — `src/content/posts/*.yaml`, fields `category`, `headline`, `highlight`, `order`. Rendered as the feed. `order` exists because `getCollection()` ordering is not guaranteed.
-- **`explainers`** — `src/content/explainers/*.yaml`, fields `title`, `description`, `category`, `leadParagraph`, `highlight`, `drivers[]` (`heading` + `body`), and an optional `image` for card hero art. The filename becomes the URL slug.
+- **`explainers`** — `src/content/explainers/*.yaml`, fields `title`, `description`, `category`, `leadParagraph`, `drivers[]` (`heading` + `body`), and an optional `image` for card hero art. The filename becomes the URL slug. The lead paragraph renders as plain text — no highlight device (that is `FactPost`-only).
 
 All current content is placeholder and must be replaced with real reporting before launch.
 
