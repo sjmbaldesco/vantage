@@ -18,24 +18,12 @@ const {
   category,
   subtitle,
   leadParagraph,
-  highlight,
   publishedAt,
   author,
   currentAsOf,
   drivers,
   sources,
 } = entry.data;
-
-// Same guarantee FactPost makes, applied to the lead: exactly one highlighted
-// fact per piece. Deliberately duplicated rather than shared, so FactPost's
-// check stays singly owned — see CLAUDE.md.
-const leadParts = leadParagraph.split(highlight);
-if (leadParts.length !== 2) {
-  throw new Error(
-    `Explainer "${entry.id}": "highlight" must appear exactly once in "leadParagraph". ` +
-    `Found ${leadParts.length - 1} occurrence(s) of "${highlight}".`
-  );
-}
 
 const dateline = publishedAt
   ? new Intl.DateTimeFormat('en-PH', {
@@ -67,9 +55,7 @@ const paragraphs = (body: string) =>
       </p>
     )}
 
-    <p class="text-lg leading-relaxed text-paper/80 mb-4">
-      {leadParts[0]}<mark class="bg-teal-light text-teal-dark px-1">{highlight}</mark>{leadParts[1]}
-    </p>
+    <p class="text-lg leading-relaxed text-paper/80 mb-4">{leadParagraph}</p>
 
     {drivers.map((driver) => (
       <section>
