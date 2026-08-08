@@ -43,7 +43,7 @@ The `@font-face` declares a `700 900` weight range so existing `font-bold` headi
 
 ### Logo
 
-- Primary lockup: "VANTAGE" set in Mont Heavy at `font-black`, tight tracking (`-0.03em`), with a short signal-teal bar underneath. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
+- Primary lockup: "VANTAGE" set in Mont Heavy at `font-black`, 30px with tight `-0.045em` tracking, with a short signal-teal bar underneath. Solid Paper — deliberately no gradient and no oblique; both were tried against reference artwork and read worse at header size. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
 - Profile/avatar mark: a single teal "V" on an ink square, in `public/favicon.svg`. Still a placeholder pending a real commissioned mark — it is intentionally simple, not final. Any replacement needs to work at favicon size, hold up on ink *and* on the near-black ground, and keep signal teal as the only color signal.
 
 ### The signature device — one highlight per FactPost, no exceptions

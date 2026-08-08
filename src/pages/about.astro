@@ -1,31 +1,82 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import { CONTACT_EMAIL } from '../consts';
+
+// About and Contact are one page, in that order. A one-person masthead and a
+// way to reach that person are the same disclosure — splitting them across two
+// routes made each half look thinner than it was.
+//
+// The old /contact channel block (editorial / tips / general, all pointing at
+// the same mailbox) is gone: three buttons resolving to one address is
+// theatre. One address, stated once.
+const mailto = `mailto:${CONTACT_EMAIL}`;
 ---
-<Layout title="About" description="Who's behind Vantage.">
+<Layout
+  title="About"
+  description="Who's behind Vantage, and how to reach them."
+>
   <Header />
   <main class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
     <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">About</p>
     <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-5">
       Who's behind Vantage
     </h1>
-    <p class="text-lg leading-relaxed text-paper/70 mb-8">
-      [Placeholder mission statement — replace with the real masthead intro copy.]
-    </p>
-    <h2 class="text-xl font-display font-bold text-paper mt-8 mb-4">Masthead</h2>
-    <ul class="grid gap-4">
-      <li class="bg-ink border border-paper/15 rounded-xl p-4">
-        <p class="font-medium text-paper">[Editor-in-Chief Name]</p>
-        <p class="text-sm text-paper/60">[Editor-in-Chief]</p>
-      </li>
-      <li class="bg-ink border border-paper/15 rounded-xl p-4">
-        <p class="font-medium text-paper">[Reporter Name]</p>
-        <p class="text-sm text-paper/60">[Staff Reporter]</p>
-      </li>
-      <li class="bg-ink border border-paper/15 rounded-xl p-4">
-        <p class="font-medium text-paper">[Fact-Checker Name]</p>
-        <p class="text-sm text-paper/60">[Fact-Checking Lead]</p>
-      </li>
-    </ul>
+
+    <div class="space-y-4 text-lg leading-relaxed text-paper/70">
+      <p>
+        Vantage explains Philippine news. One issue at a time, in plain terms: what a
+        charge on your electricity bill actually pays for, what a line in the national
+        budget actually funds.
+      </p>
+      <p>
+        It exists to close a gap. A false claim travels in a caption. The accurate
+        version runs two thousand words, arrives three days late, and sits behind a
+        paywall. Misinformation wins on speed and reach, not on persuasion.
+      </p>
+      <p>
+        The verified version goes in the same feed, at the same length, written to be
+        read. What you conclude from it is yours.
+      </p>
+      <p>
+        The rules stay narrow. Every claim names the document or the person it came
+        from, printed beside the claim rather than buried at the end. What isn't known
+        yet is written as not known yet.
+      </p>
+    </div>
+
+    <h2 class="text-xl font-display font-bold text-paper mt-10 mb-4">Masthead</h2>
+    <div class="bg-ink border border-paper/15 rounded-xl p-5 flex items-center gap-4">
+      <img
+        src="/masthead/jairus-macabuhay.jpg"
+        alt="Sir Jairus Macabuhay"
+        width="96"
+        height="96"
+        loading="lazy"
+        class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 bg-ground"
+      />
+      <div>
+        <p class="font-medium text-paper">Sir Jairus Macabuhay</p>
+        <p class="text-sm text-paper/60 mt-0.5">Founder and Editor-in-Chief</p>
+      </div>
+    </div>
+
+    <div class="border-t border-paper/10 mt-12 pt-10">
+      <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Contact</p>
+      <h2 class="text-2xl sm:text-3xl font-display font-bold text-paper leading-tight mb-5">
+        Get in touch
+      </h2>
+
+      {/* The one highlight moment on the page, and the only place the address */}
+      {/* appears. Deliberately unlabelled by purpose: tips, questions and */}
+      {/* corrections all land in the same inbox, so naming one of them would */}
+      {/* imply the others belong somewhere else. */}
+      <div class="bg-teal-light rounded-xl p-5">
+        <p class="text-[11px] font-semibold text-teal-dark uppercase tracking-[0.08em] mb-2">Message us here</p>
+        <a href={mailto} class="text-sm font-semibold text-teal-dark underline underline-offset-2">
+          {CONTACT_EMAIL}
+        </a>
+      </div>
+    </div>
   </main>
 </Layout>
