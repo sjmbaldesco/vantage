@@ -16,15 +16,19 @@ const LATEST_COUNT = 6;
 
 const allExplainers = sortExplainers(await getCollection('explainers'));
 const explainers = allExplainers.slice(0, LATEST_COUNT);
-const hasMore = allExplainers.length > explainers.length;
 ---
 <Layout title="Feed">
   <Header />
   <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Latest</p>
-    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
-      Vantage explains the story behind the headline — one fact at a time.
-    </p>
+    {/*
+      "Latest" is now the page's only heading — the standfirst under it and the
+      two links under the grid were both removed as clutter, so this carries
+      the page on its own and is set as a display heading rather than the
+      small teal eyebrow it used to be. The teal moved to the rule beneath it
+      so the accent survives the promotion.
+    */}
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-none">Latest</h1>
+    <div class="h-[3px] w-14 bg-teal mt-3 mb-8"></div>
 
     <div class="grid gap-4 sm:grid-cols-2">
       {explainers.map((entry) => (
@@ -37,15 +41,6 @@ const hasMore = allExplainers.length > explainers.length;
           publishedAt={entry.data.publishedAt}
         />
       ))}
-    </div>
-
-    <div class="border-t border-paper/10 mt-10 pt-6 flex flex-wrap gap-x-6 gap-y-2 text-sm">
-      <a href="/archive" class="font-medium text-teal-light hover:text-paper transition-colors">
-        {hasMore ? 'See all articles →' : 'Browse the archive →'}
-      </a>
-      <a href="/explained" class="font-medium text-teal-light hover:text-paper transition-colors">
-        Read the long-form explainers →
-      </a>
     </div>
   </main>
 </Layout>

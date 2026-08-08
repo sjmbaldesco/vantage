@@ -5,13 +5,13 @@ description: "How the 1987 Constitution can be changed, why no attempt has ever 
 leadParagraph: "Charter Change is any effort to amend or revise the 1987 Constitution. Article XVII opens three doors, but nothing takes effect until a majority of Filipinos ratify it in a plebiscite. In 39 years, no attempt has ever made it that far."
 
 drivers:
-  - heading: "What Charter Change is"
+  - heading: "The three doors"
     body: |
-      Charter Change is any effort to amend or revise the 1987 Constitution. Article XVII opens three doors: Congress convening as a constituent assembly, which requires a vote of three-fourths of all its members; a constitutional convention, which Congress calls by a two-thirds vote; or a people's initiative, which needs the signatures of 12% of registered voters nationwide, with at least 3% from every legislative district.
+      Article XVII sets out three routes, and each has its own threshold.
 
-      Whichever door is used, nothing takes effect until a majority of Filipinos ratify it in a plebiscite held 60 to 90 days after the proposal is approved.
+      Congress can convene as a constituent assembly, which requires a vote of three-fourths of all its members. It can call a constitutional convention by a two-thirds vote. Or citizens can mount a people's initiative, which needs the signatures of 12% of registered voters nationwide, with at least 3% from every legislative district.
 
-      In 39 years, no attempt has ever made it that far.
+      Whichever door is used, the proposal still has to survive a plebiscite held 60 to 90 days after it is approved.
 
   - heading: "Looking back"
     body: |
@@ -23,33 +23,33 @@ drivers:
     body: |
       Article II, Section 26 states that the government "shall prohibit political dynasties as may be defined by law."
 
-      Congress has never passed that law. It has now been 39 years. The Supreme Court has ruled the provision is not self-executing. So, without an enabling statute, it does nothing at all.
+      Congress has never passed that law. The Supreme Court has ruled the provision is not self-executing, so without an enabling statute it does nothing at all.
 
       Roughly 70% of House members and 80% of senators come from political families. The party-list system, created to seat the marginalized, is now a documented route into Congress for the powerful.
 
   - heading: "The Philippines has done this before"
     body: |
-      In 1973, a constitutional convention produced a draft. The promised plebiscite was called off four days out. Marcos Sr. replaced it with "citizens' assemblies" — residents 15 and older, voting by show of hands, then proclaimed that 95% had approved. In Javellana v. Executive Secretary, the Supreme Court let it stand.
+      In 1973, a constitutional convention produced a draft. The promised plebiscite was called off four days out. Marcos Sr. replaced it with "citizens' assemblies," where residents 15 and older voted by show of hands, then proclaimed that 95% had approved. In Javellana v. Executive Secretary, the Supreme Court let it stand.
 
       That charter is what gave martial law its legal clothing.
 
-      Thirty-nine years later, the name is on both sides of the question again. The 2024 economic amendments carried the sitting president's endorsement. The 2026 term-extension allegations came from his sister, and his palace denied them.
+      The name is on both sides of the question again. The 2024 economic amendments carried the sitting president's endorsement. The 2026 term-extension allegations came from his sister, and his palace denied them.
 
   - heading: "Recent attempts"
     body: |
-      In January 2024, a people's initiative drive collected signatures nationwide. Senate hearings produced witnesses who said they had been offered social aid, or at least ₱4,000 for a signature. PIRMA's lead convenor admitted coordinating with the Speaker. The Senate rejected the drive unanimously.
+      In January 2024, a people's initiative drive collected signatures nationwide. Senate hearings produced witnesses who said they had been offered social aid, or at least ₱4,000, for a signature. PIRMA's lead convenor admitted coordinating with the Speaker. The Senate rejected the drive unanimously.
 
-      In Santiago (1997) and again in Lambino (2006), the Supreme Court held that no adequate enabling law exists for a constitutional people's initiative — and that the route is limited to amendments, never a full revision.
+      In Santiago (1997) and again in Lambino (2006), the Supreme Court held that no adequate enabling law exists for a constitutional people's initiative, and that the route is limited to amendments, never a full revision.
 
-      RBH 7 cleared the House on third reading and died in the Senate. In August 2024, RBH 8 was filed to extend House terms to five years. It died in committee.
+      Resolution of Both Houses 7 cleared the House on third reading and died in the Senate. In August 2024, RBH 8 was filed to extend House terms to five years. It died in committee.
 
-  - heading: "Pros — Rules that can finally be enforced"
+  - heading: "Pros: rules that can finally be enforced"
     body: |
-      Ordinary law cannot touch the 40% foreign ownership caps, the media ban, or the anti-dynasty clause Congress has left dead for 39 years. Only an amendment reaches them. The cost of leaving them shows: $7.79B in foreign investment last year, against Vietnam's $20.35B.
+      Ordinary law cannot touch the 40% foreign ownership caps, the media ban, or the anti-dynasty clause Congress has left dead since 1987. Only an amendment reaches them. The cost of leaving them shows in the investment figures: the Philippines drew $9 billion in foreign direct investment in 2025, down 4% on the year and sixth in Southeast Asia, against Vietnam's $20.35 billion and Singapore's $150.9 billion.
 
-  - heading: "Cons — Whoever holds the pen writes their own rules"
+  - heading: "Cons: whoever holds the pen writes their own rules"
     body: |
-      Under a constituent assembly, the people rewriting the Constitution are the people it governs. 70% of the House and 80% of the Senate come from political families. The last signature drive ended in testimony about ₱4,000 payments. And the 2022 reform laws already opened telecoms, shipping, railways and retail — without touching the charter at all.
+      Under a constituent assembly, the people rewriting the Constitution are the people it governs, and most of them come from the political families the charter was supposed to constrain. The last signature drive ended in testimony about ₱4,000 payments. And the 2022 reform laws already opened telecoms, shipping, railways and retail without touching the charter at all.
 
 sources:
   - 'Official Gazette, "1987 Constitution — Article XVII" and "Article XII" — officialgazette.gov.ph'
@@ -65,6 +65,6 @@ sources:
   - 'Rappler, "Eager to start Charter Change discussions, House lawmakers file RBH7," February 2024 — rappler.com'
   - 'Daily Tribune, "Barba files RBH 8 seeking to extend House members'' term," August 7, 2024 — tribune.net.ph'
   - 'Rappler, "NEDA: Cost of Charter Change-related poll exercises could go up to ₱28 billion" — rappler.com'
-  - 'Manila Bulletin, "Philippines left behind as $244 billion in foreign capital floods Southeast Asia," July 7, 2026 — mb.com.ph'
+  - 'UNCTAD, World Investment Report 2026, reported in Manila Bulletin, "Philippines left behind as $244 billion in foreign capital floods Southeast Asia," July 7, 2026 — mb.com.ph'
   - 'CoverStory.ph, "7 reasons why the party-list system serves dynasties, not democracy," June 1, 2026'
   - 'Bonoan & Dressel, "Constitutional change and oligarchic politics in the Philippines, 1987–2024," Journal of Current Southeast Asian Affairs'
