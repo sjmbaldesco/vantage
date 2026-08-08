@@ -1,0 +1,79 @@
+title: "Brain Drain"
+subtitle: "The country's largest export is its own workforce"
+category: "Explained"
+description: "Filipino workers abroad sent home a record $35.63 billion in 2025. The same system that produces that money is why hospitals cannot fill their wards, and the two facts are harder to separate than either side of the argument admits."
+publishedAt: 2026-08-08
+author: "Sir Jairus Macabuhay"
+currentAsOf: "August 8, 2026"
+leadParagraph: "Human capital flight, or brain drain, is what happens when the people a country trained leave to work somewhere else. The Philippines does it at scale and by design, through a state apparatus built to place workers abroad. Overseas Filipinos sent home a record $35.63 billion in 2025, about 7.3 percent of gross domestic product. The country also has fewer than half the health workers per capita that the World Health Organization recommends. Both statements describe the same arrangement, and the second is not simply the price of the first."
+
+drivers:
+  - heading: "The scale"
+    body: |
+      The Department of Migrant Workers recorded about 2.57 million Filipinos deployed abroad from January to November 2025.
+
+      Cash remittances from overseas Filipinos reached $35.63 billion in 2025, a record, up 3.3 percent from $34.49 billion in 2024. The Bangko Sentral ng Pilipinas puts that at roughly 7.3 percent of GDP.
+
+      No other external inflow is comparable in size or in reliability. Remittances do not behave like foreign investment: they hold up in downturns, because the obligation driving them is a family one rather than a commercial one.
+    sourceNote: "Sources: Deployment via Department of Migrant Workers, reported by PIA · Remittance figures via Bangko Sentral ng Pilipinas, reported by BusinessWorld, Feb. 17, 2026"
+
+  - heading: "The case that this is not a drain"
+    body: |
+      The strongest argument for the current arrangement is not sentimental, and it should be stated properly before it is answered.
+
+      Labor migration converts a domestic surplus into foreign currency. The Philippines trains more nurses than its own health system employs, and more seafarers, engineers and domestic workers than its own labor market can absorb at wages those workers will accept. Migration does not create that gap. It monetizes it.
+
+      The money returns as household income rather than as state revenue, which means it reaches the households that sent the worker directly, without passing through a budget process. For many families it is the difference between a child finishing school and not.
+    coda: "The rebuttal is not that this is false. It is that the accounting is incomplete, because the cost does not appear in the same ledger as the benefit."
+    sourceNote: "Sources: Bangko Sentral ng Pilipinas remittance data, 2025"
+
+  - heading: "Where the loss actually lands"
+    body: |
+      Health is where the arithmetic breaks.
+
+      The Philippines has about 21.2 health workers for every 10,000 people. The World Health Organization's recommended threshold is 44.5. Without intervention, the Second Congressional Commission on Education projects a shortfall of roughly 290,000 health professionals, including about 94,000 doctors and 196,000 nurses.
+
+      The gap is not evenly spread. The Bangsamoro Autonomous Region in Muslim Mindanao, Mimaropa and Regions IV-A, V, XII and XIII operate with fewer than 15 health workers per 10,000 residents.
+
+      Roughly 27,000 Filipino health workers leave the country each year. The Department of Health separately carries about 3,300 unfilled plantilla positions, which are funded government posts with no one in them.
+    coda: "The country is among the world's largest suppliers of nurses to other health systems and cannot staff its own public hospitals. That is not a paradox. It is the same fact seen from two ends."
+    sourceNote: "Sources: EDCOM 2 Workforce Development Plan, January 2026 · Migration figures and DOH vacancies via Manila Bulletin, Feb. 18, 2026"
+
+  - heading: "The gap that drives it"
+    body: |
+      A Filipino nurse can typically earn three to four times more in Saudi Arabia than at home.
+
+      No retention policy operates against a multiple of that size. Salary is the first factor named in the research literature, but it is not the only one: delayed benefits, chronic understaffing, overwork and contractual job insecurity appear consistently alongside it. A nurse leaving a short-staffed ward makes it shorter-staffed, which is how the problem accelerates on its own.
+    sourceNote: "Sources: Wage comparison via The Borgen Project · Retention factors via peer-reviewed literature on nurse burnout in the Philippines, indexed in PubMed Central"
+
+  - heading: "The part that is not about migration at all"
+    body: |
+      This is the finding that complicates the standard story, and it deserves equal weight.
+
+      About 59,000 students enroll in health-related degree programs each year. Roughly 56 percent of them never reach the workforce. They do not finish, do not pass licensure, or do not enter practice.
+
+      That is a loss occurring entirely inside the country, before anyone boards a plane. A policy aimed only at stopping departures would leave it untouched.
+    coda: "If more than half the pipeline is lost domestically, closing the exit does not fill the wards. It only removes the remittances."
+    sourceNote: "Sources: EDCOM 2 Workforce Development Plan, via Manila Bulletin, Feb. 18, 2026"
+
+  - heading: "What changed in 2026"
+    body: |
+      Two things moved at once, and both are recent enough that their effects are not yet measurable.
+
+      A 1 percent tax on remittances sent from the United States took effect in 2026. Analysts noted an unusual surge in December 2025 transfers, attributed partly to families sending money ahead of the levy and partly to the peso weakening past 59 to the dollar, which made conversion more attractive.
+
+      Neither of those is a policy about health workers. Both of them change the value of the arrangement that produces the shortage.
+    coda: "The unresolved question is not whether brain drain is bad. It is whether a country can remain the world's labor supplier and staff its own hospitals at the same time, and no government has yet published an answer that does both."
+    sourceNote: "Sources: December 2025 remittance surge and US remittance tax via BusinessWorld, Feb. 16 and 17, 2026"
+
+sources:
+  - "BANGKO SENTRAL NG PILIPINAS, Overseas Filipino Cash Remittances — bsp.gov.ph"
+  - "BUSINESSWORLD, \"OFW remittances soar to all-time high $35.63 billion in 2025,\" Feb. 16, 2026 — bworldonline.com"
+  - "BUSINESSWORLD, \"OFW remittances hit record $35.6B,\" Feb. 17, 2026 — bworldonline.com"
+  - "PHILIPPINE INFORMATION AGENCY, \"DMW champions OFW welfare, reports surge in deployments\" — pia.gov.ph"
+  - "EDCOM 2, \"Workforce Development Plan highlights large shortages in healthcare workers nationwide\" — edcom2.gov.ph"
+  - "MANILA BULLETIN, \"Healthcare workers shortage: 56% of students don't make it to the workforce,\" Feb. 18, 2026 — mb.com.ph"
+  - "BUSINESSMIRROR, \"Nursing shortage and nurse migration,\" Aug. 15, 2025 — businessmirror.com.ph"
+  - "THE BORGEN PROJECT, \"Philippines' Nurse Migration is Fueling a Health Care Crisis\" — borgenproject.org"
+  - "US NATIONAL LIBRARY OF MEDICINE, \"Addressing the Burnout and Shortage of Nurses in the Philippines\" — pmc.ncbi.nlm.nih.gov"
+  - "INTERNATIONAL LABOUR ORGANIZATION, \"Migration of health workers: Country case study Philippines\" — ilo.org"

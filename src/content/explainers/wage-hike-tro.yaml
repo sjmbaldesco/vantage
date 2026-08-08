@@ -1,0 +1,90 @@
+title: "The Wage Hike TRO"
+subtitle: "How one trial court stopped a raise for 1.1 million workers"
+category: "Explained"
+description: "A Pasig judge halted the P85 Metro Manila minimum wage increase. The Labor Code appears to forbid exactly that, and the reason it may not is a single word in the statute."
+publishedAt: 2026-08-08
+author: "Sir Jairus Macabuhay"
+currentAsOf: "August 8, 2026"
+leadParagraph: "On July 30, 2026, a regional trial court in Pasig City halted the P85 daily minimum wage increase for Metro Manila, five days after the first tranche had already taken effect. Article 126 of the Labor Code says no court may restrain the wage boards. The order was issued anyway, and the argument for how that was possible turns on a single word in the statute. One correction first: this was not the Supreme Court."
+
+drivers:
+  - heading: "What was actually ordered, and by whom"
+    body: |
+      Wage Order No. NCR-27 raises the daily minimum wage in the National Capital Region by P85, in two tranches. The first P60 took effect July 25, 2026. The remaining P25 is scheduled for Jan. 20, 2027.
+
+      For non-agricultural workers that moves the floor from P695 to P780 a day. The Department of Labor and Employment approved the increase in June 2026, covering about 1.1 million minimum wage earners.
+
+      On July 30, Pasig City Regional Trial Court Branch 152 issued a 20-day temporary restraining order stopping it. Judge Marie Joyce P. Manongsong signed the eight-page order, which bars the Regional Tripartite Wages and Productivity Board for the NCR and the National Wages and Productivity Commission from implementing the wage order until Aug. 13.
+
+      The petitioners were two construction firms, Readycon Trading and Construction Corp. and R-II Builders Inc. They were ordered to post a P1 million bond.
+    coda: "Branch 152 is a trial court. Which court acted determines what remedies are available next, and it is the detail most often lost in the retelling."
+    sourceNote: "Sources: Court order via DOLE, reported by BusinessWorld, July 30, 2026 · Wage figures via GMA News, July 31, 2026"
+
+  - heading: "What the court said"
+    body: |
+      The order acknowledges the state's duty to ensure workers receive a living wage. It holds that the employers' side of the same constitutional bargain is also protected.
+
+      Readycon president Jesus Ignacio testified that the increase alone would add more than P400,000 to the company's payroll immediately, and that construction firms price projects at the bidding stage, which makes a mid-contract labor cost increase difficult to absorb. The petitioners argued the result would be "reduced profitability, sustained deficit, reduction of workforce, possible suspension of operations or work closure."
+
+      The court cited the "right of enterprises to reasonable returns of investment and to expansion and growth," and warned that disregarding it would be "counter-productive and ultimately subversive of the nation's thrust towards a resurgence in our economy." It also pointed to the March 2026 closure of the Strait of Hormuz and the oil crisis that followed as an aggravating burden on business.
+
+      "At the outset, this court deems it necessary to state that it approached the issue not through a binary perspective, or viewed the parties as groups with absolute dichotomy of interests, but with a recognition that they are actually interdependent," the order said.
+    sourceNote: "Sources: Pasig RTC Branch 152 order dated July 30, 2026, quoted in BusinessWorld, July 30, 2026, and GMA News, July 31, 2026"
+
+  - heading: "The provision that appears to forbid it"
+    body: |
+      Article 126 of the Labor Code reads, in full: "No preliminary or permanent injunction or temporary restraining order may be issued by any court, tribunal or other entity against any proceedings before the Commission or the Regional Boards."
+
+      The Commission is the NWPC. The Regional Boards are the wage boards. Both were created by Republic Act 6727, the Wage Rationalization Act of 1989, which also inserted Article 126 into the Labor Code. The prohibition was written in at the same time as the wage-setting machinery it protects.
+
+      There is a second objection stacked on top of it. Under RA 6727, a party contesting a regional board's wage order on grounds of legal error or grave abuse of discretion must appeal to the NWPC first. Labor groups argue the construction firms took part in the tripartite proceedings, lost, and then went to court instead of using the appeal the statute provides.
+    coda: "That is the doctrine of exhaustion of administrative remedies. It is not a technicality invented for this case; it is the ordinary rule for challenging agency action."
+    sourceNote: "Sources: Labor Code Art. 126, as inserted by RA 6727 (1989) · TUCP motion to intervene via BusinessWorld, Aug. 4, 2026 · Rep. Johanne Bautista via GMA News, July 31, 2026"
+
+  - heading: "The argument on the other side, stated at its strongest"
+    body: |
+      Article 126 bars injunctions against "proceedings." It does not, on its face, use the word implementation.
+
+      That reading is not a fringe position. Sen. Raffy Tulfo, who filed a bill to overturn the effect of this TRO, described the gap in his own explanatory note: "Since 'proceedings' can be construed to cover only hearings and deliberations before these bodies, parties have been able to seek court orders preventing the implementation of wage orders."
+
+      A senator seeking to close a loophole is conceding the loophole exists. If Article 126 already covered an issued and effective wage order, Senate Bill 2372 would be unnecessary.
+
+      There is a constitutional layer beneath it. Article VIII, Section 1 of the Constitution defines judicial power to include determining whether any branch or instrumentality of government has acted with grave abuse of discretion. That grant is what any statute barring courts from reviewing wage orders would have to be read against.
+    coda: "So the dispute is narrower than the public argument suggests. It is not whether courts may ever review a wage order. It is whether they may suspend one that has already taken effect, before the agency appeal has been used."
+    sourceNote: "Sources: Sen. Raffy Tulfo, explanatory note to Senate Bill 2372, via The Philippine Star, Aug. 5, 2026 · 1987 Constitution, Art. VIII, Sec. 1"
+
+  - heading: "Where the Supreme Court actually enters"
+    body: |
+      The Supreme Court did not issue this order and has not ruled on it. Two doors lead to it.
+
+      The first is administrative. The Court has supervision over all courts and court personnel and can act on its own initiative. Akbayan Rep. Perci Cendaña has urged it to investigate the judge who issued the TRO. An investigation into how an order was issued is a separate question from whether the order was legally correct, and the two are easy to conflate.
+
+      The second is judicial. If the trial court refuses to lift the TRO, the government's route upward is a petition for certiorari, arguing grave abuse of discretion. That is the mechanism, and it takes time.
+
+      The Court's own record cuts in both directions. In January 2025 it restrained the Commission on Elections from striking a senatorial aspirant off the ballot as a nuisance candidate, and the Comelec reprinted about 6 million ballots to comply.
+    coda: "Whether that is the judiciary protecting a right against an agency, or a court disrupting a process it was not built to run, is the same question this case asks. The answer has tended to depend on who benefits."
+    sourceNote: "Sources: Cendaña via Philippine News Agency, August 2026 · 1987 Constitution, Art. VIII, Sec. 6 · Ballot reprinting via Rappler and Inquirer, January 2025"
+
+  - heading: "What has happened since"
+    body: |
+      The TRO has not been lifted.
+
+      At an Aug. 3 hearing the Pasig court left it in place and instead directed the parties to comment on the Nagkaisa Labor Coalition's urgent motion to intervene, giving the Office of the Solicitor General and the petitioners three days to respond, with the court to act within 10 days. The OSG has filed a motion for reconsideration and formally asked that the TRO be lifted, arguing the Labor Code gives the NWPC exclusive jurisdiction. The TUCP filed its own motion to intervene, asking the court to dissolve the TRO and dismiss the petition for failure to exhaust administrative remedies.
+
+      Twenty-one senators have urged the court to lift it. So has Malacañang.
+
+      The sharpest development is that the opposition is no longer one-sided. At an Aug. 7 meeting of the National Tripartite Industrial Peace Council, DOLE, the labor federations and the Employers Confederation of the Philippines agreed on a joint call to dissolve the TRO. Labor Secretary Francis Tolentino called it a breakthrough. The employers' peak body is now on the same side as the unions, against a petition filed by two employers.
+    coda: "Two questions remain open. Whether workers who already received the first P60 can have it withdrawn has been reported inconsistently and Vantage has not been able to verify it. And a court is not bound by a tripartite consensus. Every party to the wage-setting system now wants the order gone, which is precisely the situation Article 126 was written to prevent from arising in the first place."
+    sourceNote: "Sources: Aug. 3 hearing via DZRH, Aug. 3, 2026 · OSG and NTIPC via The Philippine Star, Aug. 8, 2026 · TUCP via BusinessWorld, Aug. 4, 2026 · Senators via BusinessWorld, Aug. 5, 2026"
+
+sources:
+  - "BUSINESSWORLD, \"Court issues 20-day TRO on NCR wage hike,\" July 30, 2026 — bworldonline.com"
+  - "BUSINESSWORLD, \"TUCP seeks lifting of wage hike TRO, says court order violates Labor Code,\" Aug. 4, 2026 — bworldonline.com"
+  - "BUSINESSWORLD, \"21 senators urge Pasig court to lift TRO on P85 Metro Manila wage hike,\" Aug. 5, 2026 — bworldonline.com"
+  - "GMA NEWS ONLINE, \"Chel Diokno on Pasig TRO vs. P85 wage hike: Courts can't stop wage orders,\" July 31, 2026 — gmanetwork.com"
+  - "THE PHILIPPINE STAR, \"Tripartite council backs lifting TRO on NCR wage hike,\" Aug. 8, 2026 — philstar.com"
+  - "THE PHILIPPINE STAR, \"Ban courts from blocking wage hike – Raffy Tulfo,\" Aug. 5, 2026 — philstar.com"
+  - "DZRH NEWS, \"TRO on NCR wage hike remains in effect after court hearing,\" Aug. 3, 2026 — dzrh.com.ph"
+  - "BUSINESSMIRROR, \"Court TRO on NCR wage hike raises jurisdictional issue,\" Aug. 3, 2026 — businessmirror.com.ph"
+  - "RAPPLER, \"Comelec moves to reprint 6 million ballots after last-minute Supreme Court order,\" January 2025 — rappler.com"
+  - "LABOR CODE OF THE PHILIPPINES, Art. 126 · REPUBLIC ACT 6727 (Wage Rationalization Act), 1989 · SENATE BILL 2372 · 1987 CONSTITUTION, Art. VIII"
