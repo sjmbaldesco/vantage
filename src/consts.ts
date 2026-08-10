@@ -25,28 +25,16 @@ export const NAV_LINKS = [
 // Newsletter
 // ---------------------------------------------------------------------------
 //
-// Delivery runs on beehiiv. A static Astro build has no server, so the sign-up
-// form cannot post to beehiiv's API directly — that endpoint takes a secret
-// key, and a key shipped to the browser is a key that is public. The supported
-// keyless path is beehiiv's hosted embed, which is an <iframe>, so that is what
-// `NewsletterSignup.astro` renders.
+// Delivery runs on beehiiv, but the sign-up form is ours: plain Vantage markup
+// posting to `/api/subscribe`, the site's single server-rendered route, which
+// calls beehiiv with a key that never reaches the browser. No third-party
+// script loads anywhere on the site.
 //
-// Both values below come from beehiiv and are blank until the publication is
-// created. While they are blank the sign-up block renders nothing in
-// production and a visible reminder under `astro dev` — a form that looks real
-// and collects nothing is worse than no form.
-//
-//   NEWSLETTER_EMBED_URL — beehiiv → Grow → Subscribe Forms → build a form →
-//     "Get embed code", then copy only the iframe's src (it looks like
-//     https://embeds.beehiiv.com/<uuid>). Set the form's colors in beehiiv's
-//     builder to match: Ground #171614, Paper #F1EFE8, button Highlight
-//     #9FE1CB with Deep text #04342C. The iframe cannot inherit our CSS.
-//
-//   NEWSLETTER_SUBSCRIBE_URL — the hosted subscribe page,
-//     https://<handle>.beehiiv.com/subscribe. Used as the no-JS and
-//     blocked-iframe fallback, and as the call to action on issue pages.
-export const NEWSLETTER_EMBED_URL = '';
-export const NEWSLETTER_SUBSCRIBE_URL = '';
+// There is nothing to configure here. The two values the endpoint needs —
+// BEEHIIV_API_KEY and BEEHIIV_PUBLICATION_ID — are environment variables in the
+// Vercel project and are deliberately absent from the repo. Without them the
+// endpoint logs and returns a plain failure rather than silently dropping
+// addresses.
 
 // The masthead name for the newsletter, used in page titles and headings.
 //

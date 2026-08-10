@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 export default defineConfig({
   // Production URL — drives canonical URLs, Open Graph tags, sitemap-index.xml,
@@ -12,6 +13,20 @@ export default defineConfig({
   // that immediately redirects. If the Vercel primary domain is ever switched
   // to the apex, change this in the same deploy.
   site: 'https://www.vantageph.com',
+
+  // The site is still static: every page is prerendered at build time and
+  // served as HTML. The adapter exists for exactly one route,
+  // `src/pages/api/subscribe.ts`, which opts out with `prerender = false`.
+  //
+  // It is there because a static build has no server to accept a POST, and
+  // beehiiv's subscribe API needs a secret key — a key shipped to the browser
+  // is a public key. One server function is the smallest thing that lets the
+  // sign-up form be our own markup instead of a third-party embed.
+  //
+  // If the newsletter ever moves off beehiiv, deleting that route and this
+  // adapter returns the project to a plain static build.
+  adapter: vercel(),
+
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],

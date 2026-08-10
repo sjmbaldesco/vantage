@@ -89,14 +89,23 @@ Shared contact details and nav links live in `src/consts.ts` — change them the
 
 Delivery runs on **beehiiv**; the archive lives here. Those are deliberately two different things — every issue is republished as a real page on the site so it is indexed by Pagefind and the sitemap, is readable without a signup wall, and survives a change of provider. The email is a convenience, not the canonical copy.
 
-**The sign-up form is an `<iframe>`, and that is not a shortcut.** A static build has no server to accept a POST. beehiiv's subscribe API takes a secret key, and a key shipped to the browser is a public key, so the keyless hosted embed is the only honest option short of adding a serverless adapter. Consequence: **the iframe cannot inherit the site's CSS.** Set the form's colors and font in beehiiv's own form builder to match — Ground `#171614`, Paper `#F1EFE8`, button Highlight `#9FE1CB` on Deep text `#04342C`. Everything around the input (eyebrow, heading, blurb, privacy line) is our markup, so the block still reads as Vantage.
+**The sign-up form is our own markup, not a beehiiv embed.** A hosted embed was built first and then deliberately replaced: it could not inherit the site's CSS, so the styling lived in two places, and because the form also sits in the footer it put a third-party script on *every page of the site*. For a publication whose whole strategy is restraint and whose editorial policy names its independence, that was a real cost for a plain email field.
 
-Configuration is two constants in `src/consts.ts`, both blank until the publication exists:
+So the form is ordinary Vantage markup in `NewsletterSignup.astro`, and it POSTs to `src/pages/api/subscribe.ts` — **the only server-rendered route on the site**. That route calls beehiiv's API with a secret key that never reaches the browser. Everything else is still prerendered HTML; `adapter: vercel()` exists solely so that one route can opt out with `export const prerender = false`. Delete the route and the adapter and the project is a plain static build again.
 
-- `NEWSLETTER_EMBED_URL` — the `src` of the iframe from beehiiv's "Get embed code", e.g. `https://embeds.beehiiv.com/<uuid>`.
-- `NEWSLETTER_SUBSCRIBE_URL` — the hosted `https://<handle>.beehiiv.com/subscribe` page, used as the fallback when the iframe is blocked.
+**It works without JavaScript.** A native form POST returns a 303 back to the originating page with `?subscribed=1` or `?error=1`, which the component reads on render. The inline script is enhancement only: it intercepts the submit, posts the same payload as JSON, and swaps the message in place. If the script fails, the form still subscribes people.
 
-While `NEWSLETTER_EMBED_URL` is blank, `NewsletterSignup.astro` renders **nothing** in production and a dashed dev-only reminder under `astro dev`. Don't replace that with a form that looks live — a sign-up box that drops addresses on the floor costs more trust than an absent one. The footer checks the same constant before it renders its divider, so the footer keeps its current shape until beehiiv is wired up.
+Details that are load-bearing:
+
+- **Double opt-in is forced in the request** (`double_opt_override: 'on'`), not left to the publication default, so it cannot be turned off by a stray dashboard click. Every address on the list confirmed it wanted to be there.
+- **`reactivate_existing: false`** — someone who deliberately unsubscribed does not get silently resubscribed by retyping their address.
+- **The same message is returned for success and for "already subscribed."** Different responses would let anyone use the form to test whether a given address is on the list.
+- **A honeypot field named `company`** is hidden from humans and screen readers; a filled one gets the success response so the bot learns nothing.
+- `Footer.astro` suppresses its sign-up on `/newsletter` routes, which carry their own. Two subscribe boxes on one page reads as pestering, and duplicate identically-named inputs are an accessibility mess.
+
+**Two environment variables live in the Vercel project and must never be committed:** `BEEHIIV_API_KEY` and `BEEHIIV_PUBLICATION_ID`. Without them the endpoint logs the misconfiguration and returns a plain failure rather than silently dropping addresses. Creating the API key in beehiiv requires completing their Stripe identity verification first.
+
+**Pagefind's target changed with the adapter.** Static output now lands in `.vercel/output/static`, not `dist`, so `npm run build` runs `pagefind --site .vercel/output/static`. Pointing it at `dist` builds an index nobody is served, and search fails silently.
 
 `NEWSLETTER_NAME` and `NEWSLETTER_BLURB` also live in `consts.ts`. The name is currently the generic word "Newsletter" — there is no sub-brand yet, and the templates read that exact string as the signal to drop the duplicate "Newsletter" eyebrow above the heading. Set a real name and the eyebrow returns on its own.
 
@@ -104,9 +113,9 @@ The blurb carries **no cadence claim**, deliberately. "Every Sunday" is a public
 
 ## Deploy
 
-Auto-deploys to Vercel from `main` — every push triggers a build. No adapter or `vercel.json` is needed; it's a plain static Astro build.
+Auto-deploys to Vercel from `main` — every push triggers a build. No `vercel.json` is needed. The build is static apart from a single serverless function backing `/api/subscribe` (see Newsletter above); `.vercel/output/config.json` routes only that path to it and serves everything else as files.
 
-`site` in `astro.config.mjs` drives canonical URLs, OG tags, the sitemap, and robots.txt. It currently points at the Vercel URL and must be updated if a custom domain is added.
+`site` in `astro.config.mjs` drives canonical URLs, OG tags, the sitemap, and robots.txt. It points at `https://www.vantageph.com` — the `www` host, not the apex, because the apex 308s to `www` and a canonical pointing at a URL that immediately redirects is worse than no canonical. If Vercel's primary domain is ever switched to the apex, change this in the same deploy.
 
 **Analytics:** Vercel Web Analytics is wired via the `<Analytics />` component from `@vercel/analytics/astro`, mounted once in `src/layouts/Layout.astro` so it covers every route. No API keys live in the repo — it only reports once Web Analytics is toggled on in the Vercel project dashboard.
 
@@ -115,14 +124,13 @@ Auto-deploys to Vercel from `main` — every push triggers a build. No adapter o
 1. **Real content** — masthead copy and names for `/about`, and real stories in both collections.
 2. **Real logo mark** to replace the type-only placeholder favicon (see Logo constraints above).
 3. **OG share image** (1200×630). The meta tags already support one via `Layout`'s `image` prop; there's no asset yet, so social shares currently render without art.
-4. **Custom domain** — then update `site` in `astro.config.mjs`.
-5. **Dedicated mailboxes** (editorial / tips / corrections) — currently everything routes to one address in `src/consts.ts`.
-6. **Hero art** for explainer cards, via the optional `image` field.
-7. **beehiiv publication** — create it, style the embedded form to the tokens above, then fill `NEWSLETTER_EMBED_URL` and `NEWSLETTER_SUBSCRIBE_URL` in `src/consts.ts`. Until then the sign-up renders nowhere.
-8. **RSS feed.** Not built. The newsletter archive is the natural moment to add one, and it needs `@astrojs/rss` plus a `src/pages/rss.xml.ts` covering explainers and issues. Deliberately left out of the newsletter commit so a new dependency doesn't ride along with a content change.
+4. **Dedicated mailboxes** (editorial / tips / corrections) — currently everything routes to one address in `src/consts.ts`.
+5. **Hero art** for explainer cards, via the optional `image` field.
+6. **Newsletter sending DNS** — beehiiv's SPF/DKIM records at Cloudflare so mail sends from a vantageph.com address, alongside the DMARC record already outstanding. Also: beehiiv's publication timezone defaults to US Eastern, which will misfire scheduled sends for a Manila audience.
+7. **RSS feed.** Not built. The newsletter archive is the natural moment to add one, and it needs `@astrojs/rss` plus a `src/pages/rss.xml.ts` covering explainers and issues. Deliberately left out of the newsletter commit so a new dependency doesn't ride along with a content change.
 
 ## Stack
 
-Astro 7 + Tailwind CSS v4 (`@tailwindcss/vite`, CSS-first config — there is no `tailwind.config.js`; tokens live in `src/styles/global.css`), plus `@astrojs/sitemap`. Deployed on Vercel.
+Astro 7 + Tailwind CSS v4 (`@tailwindcss/vite`, CSS-first config — there is no `tailwind.config.js`; tokens live in `src/styles/global.css`), plus `@astrojs/sitemap` and `@astrojs/vercel`. Deployed on Vercel.
 
-**Search:** Pagefind builds a static index from `dist` — `npm run build` runs `astro build && pagefind --site dist`. There is no backend. Because the index is a build artifact, search does **not** work under `astro dev`; use `npm run build && npm run preview` to test it. `Header.astro` and `Footer.astro` carry `data-pagefind-ignore` so sitewide nav text doesn't match every query. Pagefind wraps matches in `<mark>`, which is styled deliberately *unlike* the one-highlight-per-post device (underline, not a highlight block) so the signature signal stays unique.
+**Search:** Pagefind builds a static index from the served output — `npm run build` runs `astro build && pagefind --site .vercel/output/static`. There is no search backend. Because the index is a build artifact, search does **not** work under `astro dev`; use `npm run build && npm run preview` to test it. `Header.astro` and `Footer.astro` carry `data-pagefind-ignore` so sitewide nav text doesn't match every query. Pagefind wraps matches in `<mark>`, which is styled deliberately *unlike* the one-highlight-per-post device (underline, not a highlight block) so the signature signal stays unique.

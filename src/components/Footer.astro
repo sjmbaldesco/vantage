@@ -1,6 +1,12 @@
 ---
-import { NEWSLETTER_EMBED_URL, SOCIAL_LINKS } from '../consts';
+import { SOCIAL_LINKS } from '../consts';
 import NewsletterSignup from './NewsletterSignup.astro';
+
+// Everything under /newsletter already carries its own sign-up block, and two
+// subscribe boxes on one page reads as pestering rather than as an offer. It
+// would also put two identically-named inputs on the page, which is a small
+// accessibility mess for anyone navigating by form controls.
+const showFooterSignup = !Astro.url.pathname.startsWith('/newsletter');
 
 // Ink bar that bookends the page like the header, but calmer: smaller wordmark,
 // tagline, and a row of social icons. Navigation deliberately lives only in the
@@ -68,7 +74,7 @@ import NewsletterSignup from './NewsletterSignup.astro';
       </ul>
     </div>
 
-    {NEWSLETTER_EMBED_URL !== '' && (
+    {showFooterSignup && (
       <div class="border-t border-paper/10 mt-7 pt-7">
         <NewsletterSignup variant="compact" />
       </div>
