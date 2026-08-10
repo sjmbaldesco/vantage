@@ -1,0 +1,85 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import NewsletterSignup from '../../components/NewsletterSignup.astro';
+import { getCollection } from 'astro:content';
+import { NEWSLETTER_NAME } from '../../consts';
+
+// Newest first. `sentAt` is required by the schema, so unlike the explainers
+// index this is a plain reverse-chronological sort with no undated fallback.
+const issues = (await getCollection('newsletter')).sort(
+  (a, b) => b.data.sentAt.getTime() - a.data.sentAt.getTime()
+);
+
+const issueDate = (date: Date) =>
+  new Intl.DateTimeFormat('en-PH', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    timeZone: 'UTC',
+  }).format(date);
+---
+<Layout
+  title="Newsletter"
+  description="Philippine politics and public money, explained. Subscribe, or read every past issue free in the archive."
+>
+  <Header />
+  <main class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
+    {NEWSLETTER_NAME !== 'Newsletter' && (
+      <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Newsletter</p>
+    )}
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
+      {NEWSLETTER_NAME}
+    </h1>
+    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
+      Every issue is archived here in full, free, and without a signup wall. The
+      email is a convenience, not a paywall.
+    </p>
+
+    <NewsletterSignup />
+
+    <section class="mt-14">
+      <h2 class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] border-b border-paper/15 pb-4 mb-2">
+        Past issues
+      </h2>
+
+      {issues.length === 0 ? (
+        <p class="text-base leading-relaxed text-paper/50 pt-4">
+          No issues yet. The first one will be archived here the day it goes
+          out. In the meantime, the{' '}
+          <a
+            href="/explained"
+            class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors"
+          >explainers</a>{' '}
+          are where the long-form work lives.
+        </p>
+      ) : (
+        <ul>
+          {issues.map((issue) => (
+            <li class="border-b border-paper/10">
+              <a
+                href={`/newsletter/${issue.id}`}
+                class="group flex flex-col gap-1 py-5 transition-colors"
+              >
+                <span class="text-[12.5px] text-paper/45">
+                  {issue.data.issue !== undefined && (
+                    <>Issue {issue.data.issue} · </>
+                  )}
+                  <time datetime={issue.data.sentAt.toISOString()}>
+                    {issueDate(issue.data.sentAt)}
+                  </time>
+                </span>
+                <span class="text-xl font-display font-bold text-paper leading-snug group-hover:text-teal-light transition-colors">
+                  {issue.data.title}
+                </span>
+                <span class="text-[15px] leading-relaxed text-paper/60">
+                  {issue.data.description}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </main>
+</Layout>

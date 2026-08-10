@@ -1,0 +1,11 @@
+# Newsletter issues live here, one YAML file per send.
+#
+# The filename becomes the URL slug, so date-lead it and keep it stable:
+#   2026-08-16-confidential-funds.yaml  ->  /newsletter/2026-08-16-confidential-funds
+#
+# Schema is `newsletter` in src/content.config.ts. Required: title,
+# description, sentAt, intro, items[]. A URL that has been mailed out cannot be
+# changed, so rename before the send, never after.
+#
+# This file only exists to keep the empty directory in git. Delete it once the
+# first issue lands.

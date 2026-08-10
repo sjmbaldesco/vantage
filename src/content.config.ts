@@ -78,4 +78,54 @@ const explainers = defineCollection({
   }),
 });
 
-export const collections = { posts, explainers };
+// A newsletter issue, archived on the site after it is sent.
+//
+// The archive is deliberately authored here rather than scraped back from
+// beehiiv. Two reasons: the issue pages are then indexed by Pagefind and the
+// sitemap like any other page, and the archive survives a change of provider.
+// The cost is one YAML file per send.
+//
+// The shape is close to `explainers` on purpose — an issue reads like a short
+// explainer with links out — but it carries no `drivers`/`table` machinery,
+// because a newsletter that needs a comparison table should be an explainer.
+const newsletterItem = z.object({
+  heading: z.string(),
+  // Blank-line-separated paragraphs, split into <p> by the template, same as
+  // an explainer body.
+  body: z.string(),
+  bullets: z.array(z.string()).optional(),
+  // The "read the full piece" link. `href` takes a site-relative path for our
+  // own work (/explained/pax-silica) or an absolute URL for anything external.
+  link: z
+    .object({
+      label: z.string(),
+      href: z.string(),
+    })
+    .optional(),
+});
+
+const newsletter = defineCollection({
+  loader: glob({ pattern: '**/*.yaml', base: './src/content/newsletter' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    // Print number. Optional so a first issue can ship before the numbering
+    // convention is settled, but set it once and never renumber — the number
+    // ends up in readers' inboxes and cannot be corrected there.
+    issue: z.number().optional(),
+    // Required, unlike an explainer's `publishedAt`. An issue that was sent
+    // has a send date by definition, and the archive is useless without it.
+    sentAt: z.coerce.date(),
+    // The opening paragraph, rendered as plain text. No highlight device —
+    // that stays scoped to FactPost.
+    intro: z.string(),
+    items: z.array(newsletterItem),
+    // Closing note, e.g. how to reply or forward.
+    signOff: z.string().optional(),
+    // Same flat house format as explainers:
+    // OUTLET, "HEADLINE," DATE — DOMAIN.
+    sources: z.array(z.string()).default([]),
+  }),
+});
+
+export const collections = { posts, explainers, newsletter };

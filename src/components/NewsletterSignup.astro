@@ -1,0 +1,115 @@
+---
+import {
+  NEWSLETTER_BLURB,
+  NEWSLETTER_EMBED_URL,
+  NEWSLETTER_NAME,
+  NEWSLETTER_SUBSCRIBE_URL,
+} from '../consts';
+
+// The sign-up block, used in three places: the /newsletter landing page, the
+// foot of every issue, and a compact strip in the global footer.
+//
+// Only the input and the button are beehiiv's — everything around them is our
+// markup, so the block still reads as Vantage even though the iframe cannot
+// inherit the site's CSS. Style the form itself in beehiiv's builder to match
+// the tokens in CLAUDE.md.
+//
+// Renders nothing when the publication has not been created yet (see the
+// config note in consts.ts), apart from a dev-only reminder. A form that looks
+// live and drops addresses on the floor is a worse failure than no form.
+
+interface Props {
+  variant?: 'full' | 'compact';
+  // beehiiv sizes its own iframe content; this is the reserved height. Bump it
+  // if the form is set to collect a name as well as an email.
+  height?: number;
+  // Set false where the surrounding page already names the newsletter — the
+  // /newsletter landing page carries it as the <h1>, so the block repeating it
+  // as an <h2> two lines later is noise, not hierarchy.
+  showHeading?: boolean;
+}
+
+const {
+  variant = 'full',
+  height = variant === 'compact' ? 90 : 120,
+  showHeading = true,
+} = Astro.props;
+
+const configured = NEWSLETTER_EMBED_URL !== '';
+const hasFallback = NEWSLETTER_SUBSCRIBE_URL !== '';
+
+// While the newsletter has no sub-brand, the heading is the word "Newsletter"
+// itself, so an eyebrow reading "Newsletter" above it would print the same
+// word twice. Name it something and the label earns its place again.
+const showEyebrow = NEWSLETTER_NAME !== 'Newsletter';
+// Scoped to the full variant so the reminder appears once per page, on the
+// page that is actually about the newsletter, rather than again in the footer.
+const showDevNotice = !configured && variant === 'full' && import.meta.env.DEV;
+---
+{showDevNotice && (
+  <div class="border border-dashed border-paper/25 rounded-lg px-4 py-3 text-[13px] text-paper/50">
+    Newsletter sign-up hidden: set <code class="text-teal-light">NEWSLETTER_EMBED_URL</code> in
+    <code class="text-teal-light">src/consts.ts</code>. This notice is dev-only and never ships.
+  </div>
+)}
+
+{configured && variant === 'full' && (
+  <section class="bg-ink border border-paper/10 rounded-xl px-6 py-7 sm:px-8 sm:py-9" data-pagefind-ignore>
+    {showEyebrow && (
+      <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">
+        Newsletter
+      </p>
+    )}
+    <h2 class="text-2xl sm:text-3xl font-display font-bold text-paper leading-tight mb-3">
+      {NEWSLETTER_NAME}
+    </h2>
+    <p class="text-base leading-relaxed text-paper/70 mb-6 max-w-md">
+      {NEWSLETTER_BLURB}
+    </p>
+
+    <iframe
+      src={NEWSLETTER_EMBED_URL}
+      title={`Subscribe to ${NEWSLETTER_NAME}`}
+      loading="lazy"
+      scrolling="no"
+      height={height}
+      class="w-full border-0 block"
+      style={`height:${height}px`}
+    ></iframe>
+
+    <p class="text-[12.5px] leading-relaxed text-paper/40 mt-4 max-w-md">
+      Delivered by beehiiv. Your address is used to send the newsletter and
+      nothing else, and every issue carries a one-click unsubscribe.
+      {hasFallback && (
+        <>
+          {' '}Form not loading?{' '}
+          <a
+            href={NEWSLETTER_SUBSCRIBE_URL}
+            class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors"
+          >Subscribe here instead</a>.
+        </>
+      )}
+    </p>
+  </section>
+)}
+
+{configured && variant === 'compact' && (
+  <div data-pagefind-ignore>
+    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-2">
+      {NEWSLETTER_NAME}
+    </p>
+    <p class="text-[12.5px] leading-relaxed text-paper/60 mb-3 max-w-[320px]">
+      {NEWSLETTER_BLURB}
+    </p>
+
+    <iframe
+      src={NEWSLETTER_EMBED_URL}
+      title={`Subscribe to ${NEWSLETTER_NAME}`}
+      loading="lazy"
+      scrolling="no"
+      height={height}
+      class="w-full max-w-[340px] border-0 block"
+      style={`height:${height}px`}
+    ></iframe>
+  </div>
+)}

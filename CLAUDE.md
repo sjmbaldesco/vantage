@@ -60,6 +60,7 @@ Content lives in **Astro content collections**, not hand-written pages. Adding a
 
 - **`posts`** — `src/content/posts/*.yaml`, fields `category`, `headline`, `highlight`, `order`. Rendered as the feed. `order` exists because `getCollection()` ordering is not guaranteed.
 - **`explainers`** — `src/content/explainers/*.yaml`, fields `title`, `description`, `category`, `leadParagraph`, `drivers[]` (`heading` + `body`), and an optional `image` for card hero art. The filename becomes the URL slug. The lead paragraph renders as plain text — no highlight device (that is `FactPost`-only).
+- **`newsletter`** — `src/content/newsletter/*.yaml`, one file per issue sent. Fields `title`, `description`, `sentAt` (required), `intro`, `items[]` (`heading` + `body`, optional `bullets` and a single `link`), optional `issue` number and `signOff`, plus `sources[]`. Date-lead the filename (`2026-08-16-confidential-funds.yaml`) because it becomes the URL, and a URL that has already been mailed out cannot be corrected. The collection ships empty; until the first issue lands, `astro build` prints a harmless "collection does not exist or is empty" warning.
 
 All current content is placeholder and must be replaced with real reporting before launch.
 
@@ -72,6 +73,8 @@ All current content is placeholder and must be replaced with real reporting befo
 | `/explained/<slug>` | `src/pages/explained/[slug].astro` | Long-form explainer, generated per collection entry |
 | `/archive` | `src/pages/archive/[...page].astro` | "Articles" in the nav — complete paginated run of all posts (10/page) |
 | `/category/<slug>` | `src/pages/category/[category].astro` | One route per distinct `category` on posts; slug from `src/utils.ts` |
+| `/newsletter` | `src/pages/newsletter/index.astro` | Sign-up plus the reverse-chronological archive of past issues |
+| `/newsletter/<slug>` | `src/pages/newsletter/[slug].astro` | One archived issue, generated per collection entry |
 | `/search` | `src/pages/search.astro` | Client-side Pagefind search over the built site |
 | `/about` | `src/pages/about.astro` | Masthead — placeholder names pending real copy |
 | `/contact` | `src/pages/contact.astro` | Mailto channel block + corrections callout |
@@ -81,6 +84,23 @@ All current content is placeholder and must be replaced with real reporting befo
 Shared contact details and nav links live in `src/consts.ts` — change them there, not inline.
 
 `src/layouts/Layout.astro` owns `<head>` (title, description, canonical, Open Graph, Twitter Card) and mounts the global footer. It accepts an optional `image` prop for per-page OG art. `Header.astro` is added per page.
+
+## Newsletter
+
+Delivery runs on **beehiiv**; the archive lives here. Those are deliberately two different things — every issue is republished as a real page on the site so it is indexed by Pagefind and the sitemap, is readable without a signup wall, and survives a change of provider. The email is a convenience, not the canonical copy.
+
+**The sign-up form is an `<iframe>`, and that is not a shortcut.** A static build has no server to accept a POST. beehiiv's subscribe API takes a secret key, and a key shipped to the browser is a public key, so the keyless hosted embed is the only honest option short of adding a serverless adapter. Consequence: **the iframe cannot inherit the site's CSS.** Set the form's colors and font in beehiiv's own form builder to match — Ground `#171614`, Paper `#F1EFE8`, button Highlight `#9FE1CB` on Deep text `#04342C`. Everything around the input (eyebrow, heading, blurb, privacy line) is our markup, so the block still reads as Vantage.
+
+Configuration is two constants in `src/consts.ts`, both blank until the publication exists:
+
+- `NEWSLETTER_EMBED_URL` — the `src` of the iframe from beehiiv's "Get embed code", e.g. `https://embeds.beehiiv.com/<uuid>`.
+- `NEWSLETTER_SUBSCRIBE_URL` — the hosted `https://<handle>.beehiiv.com/subscribe` page, used as the fallback when the iframe is blocked.
+
+While `NEWSLETTER_EMBED_URL` is blank, `NewsletterSignup.astro` renders **nothing** in production and a dashed dev-only reminder under `astro dev`. Don't replace that with a form that looks live — a sign-up box that drops addresses on the floor costs more trust than an absent one. The footer checks the same constant before it renders its divider, so the footer keeps its current shape until beehiiv is wired up.
+
+`NEWSLETTER_NAME` and `NEWSLETTER_BLURB` also live in `consts.ts`. The name is currently the generic word "Newsletter" — there is no sub-brand yet, and the templates read that exact string as the signal to drop the duplicate "Newsletter" eyebrow above the heading. Set a real name and the eyebrow returns on its own.
+
+The blurb carries **no cadence claim**, deliberately. "Every Sunday" is a public promise that costs real trust the first week it slips and buys little at signup. Describe what an issue contains instead, and add a rhythm only once the publication has kept one.
 
 ## Deploy
 
@@ -98,6 +118,8 @@ Auto-deploys to Vercel from `main` — every push triggers a build. No adapter o
 4. **Custom domain** — then update `site` in `astro.config.mjs`.
 5. **Dedicated mailboxes** (editorial / tips / corrections) — currently everything routes to one address in `src/consts.ts`.
 6. **Hero art** for explainer cards, via the optional `image` field.
+7. **beehiiv publication** — create it, style the embedded form to the tokens above, then fill `NEWSLETTER_EMBED_URL` and `NEWSLETTER_SUBSCRIBE_URL` in `src/consts.ts`. Until then the sign-up renders nowhere.
+8. **RSS feed.** Not built. The newsletter archive is the natural moment to add one, and it needs `@astrojs/rss` plus a `src/pages/rss.xml.ts` covering explainers and issues. Deliberately left out of the newsletter commit so a new dependency doesn't ride along with a content change.
 
 ## Stack
 
