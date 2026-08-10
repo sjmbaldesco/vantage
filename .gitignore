@@ -1,5 +1,9 @@
 node_modules/
 dist/
+# Vercel adapter build output. `astro build` writes the served static files and
+# the serverless function here, so it appears in every `git status` and is one
+# stray `git add -A` away from being committed.
+.vercel/
 .astro/
 .env
 .DS_Store

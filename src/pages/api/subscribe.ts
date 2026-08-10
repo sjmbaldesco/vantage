@@ -54,7 +54,24 @@ const respond = (
 };
 
 export const POST: APIRoute = async ({ request, url }) => {
-  const back = new URL(url.searchParams.get('from') ?? '/newsletter', url);
+  // Only ever redirect to a path on this site.
+  //
+  // `new URL(value, base)` ignores the base whenever `value` is absolute, so
+  // taking `?from=` straight from the query string turned this into an open
+  // redirect: ?from=https://example.com sent a 303 Location off-site. It takes
+  // a POST rather than a link click, so it is awkward to exploit — but a
+  // redirector living on the domain of a publication that sells credibility is
+  // a phishing primitive we have no use for.
+  //
+  // The test demands a leading slash that is not followed by a second one,
+  // which also rejects protocol-relative values like //example.com, and no
+  // backslashes, which some URL parsers fold into forward slashes.
+  const requestedFrom = url.searchParams.get('from') ?? '/newsletter';
+  const safeFrom = /^\/(?!\/)[^\\]*$/.test(requestedFrom)
+    ? requestedFrom
+    : '/newsletter';
+
+  const back = new URL(safeFrom, url.origin);
   back.search = '';
 
   if (!API_KEY || !PUBLICATION_ID) {
