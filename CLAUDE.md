@@ -10,22 +10,26 @@ Measured, plain-spoken explainer — write like the smartest friend in the room 
 
 **Never invent real-sounding news content.** Placeholder copy must stay obviously fake until real reporting is supplied. This applies to imported designs too — mockups often carry plausible sample stories, and those do not get promoted into the content collections.
 
-## Visual system: signal teal on dark
+## Visual system: signal teal, light and dark
 
-The site runs in **dark mode**. The page sits on a near-black ground; Ink is the *surface* for bars and cards on top of it, and Paper is the primary text color rather than the background.
+The site supports **both a light and a dark theme**, switched by the reader via `ThemeToggle.astro` (mounted in the header) and persisted to `localStorage` under `vantage-theme`. Light is the default: pages server-render `data-theme="light"` on `<html>`, and an inline boot script in `src/layouts/Layout.astro`'s `<head>` upgrades the document to the stored or system (`prefers-color-scheme`) preference before first paint, so there's no flash of the wrong theme. With JavaScript off the toggle does nothing and the site stays light — the honest failure, since the preference is browser-local and has nowhere else to live on a prerendered site.
 
-| Token | Hex | Use |
-|---|---|---|
-| Ground | `#171614` | Page background |
-| Ink | `#2C2C2A` | Surface for header, footer, and cards |
-| Paper | `#F1EFE8` | Primary text, wordmark |
-| Signal teal | `#1D9E75` | Logo underline, card hover borders |
-| Highlight | `#9FE1CB` | Background for the one highlighted fact per post; also carries eyebrows, secondary links, and primary buttons on dark |
-| Deep text | `#04342C` | Text on top of the highlight |
+Two kinds of color live in `src/styles/global.css`, and the difference matters.
 
-These are wired up as Tailwind v4 theme tokens in `src/styles/global.css` — use the generated utilities (`bg-ground`, `bg-ink`, `text-paper`, `bg-teal-light`, `text-teal-dark`, etc.) rather than hardcoding hex anywhere new. Body-copy dimming is done with opacity on Paper (`text-paper/70`), and hairline borders with `border-paper/10`–`/15`.
+**Semantic tokens** describe a *role*, not a literal color, and are swapped wholesale by `[data-theme]`:
 
-Note the role shift on dark: **teal-dark (`#04342C`) is no longer usable as an eyebrow or link color** — it disappears against the ground. Teal-light took over those jobs, and teal-dark is now reserved for text sitting on a highlight-colored surface.
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| Ground | `#EDE9DF` | `#171614` | Page background |
+| Surface | `#FFFFFF` | `#2C2C2A` | Surface for header, footer, and cards |
+| Content | `#2C2C2A` | `#F1EFE8` | Primary text, wordmark |
+| Accent | `#04342C` | `#9FE1CB` | Eyebrows, secondary links |
+
+Use the generated utilities (`bg-ground`, `bg-surface`, `text-content`, `text-accent`, etc.) almost everywhere rather than hardcoding hex anywhere new. Body-copy dimming is opacity on Content (`text-content/70`), and hairline borders are `border-content/10`–`/15`.
+
+**Fixed tokens** are the literal brand colors and never change between themes: `--color-cream` (`#EDE9DF`, the light ground pinned as a literal), `--color-paper` (`#F1EFE8`), `--color-ink` (`#2C2C2A`), `--color-teal` (`#1D9E75`), `--color-teal-light` (`#9FE1CB`), `--color-teal-dark` (`#04342C`). Reach for these only when an element must carry its own ground regardless of the reader's theme — the teal-dark contact panel, the highlight block, and the `/panels/<slug>` social-carousel export, which has to render identically every time rather than follow whatever mode the reader happens to be in.
+
+The one-highlight-per-post device (`.v-mark`, see below) changes *shape* between themes, not just color: on light it's a thick teal-light rule drawn under teal-dark text; on dark it goes back to the filled teal-light block. That's driven by its own four CSS variables (`--mark-color`, `--mark-bg`, `--mark-image`, `--mark-padding`), redefined per theme alongside the semantic tokens — a pale rule under pale text stops reading as a highlight, so the mechanism itself has to flip, not just the palette.
 
 Why teal and not red or amber: red/coral reads as aligned with a party color and as alarm rather than information in a Philippine political-news context — a credibility cost for a "truthful facts" brand. Teal has no such baggage and still reads as a deliberate, singular signature.
 
@@ -43,8 +47,8 @@ The `@font-face` declares a `700 900` weight range so existing `font-bold` headi
 
 ### Logo
 
-- Primary lockup: "VANTAGE" set in Mont Heavy at `font-black`, 30px with tight `-0.045em` tracking, with a short signal-teal bar underneath. Solid Paper — deliberately no gradient and no oblique; both were tried against reference artwork and read worse at header size. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
-- Profile/avatar mark: a single teal "V" on an ink square, in `public/favicon.svg`. Still a placeholder pending a real commissioned mark — it is intentionally simple, not final. Any replacement needs to work at favicon size, hold up on ink *and* on the near-black ground, and keep signal teal as the only color signal.
+- Primary lockup: "VANTAGE" set in Mont Heavy at `font-black`, 30px with tight `-0.045em` tracking, with a short signal-teal bar underneath. Set in `text-content` — solid Ink on light, solid Paper on dark — deliberately no gradient and no oblique; both were tried against reference artwork and read worse at header size. Implemented in `src/components/Header.astro`, echoed smaller in `src/components/Footer.astro`.
+- Profile/avatar mark: a single teal "V" on an ink square, in `public/favicon.svg`. Still a placeholder pending a real commissioned mark — it is intentionally simple, not final. Any replacement needs to work at favicon size, hold up on both the light and dark grounds, and keep signal teal as the only color signal.
 
 ### The signature device — one highlight per FactPost, no exceptions
 
@@ -75,6 +79,7 @@ All current content is placeholder and must be replaced with real reporting befo
 | `/category/<slug>` | `src/pages/category/[category].astro` | One route per distinct `category` on posts; slug from `src/utils.ts` |
 | `/newsletter` | `src/pages/newsletter/index.astro` | Sign-up plus the reverse-chronological archive of past issues |
 | `/newsletter/<slug>` | `src/pages/newsletter/[slug].astro` | One archived issue, generated per collection entry |
+| `/panels/<slug>` | `src/pages/panels/[slug].astro` | Explainer rendered as a 1080×1350 social-carousel export, generated per collection entry from `drivers[]`. `noindex`ed, excluded from the sitemap, and not linked from the UI — reached by URL only |
 | `/search` | `src/pages/search.astro` | Client-side Pagefind search over the built site |
 | `/about` | `src/pages/about.astro` | Masthead — placeholder names pending real copy |
 | `/contact` | `src/pages/contact.astro` | Mailto channel block + corrections callout |
