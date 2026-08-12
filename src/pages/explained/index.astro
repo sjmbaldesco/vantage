@@ -3,38 +3,171 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import ExplainerCard from '../../components/ExplainerCard.astro';
 import { getCollection } from 'astro:content';
-import { sortExplainers } from '../../utils';
+import { categoryCounts, categorySlug, readingMinutes, sortExplainers } from '../../utils';
 
 const explainers = sortExplainers(await getCollection('explainers'));
+const [lead, ...rest] = explainers;
+
+// Counts come from the entries themselves, so a new category appears in the
+// rail the moment one is authored — the same rule that generates the /category
+// routes, and the reason there is no second list to keep in sync.
+const categories = categoryCounts(explainers);
+
+// Reading time is computed at build so the sort control has something to sort
+// on without shipping the article bodies to the browser.
+const minutesById = new Map(explainers.map((e) => [e.id, readingMinutes(e.data)]));
 ---
 <Layout title="Explained" description="In-depth explainers on the stories that matter.">
   <Header />
-  <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Explained</p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
-      The long-form explainers
-    </h1>
-    <p class="text-lg leading-relaxed text-paper/70 mb-4 max-w-xl">
-      The stories behind the feed — each one walks through what's happening and why it matters.
-    </p>
-    <p class="text-sm text-paper/50 mb-8">
-      Looking for something shorter? Browse the{" "}
-      <a href="/" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">feed</a>{" "}
-      or the{" "}
-      <a href="/archive" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">full archive</a>.
-    </p>
+  <main class="max-w-[1200px] mx-auto px-6 sm:px-10 py-11">
+    <div class="flex flex-wrap items-end justify-between gap-8 mb-9">
+      <div>
+        <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.09em] mb-3.5">Explained</p>
+        <h1 class="text-4xl sm:text-[52px] font-display font-bold text-content leading-[1.02] tracking-[-0.025em] mb-3.5 max-w-[760px]">
+          The long-form explainers
+        </h1>
+        <div class="h-[3px] w-14 bg-teal"></div>
+      </div>
+      <p class="max-w-[340px] text-base leading-relaxed text-content/70">
+        The stories behind the feed — each one walks through what's happening and why it matters.
+      </p>
+    </div>
 
-    <div class="grid gap-4 sm:grid-cols-2">
-      {explainers.map((entry) => (
-        <ExplainerCard
-          slug={entry.id}
-          category={entry.data.category}
-          title={entry.data.title}
-          description={entry.data.description}
-          image={entry.data.image}
-          publishedAt={entry.data.publishedAt}
-        />
-      ))}
+    <div class="grid gap-9 lg:grid-cols-[200px_minmax(0,1fr)]">
+      <aside class="lg:sticky lg:top-28 lg:self-start" data-pagefind-ignore>
+        <p class="text-[10.5px] font-semibold text-content/50 uppercase tracking-[0.09em] mb-3">Category</p>
+        <div class="flex flex-wrap lg:flex-col gap-1 mb-6">
+          <span
+            aria-current="page"
+            class="flex justify-between items-center gap-3 px-3 py-2 rounded-lg bg-surface shadow-sm text-[13.5px] font-medium text-content"
+          >All<span class="font-mono text-[11.5px] text-content/45">{explainers.length}</span></span>
+          {categories.map(({ category, count }) => (
+            <a
+              href={`/category/${categorySlug(category)}`}
+              class="flex justify-between items-center gap-3 px-3 py-2 rounded-lg text-[13.5px] text-content/70 no-underline hover:bg-surface/70 transition-colors"
+            >{category}<span class="font-mono text-[11.5px] text-content/40">{count}</span></a>
+          ))}
+        </div>
+
+        {/* A real control, not a decorative one: it reorders the cards below in
+            place. With JavaScript off the buttons are hidden entirely rather
+            than rendered inert — see the script. */}
+        <div hidden data-sort-controls>
+          <p class="text-[10.5px] font-semibold text-content/50 uppercase tracking-[0.09em] mb-2.5">Sort</p>
+          <div class="flex flex-wrap lg:flex-col gap-1 mb-6">
+            <button
+              type="button"
+              data-sort="newest"
+              aria-pressed="true"
+              class="text-left px-3 py-2 rounded-lg text-[13.5px] text-content/70 cursor-pointer transition-colors aria-pressed:bg-surface aria-pressed:shadow-sm aria-pressed:font-medium aria-pressed:text-content"
+            >Newest first</button>
+            <button
+              type="button"
+              data-sort="longest"
+              aria-pressed="false"
+              class="text-left px-3 py-2 rounded-lg text-[13.5px] text-content/70 cursor-pointer transition-colors aria-pressed:bg-surface aria-pressed:shadow-sm aria-pressed:font-medium aria-pressed:text-content"
+            >Longest read</button>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-content/12">
+          <p class="text-[12.5px] leading-relaxed text-content/60">
+            Looking for something shorter? Browse the{' '}
+            <a href="/" class="text-accent underline underline-offset-2">feed</a>{' '}
+            or the{' '}
+            <a href="/archive" class="text-accent underline underline-offset-2">full archive</a>.
+          </p>
+        </div>
+      </aside>
+
+      <div class="flex flex-col gap-4">
+        {lead && (
+          <a
+            href={`/explained/${lead.id}`}
+            class="grid sm:grid-cols-[340px_1fr] bg-surface border border-content/10 rounded-2xl overflow-hidden no-underline transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-[3px] hover:border-teal hover:shadow-[0_14px_30px_-18px_rgba(44,44,42,0.4)]"
+          >
+            {lead.data.image && (
+              <div class="min-h-[230px] bg-ground">
+                <img src={lead.data.image} alt="" class="w-full h-full object-cover block" />
+              </div>
+            )}
+            <div class="p-7 sm:px-[30px]">
+              <div class="flex items-center gap-2.5 mb-3">
+                <span class="text-[11px] font-semibold text-accent uppercase tracking-[0.08em]">{lead.data.category}</span>
+                <span class="text-[10px] font-medium text-teal-dark bg-teal-light rounded-full px-2 py-[3px] uppercase tracking-[0.07em]">Latest</span>
+              </div>
+              <h2 class="text-3xl sm:text-[34px] font-display font-bold text-content leading-[1.06] tracking-[-0.015em] mb-3">{lead.data.title}</h2>
+              <p class="text-[16.5px] leading-relaxed text-content/70 mb-4">{lead.data.description}</p>
+              <div class="flex flex-wrap items-center gap-3 text-[12.5px] text-content/50">
+                <span class="font-medium text-accent">Read explainer →</span>
+                {lead.data.publishedAt && (
+                  <time datetime={lead.data.publishedAt.toISOString()}>
+                    {new Intl.DateTimeFormat('en-PH', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' }).format(lead.data.publishedAt)}
+                  </time>
+                )}
+                <span>·</span>
+                <span>{minutesById.get(lead.id)} min</span>
+                {lead.data.sources.length > 0 && (
+                  <>
+                    <span>·</span>
+                    <span>{lead.data.sources.length} sources</span>
+                  </>
+                )}
+              </div>
+            </div>
+          </a>
+        )}
+
+        <div class="grid gap-4 sm:grid-cols-2" data-sortable>
+          {rest.map((entry) => (
+            <div
+              data-minutes={minutesById.get(entry.id)}
+              data-published={entry.data.publishedAt?.getTime() ?? 0}
+            >
+              <ExplainerCard
+                slug={entry.id}
+                category={entry.data.category}
+                title={entry.data.title}
+                description={entry.data.description}
+                image={entry.data.image}
+                publishedAt={entry.data.publishedAt}
+                rise
+              />
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   </main>
 </Layout>
+
+<script>
+  // The sort control is revealed only once this runs, so a reader without
+  // JavaScript never sees a button that cannot do anything. The server-rendered
+  // order is already "newest first", which is why that is the pressed default.
+  const controls = document.querySelector<HTMLElement>('[data-sort-controls]');
+  const grid = document.querySelector<HTMLElement>('[data-sortable]');
+  if (controls && grid) {
+    controls.hidden = false;
+
+    const buttons = Array.from(controls.querySelectorAll<HTMLButtonElement>('[data-sort]'));
+    const num = (el: Element, key: string) => Number((el as HTMLElement).dataset[key] ?? 0);
+
+    buttons.forEach((button) => {
+      button.addEventListener('click', () => {
+        const mode = button.dataset.sort;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === button)));
+
+        const items = Array.from(grid.children);
+        items.sort((a, b) =>
+          mode === 'longest'
+            ? num(b, 'minutes') - num(a, 'minutes')
+            : num(b, 'published') - num(a, 'published')
+        );
+        // Reattaching in order is enough — appendChild moves an existing node
+        // rather than copying it, so no markup is rebuilt and no listener dies.
+        items.forEach((item) => grid.appendChild(item));
+      });
+    });
+  }
+</script>

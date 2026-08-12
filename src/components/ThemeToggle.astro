@@ -1,0 +1,62 @@
+---
+// The Light / Dark switch. A pill of two real <button>s rather than a checkbox
+// or a single toggle, because "which mode am I in" and "what will this do" are
+// the same question here — a lone switch answers neither without a label.
+//
+// aria-pressed carries the state. The server renders light as pressed, matching
+// the server-rendered data-theme on <html>; the boot script in Layout.astro may
+// have already flipped the document by the time this hydrates, so the script
+// below re-syncs the buttons on load rather than trusting the markup.
+//
+// With JavaScript off the buttons do nothing and the site stays light. That is
+// the honest failure: the preference is a browser-local setting with nowhere
+// else to live on a prerendered site.
+---
+<div
+  class="inline-flex p-0.5 rounded-full bg-ground border border-content/12"
+  role="group"
+  aria-label="Colour theme"
+  data-theme-toggle
+>
+  <button
+    type="button"
+    data-set-theme="light"
+    aria-pressed="true"
+    class="px-2.5 py-1 rounded-full text-[11.5px] font-medium transition-colors aria-pressed:bg-surface aria-pressed:text-content aria-pressed:shadow-sm text-content/50 hover:text-content cursor-pointer"
+  >Light</button>
+  <button
+    type="button"
+    data-set-theme="dark"
+    aria-pressed="false"
+    class="px-2.5 py-1 rounded-full text-[11.5px] font-medium transition-colors aria-pressed:bg-surface aria-pressed:text-content aria-pressed:shadow-sm text-content/50 hover:text-content cursor-pointer"
+  >Dark</button>
+</div>
+
+<script>
+  // The toggle appears once per page today, but this is written to handle any
+  // number of them so a second placement (a settings row, a mobile sheet)
+  // doesn't need a second script.
+  function paint(theme: string) {
+    document.querySelectorAll<HTMLButtonElement>('[data-set-theme]').forEach((button) => {
+      button.setAttribute('aria-pressed', String(button.dataset.setTheme === theme));
+    });
+  }
+
+  function apply(theme: string) {
+    document.documentElement.dataset.theme = theme;
+    try {
+      localStorage.setItem('vantage-theme', theme);
+    } catch (err) {
+      // Private mode. The choice still applies for this page view.
+    }
+    paint(theme);
+  }
+
+  document.querySelectorAll<HTMLButtonElement>('[data-set-theme]').forEach((button) => {
+    button.addEventListener('click', () => apply(button.dataset.setTheme ?? 'light'));
+  });
+
+  // The boot script may have set dark before this ran, so the buttons are
+  // repainted from the document rather than left as server-rendered.
+  paint(document.documentElement.dataset.theme ?? 'light');
+</script>

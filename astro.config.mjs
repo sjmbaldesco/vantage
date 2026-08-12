@@ -27,7 +27,12 @@ export default defineConfig({
   // adapter returns the project to a plain static build.
   adapter: vercel(),
 
-  integrations: [sitemap()],
+  // /panels/<slug> is a production surface for the social carousels, not a
+  // reader destination — it renders the same explainer at 1080×1350 for export.
+  // Leaving it in the sitemap would offer search engines a second, worse copy
+  // of every explainer. The pages also carry noindex and data-pagefind-ignore;
+  // this is the third of the three places that has to agree.
+  integrations: [sitemap({ filter: (page) => !page.includes('/panels/') })],
   vite: {
     plugins: [tailwindcss()],
   },

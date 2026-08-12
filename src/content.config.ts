@@ -8,6 +8,12 @@ const posts = defineCollection({
     category: z.string(),
     headline: z.string(),
     highlight: z.string(),
+    // The explainer slug this fact was lifted from. Optional in the schema so a
+    // standalone post can exist, but every post shipping today sets it: a
+    // one-line card is the wrong place to make a claim for the first time, and
+    // the link is how a reader reaches the sourcing behind the number.
+    source: z.string().optional(),
+    // getCollection() ordering is not guaranteed, so the feed order is authored.
     order: z.number(),
   }),
 });
@@ -41,6 +47,24 @@ const driver = z.object({
         })
       ),
     })
+    .optional(),
+  // Pull-out figures, rendered above the section's prose as cards. One renders
+  // wide with its note beside it; two or more render as a grid. Opt-in and
+  // deliberately empty across the current content: a number only earns this
+  // much room when it is the thing the section is actually about, and that is
+  // an editorial call per piece, not a default.
+  stats: z
+    .array(
+      z.object({
+        // A string, not a number, because these are printed as written —
+        // "4,000", "₱612.5M", "90%" — and formatting them from a number would
+        // mean encoding peso signs and thousands rules in the template.
+        value: z.string(),
+        label: z.string(),
+        note: z.string().optional(),
+        sourceNote: z.string().optional(),
+      })
+    )
     .optional(),
   // The attribution bar printed at the foot of the panel. Kept per-section
   // rather than folded into `sources` so a reader can see which claim rests

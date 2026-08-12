@@ -10,6 +10,11 @@ import { CONTACT_EMAIL } from '../consts';
 // The old /contact channel block (editorial / tips / general, all pointing at
 // the same mailbox) is gone: three buttons resolving to one address is
 // theatre. One address, stated once.
+//
+// The mission runs as two columns rather than a 672px measure. It is the
+// longest continuous stretch of prose on the site and the only page where the
+// reader is deciding whether to trust the publication at all; a single narrow
+// column made it look like a wall to get through.
 const mailto = `mailto:${CONTACT_EMAIL}`;
 ---
 <Layout
@@ -17,90 +22,139 @@ const mailto = `mailto:${CONTACT_EMAIL}`;
   description="Who's behind Vantage, what it stands for, and how to reach them."
 >
   <Header />
-  <main class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">About</p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-5">
-      About Vantage
+  <main class="max-w-[1200px] mx-auto px-6 sm:px-10 py-11 sm:py-14">
+    <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.09em] mb-4">About</p>
+    <h1 class="text-4xl sm:text-[56px] font-display font-bold text-content leading-[1.02] tracking-[-0.025em] mb-5 max-w-[900px]">
+      What you understand depends on where you stand.
     </h1>
+    <div class="h-[3px] w-14 bg-teal mb-9"></div>
 
-    <div class="space-y-4 text-lg leading-relaxed text-paper/70 text-justify hyphens-auto">
-      <p>
-        Vantage is a Philippine news and media company built on the idea contained in
-        its name: what you understand depends on where you stand. We cover the issues
-        the country is arguing about right now, and our work is to make those arguments
-        legible: what is actually being proposed, who stands to gain or lose, and what
-        has already been tried. We follow decisions from the offices where they are
-        drafted to the communities where they land, in Metro Manila and well outside it.
-        Being useful to our readers matters more to us than being first to publish.
-      </p>
-      <p>
-        We are working toward a Philippines where public life is conducted in front of
-        an informed audience, where the people affected by a decision understand it well
-        enough to question it. That means building a newsroom Filipinos return to out of
-        habit rather than accident, and producing journalism that still holds up a year
-        after it runs. It also means treating our readers as participants rather than
-        traffic: people with their own vantage points, whose questions shape what we
-        pursue next.
-      </p>
-      <p>
-        Accuracy is our first obligation, and we would rather be late than wrong. We
-        report independently, without deference to advertisers, political patrons, or
-        the pressure of a trending topic. We stay close to the ground, because distance
-        is how stories get flattened into abstractions. We show our work: naming sources
-        where we safely can, explaining how we know what we know, and correcting errors
-        openly and quickly rather than quietly. And we write plainly, on the conviction
-        that anything worth reporting can be explained clearly to anyone willing to read
-        it.
-      </p>
+    <div class="grid gap-9 md:grid-cols-2 mb-14">
+      <div class="flex flex-col gap-4 text-[17px] leading-[1.72] text-content/78">
+        <p>
+          Vantage is a Philippine news and media company built on the idea contained in
+          its name. We cover the issues the country is arguing about right now, and our
+          work is to make those arguments legible: what is actually being proposed, who
+          stands to gain or lose, and what has already been tried. We follow decisions
+          from the offices where they are drafted to the communities where they land, in
+          Metro Manila and well outside it. Being useful to our readers matters more to
+          us than being first to publish.
+        </p>
+        <p>
+          We are working toward a Philippines where public life is conducted in front of
+          an informed audience, where the people affected by a decision understand it well
+          enough to question it. That means building a newsroom Filipinos return to out of
+          habit rather than accident, and producing journalism that still holds up a year
+          after it runs.
+        </p>
+      </div>
+      <div class="flex flex-col gap-4 text-[17px] leading-[1.72] text-content/78">
+        <p>
+          It also means treating our readers as participants rather than traffic: people
+          with their own vantage points, whose questions shape what we pursue next.
+        </p>
+        <p>
+          Accuracy is our first obligation, and we would rather be late than wrong. We
+          report independently, without deference to advertisers, political patrons, or
+          the pressure of a trending topic. We stay close to the ground, because distance
+          is how stories get flattened into abstractions. We show our work: naming sources
+          where we safely can, explaining how we know what we know, and correcting errors
+          openly and quickly rather than quietly. And we write plainly, on the conviction
+          that anything worth reporting can be explained clearly to anyone willing to read
+          it.
+        </p>
+      </div>
     </div>
 
-    <h2 class="text-xl font-display font-bold text-paper mt-10 mb-4">Masthead</h2>
-    <div class="bg-ink border border-paper/15 rounded-xl p-5 flex items-center gap-4">
+    <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.09em] mb-4">Masthead</p>
+    <div class="bg-surface border border-content/10 rounded-2xl p-7 grid gap-8 sm:grid-cols-[200px_1fr] items-center mb-14 v-rise">
       <img
         src="/masthead/jairus-macabuhay.jpg"
         alt="Sir Jairus Macabuhay"
-        width="96"
-        height="96"
+        width="200"
+        height="200"
         loading="lazy"
-        class="w-20 h-20 sm:w-24 sm:h-24 rounded-xl object-cover shrink-0 bg-ground"
+        class="w-[200px] h-[200px] rounded-xl object-cover bg-ground"
       />
       <div>
-        <p class="font-medium text-paper">Sir Jairus Macabuhay</p>
-        <p class="text-sm text-paper/60 mt-0.5">Founder and Editor-in-Chief</p>
+        <h2 class="text-[30px] font-display font-bold text-content leading-tight mb-1.5">Sir Jairus Macabuhay</h2>
+        <p class="text-[15px] font-medium text-accent mb-4">Founder and Editor-in-Chief</p>
+        <p class="text-base leading-relaxed text-content/72 mb-4 max-w-[620px]">
+          Vantage is a one-person newsroom. Every explainer on this site was reported,
+          written, checked and published by the same person, and the byline says so on
+          purpose.
+        </p>
+        <a href={mailto} class="masthead-mail text-sm font-medium text-accent no-underline pb-1">{CONTACT_EMAIL}</a>
       </div>
     </div>
 
-    <h2 class="text-xl font-display font-bold text-paper mt-10 mb-4">Independence</h2>
-    <p class="text-lg leading-relaxed text-paper/70 text-justify hyphens-auto">
-      Vantage is self-funded. We receive no money from political parties, campaigns,
-      government agencies, corporations, or advocacy groups, and no outside organization
-      has any say in what we cover or how we cover it. If that ever changes, we will say
-      so here, plainly and before you have to ask.
-    </p>
-
-    <h2 class="text-xl font-display font-bold text-paper mt-10 mb-4">Corrections</h2>
-    <p class="text-lg leading-relaxed text-paper/70 text-justify hyphens-auto">
-      When we get something wrong, we fix it and say what we fixed. Corrections are noted
-      on the story itself, with the date and the nature of the error. Nothing gets quietly
-      edited after publication.
-    </p>
-
-    <div class="border-t border-paper/10 mt-12 pt-10">
-      <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Contact</p>
-      <h2 class="text-2xl sm:text-3xl font-display font-bold text-paper leading-tight mb-5">
-        Get in touch
-      </h2>
-
-      {/* The one highlight moment on the page, and the only place the address */}
-      {/* appears. Deliberately unlabelled by purpose: tips, questions and */}
-      {/* corrections all land in the same inbox, so naming one of them would */}
-      {/* imply the others belong somewhere else. */}
-      <div class="bg-teal-light rounded-xl p-5">
-        <p class="text-[11px] font-semibold text-teal-dark uppercase tracking-[0.08em] mb-2">Message us here</p>
-        <a href={mailto} class="text-sm font-semibold text-teal-dark underline underline-offset-2">
-          {CONTACT_EMAIL}
-        </a>
+    <div class="grid gap-5 md:grid-cols-2 mb-14">
+      <div class="bg-surface border border-content/10 rounded-2xl p-7 v-rise">
+        <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.09em] mb-3">Independence</p>
+        <h2 class="text-2xl font-display font-bold text-content leading-tight mb-3.5">
+          Self-funded, and we will say if that changes.
+        </h2>
+        <p class="text-base leading-[1.68] text-content/72">
+          We receive no money from political parties, campaigns, government agencies,
+          corporations, or advocacy groups, and no outside organization has any say in
+          what we cover or how we cover it. If that ever changes, we will say so here,
+          plainly and before you have to ask.
+        </p>
       </div>
+
+      <div class="bg-surface border border-content/10 rounded-2xl p-7 v-rise">
+        <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.09em] mb-3">Corrections</p>
+        <h2 class="text-2xl font-display font-bold text-content leading-tight mb-3.5">
+          We fix it, and we say what we fixed.
+        </h2>
+        <p class="text-base leading-[1.68] text-content/72 mb-4">
+          Corrections are noted on the story itself, with the date and the nature of the
+          error. Nothing gets quietly edited after publication.
+        </p>
+        {/* A running count, stated plainly. "None so far" is a claim a
+            publication should be willing to print and then have to update. */}
+        <div class="flex items-center gap-2.5 px-3.5 py-3 bg-ground rounded-[10px]">
+          <span class="w-2 h-2 rounded-full bg-teal shrink-0"></span>
+          <span class="text-[13.5px] leading-relaxed text-content/70">No corrections issued to date.</span>
+        </div>
+      </div>
+    </div>
+
+    {/* The one highlight moment on the page, and the only place the address
+        appears. Deliberately unlabelled by purpose: tips, questions and
+        corrections all land in the same inbox, so naming one of them would
+        imply the others belong somewhere else. Fixed brand colours, not the
+        semantic tokens — this block brings its own ground in both modes. */}
+    <div class="bg-teal-light rounded-2xl p-8 sm:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-8 v-rise">
+      <div>
+        <p class="text-[11px] font-semibold text-teal-dark uppercase tracking-[0.09em] mb-3.5">Contact</p>
+        <h2 class="text-3xl sm:text-[40px] font-display font-bold text-teal-dark leading-[1.05] tracking-[-0.02em] mb-3.5">
+          Tips, questions, corrections.
+        </h2>
+        <p class="max-w-[520px] text-base leading-relaxed text-teal-dark/78">
+          One inbox, read by the person who writes the stories. Naming three addresses
+          that all resolve to the same mailbox would be theatre.
+        </p>
+      </div>
+      <a
+        href={mailto}
+        class="shrink-0 bg-teal-dark text-teal-light rounded-xl px-6 py-4 text-base font-medium no-underline transition-[transform,background-color] duration-200 hover:-translate-y-0.5 hover:bg-ink"
+      >{CONTACT_EMAIL} →</a>
     </div>
   </main>
 </Layout>
+
+<style>
+  /* The rule retracts on hover rather than drawing in — it is already the
+     resting state here, because the address is the point of the block. */
+  .masthead-mail {
+    background-image: linear-gradient(var(--color-teal), var(--color-teal));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 100% 2px;
+    transition: background-size 0.25s ease;
+  }
+  .masthead-mail:hover {
+    background-size: 0% 2px;
+  }
+</style>

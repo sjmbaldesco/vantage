@@ -32,13 +32,13 @@ const { category, entries } = Astro.props;
 >
   <Header />
   <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Category</p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
+    <p class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-3">Category</p>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-content leading-tight mb-4">
       {category}
     </h1>
-    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
+    <p class="text-lg leading-relaxed text-content/70 mb-8 max-w-xl">
       {entries.length} {entries.length === 1 ? 'article' : 'articles'} filed under {category}.{" "}
-      <a href="/archive" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">See the full archive</a>.
+      <a href="/archive" class="text-accent underline underline-offset-2 hover:text-content transition-colors">See the full archive</a>.
     </p>
 
     <div class="grid gap-4 sm:grid-cols-2">

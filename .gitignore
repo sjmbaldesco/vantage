@@ -11,3 +11,7 @@ dist/
 # Source carousel art (228 MB of PNG/PDF). Kept locally, not in git —
 # GitHub rejects files over 100 MB and this would bloat the repo permanently.
 Vantage Content/
+
+# Reference/source files (logo draft PNG, Mont font source zip) — the built
+# assets they produced already live in the repo (public/fonts, favicon.svg).
+Vantage Assets/

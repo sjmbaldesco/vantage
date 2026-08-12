@@ -1,0 +1,204 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
+
+// The 4:5 social carousel, generated from an explainer rather than drawn.
+//
+// The point of this route is that a panel set is authored by writing the YAML.
+// `drivers[]` already maps 1:1 onto panels — each one has a heading, a body,
+// optionally a table or a pull-out figure, and its own attribution bar — so the
+// carousel that used to be produced by hand in a design tool is now a view of
+// content the site is already publishing. Nothing here can drift from the
+// article, because there is nothing here to keep in sync.
+//
+// Panels are laid out at exactly 1080×1350 and scaled down for the screen with
+// a transform, so the on-screen strip and the exported image are the same
+// geometry rather than two approximations of it. Print at 100% (the print
+// stylesheet below drops the scale and puts one panel per page) to get assets
+// at true pixel size.
+export async function getStaticPaths() {
+  const explainers = await getCollection('explainers');
+  return explainers.map((entry) => ({
+    params: { slug: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { title, subtitle, category, description, drivers, sources } = entry.data;
+
+const paragraphs = (body: string) =>
+  body.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+
+// Panels that carry a pull-out figure are set on teal-dark, which is what makes
+// them the one place the highlight device appears in a set. Everything else is
+// white or cream. If an explainer designates no figure, the set simply has no
+// dark panel — better than promoting an arbitrary sentence to hero it.
+const bodyPanels = drivers.filter((driver) => driver.body.trim() || driver.table);
+---
+<Layout title={`${title} — panels`} description={description} noindex>
+  <div class="min-h-screen bg-ground" data-pagefind-ignore>
+    <div class="max-w-[1200px] mx-auto px-6 py-9 no-print">
+      <a href={`/explained/${entry.id}`} class="text-[13px] text-accent no-underline">← {title}</a>
+      <h1 class="text-3xl font-display font-bold text-content mt-3 mb-2">Social panels</h1>
+      <p class="max-w-[640px] text-[15px] leading-relaxed text-content/70">
+        {bodyPanels.length + 2} panels at 1080×1350, generated from this explainer's
+        sections. Scroll the strip sideways. Print this page to export them at full
+        size — one panel per page, no scaling.
+      </p>
+    </div>
+
+    <div class="panel-strip flex gap-5 overflow-x-auto px-6 pb-10 snap-x snap-mandatory">
+      {/* Cover */}
+      <div class="panel-frame snap-center">
+        <div class="panel bg-cream flex flex-col">
+          <div>
+            <div class="text-[50px] font-display font-black tracking-[-0.045em] text-ink leading-none">VANTAGE</div>
+            <div class="h-[7px] w-24 bg-teal mt-4"></div>
+          </div>
+          <div class="flex-1 flex flex-col justify-center">
+            <p class="text-[28px] font-semibold text-teal-dark uppercase tracking-[0.1em] mb-9">{category} · Explained</p>
+            <h2 class="text-[150px] font-display font-bold text-ink leading-[0.94] tracking-[-0.03em] mb-9">{title}</h2>
+            {subtitle && <p class="text-[48px] leading-[1.4] text-ink/68">{subtitle}</p>}
+          </div>
+        </div>
+      </div>
+
+      {/* One panel per section. */}
+      {bodyPanels.map((driver) => {
+        const stat = driver.stats?.[0];
+        return (
+          <div class="panel-frame snap-center">
+            <div class:list={['panel flex flex-col', stat ? 'bg-teal-dark' : 'bg-white']}>
+              <p class:list={[
+                'text-[28px] font-semibold uppercase tracking-[0.1em] mb-11',
+                stat ? 'text-teal-light' : 'text-teal-dark',
+              ]}>{driver.heading}</p>
+
+              {stat ? (
+                <div class="flex-1 flex flex-col justify-center">
+                  <div class="text-[290px] font-display font-bold text-paper leading-[0.86] tracking-[-0.04em]">{stat.value}</div>
+                  <div class="mt-6 text-[60px] font-medium text-teal-light leading-tight">{stat.label}</div>
+                  {stat.note && <p class="mt-14 text-[48px] leading-[1.5] text-paper/85">{stat.note}</p>}
+                </div>
+              ) : (
+                <div class="flex-1 flex flex-col gap-10">
+                  {paragraphs(driver.body).slice(0, 3).map((p, index) => (
+                    <p class:list={[
+                      'leading-[1.5]',
+                      index === 0 ? 'text-[50px] text-ink' : 'text-[45px] text-ink/70',
+                    ]}>{p}</p>
+                  ))}
+                  {driver.bullets && (
+                    <ul class="flex flex-col gap-6">
+                      {driver.bullets.slice(0, 3).map((bullet) => (
+                        <li class="text-[40px] leading-[1.4] text-ink/70 pl-9 relative before:content-[''] before:absolute before:left-0 before:top-[0.55em] before:w-4 before:h-4 before:rounded-full before:bg-teal"></li>
+                      ))}
+                    </ul>
+                  )}
+                  {driver.table && (
+                    <div class="border-t-[3px] border-ink/15">
+                      {driver.table.rows.slice(0, 3).map((row) => (
+                        <div class="grid grid-cols-2 border-b-[3px] border-ink/10">
+                          {row.cells.slice(0, 2).map((cell, index) => (
+                            <div class:list={[
+                              'text-[36px] leading-[1.45] text-ink/80 py-8',
+                              index === 0 ? 'pr-9' : 'pl-9 border-l-[3px] border-ink/10',
+                            ]}>{cell}</div>
+                          ))}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              )}
+
+              {driver.sourceNote && (
+                <p class:list={[
+                  'text-[30px] leading-[1.5] pt-10',
+                  stat ? 'text-paper/55' : 'text-ink/45 border-t-[3px] border-ink/12',
+                ]}>{driver.sourceNote}</p>
+              )}
+            </div>
+          </div>
+        );
+      })}
+
+      {/* Sources + endplate */}
+      <div class="panel-frame snap-center">
+        <div class="panel bg-cream flex flex-col">
+          <p class="text-[28px] font-semibold text-teal-dark uppercase tracking-[0.1em] mb-11">Sources</p>
+          <ul class="flex flex-col gap-7">
+            {sources.slice(0, 6).map((source) => (
+              <li class="text-[34px] leading-[1.45] text-ink/70">{source}</li>
+            ))}
+          </ul>
+          {sources.length > 6 && (
+            <p class="mt-8 text-[30px] text-ink/45">
+              and {sources.length - 6} more, listed in full on the site.
+            </p>
+          )}
+          <div class="flex-1"></div>
+          <div class="pt-11 border-t-[3px] border-ink/15 flex items-end justify-between gap-8">
+            <div>
+              <div class="text-[50px] font-display font-black tracking-[-0.045em] text-ink leading-none">VANTAGE</div>
+              <div class="h-[7px] w-24 bg-teal mt-4"></div>
+            </div>
+            <span class="text-[32px] text-ink/60">Full explainer · vantageph.com</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  /* The panel is authored at true output size. The frame is what the page
+     actually lays out — the panel is scaled into it — so the strip reflows like
+     ordinary boxes while the geometry inside stays exact. */
+  .panel-strip {
+    --panel-scale: 0.32;
+  }
+  @media (min-width: 900px) {
+    .panel-strip {
+      --panel-scale: 0.4;
+    }
+  }
+
+  .panel-frame {
+    flex: none;
+    width: calc(1080px * var(--panel-scale));
+    height: calc(1350px * var(--panel-scale));
+  }
+
+  .panel {
+    width: 1080px;
+    height: 1350px;
+    padding: 90px;
+    box-sizing: border-box;
+    border-radius: 24px;
+    transform: scale(var(--panel-scale));
+    transform-origin: top left;
+  }
+
+  /* Print at true size, one panel per sheet: this is the export path. */
+  @media print {
+    .no-print {
+      display: none;
+    }
+    .panel-strip {
+      --panel-scale: 1;
+      display: block;
+      overflow: visible;
+      padding: 0;
+    }
+    .panel-frame {
+      width: 1080px;
+      height: 1350px;
+      break-after: page;
+    }
+    .panel {
+      border-radius: 0;
+    }
+  }
+</style>

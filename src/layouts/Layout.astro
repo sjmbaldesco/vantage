@@ -7,21 +7,37 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  // Set on production surfaces that are not reader destinations — currently
+  // just /panels/<slug>, which renders an explainer at social-panel size for
+  // export. Those pages would otherwise offer search engines a second, worse
+  // copy of the article.
+  noindex?: boolean;
 }
-const { title, description = "Vantage — explained, not spun.", image } = Astro.props;
+const {
+  title,
+  description = "Vantage — explained, not spun.",
+  image,
+  noindex = false,
+} = Astro.props;
 
 const fullTitle = `${title} · Vantage`;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image ? new URL(image, Astro.site) : undefined;
 ---
 <!doctype html>
-<html lang="en">
+{/*
+  data-theme is server-rendered as "light" so a reader with JavaScript off gets
+  a complete, correct page rather than an unstyled one. The boot script in
+  <head> upgrades it to the stored or system preference before first paint.
+*/}
+<html lang="en" data-theme="light">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
     <title>{fullTitle}</title>
     <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
@@ -53,8 +69,33 @@ const ogImage = image ? new URL(image, Astro.site) : undefined;
       rel="stylesheet"
     />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    {/*
+      Theme boot. This has to be inline and in <head>, before any markup paints:
+      the pages are prerendered as light, so a stored dark preference applied
+      any later than this flashes a cream page at a reader who asked for dark.
+
+      is:inline keeps it out of Vite's module graph so it stays a plain blocking
+      script rather than a deferred module.
+    */}
+    <script is:inline>
+      (function () {
+        try {
+          var stored = localStorage.getItem('vantage-theme');
+          var theme =
+            stored === 'light' || stored === 'dark'
+              ? stored
+              : window.matchMedia('(prefers-color-scheme: dark)').matches
+                ? 'dark'
+                : 'light';
+          document.documentElement.dataset.theme = theme;
+        } catch (err) {
+          /* Private mode can throw on localStorage. Light is the default. */
+        }
+      })();
+    </script>
   </head>
-  <body class="bg-ground text-paper font-body antialiased flex flex-col min-h-screen">
+  <body class="bg-ground text-content font-body antialiased flex flex-col min-h-screen">
     <div class="flex-1">
       <slot />
     </div>

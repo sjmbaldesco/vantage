@@ -18,20 +18,173 @@
   font-display: swap;
 }
 
+/* ---------------------------------------------------------------------------
+   Tokens
+   ---------------------------------------------------------------------------
+
+   Two kinds of colour live here, and the difference matters.
+
+   SEMANTIC tokens (ground / surface / content / accent) describe a *role*, and
+   their values are swapped wholesale by `data-theme` further down. Components
+   should use these almost everywhere: `bg-ground`, `bg-surface`, `text-content`,
+   `text-content/70`, `border-content/10`, `text-accent`.
+
+   FIXED tokens (paper / ink / teal / teal-light / teal-dark) are the literal
+   brand colours and never change between modes. Reach for these only when the
+   element carries its own ground regardless of theme — the teal-dark contact
+   panel, the highlight block, the social panels.
+
+   Light is the default because the values below are the light ones. Dark is an
+   override, not a second stylesheet: a mode is four values. */
 @theme {
-  --color-ink: #2C2C2A;
+  /* Semantic — overridden per theme below. */
+  --color-ground: #EDE9DF;
+  --color-surface: #FFFFFF;
+  --color-content: #2C2C2A;
+  --color-accent: #04342C;
+
+  /* Fixed brand colours. `cream` is the light ground pinned as a literal, for
+     surfaces that must not follow the reader's theme — the social panels are
+     export artefacts and have to come out the same colour every time. */
+  --color-cream: #EDE9DF;
   --color-paper: #F1EFE8;
+  --color-ink: #2C2C2A;
   --color-teal: #1D9E75;
   --color-teal-light: #9FE1CB;
   --color-teal-dark: #04342C;
-  /* Dark-mode page ground. Ink is the surface for bars and cards on top of it. */
-  --color-ground: #171614;
 
   --font-display: "Mont", system-ui, sans-serif;
   --font-body: "Inter", sans-serif;
 }
 
+/* The one-highlight-per-post device changes *shape* between modes, not just
+   colour, so it gets its own four variables rather than riding on the semantic
+   set. On cream it is a thick teal-light rule drawn under teal-dark text; on
+   near-black it goes back to the filled block the repo already shipped, because
+   a pale rule under pale text stops reading as a highlight at all. */
+:root {
+  color-scheme: light;
+
+  --mark-color: var(--color-teal-dark);
+  --mark-bg: transparent;
+  --mark-image: linear-gradient(var(--color-teal-light), var(--color-teal-light));
+  --mark-padding: 0 0 0.25rem;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --color-ground: #171614;
+  --color-surface: #2C2C2A;
+  --color-content: #F1EFE8;
+  --color-accent: #9FE1CB;
+
+  --mark-color: var(--color-teal-dark);
+  --mark-bg: var(--color-teal-light);
+  --mark-image: none;
+  --mark-padding: 0 0.25rem;
+}
+
 body {
   background-color: var(--color-ground);
-  color: var(--color-paper);
+  color: var(--color-content);
+}
+
+/* The device itself. `background-size` carries the rule so it can be animated
+   from 0% to full width as the card enters view — the same mechanic the nav
+   hover rules use, which is why the two move alike. */
+.v-mark {
+  color: var(--mark-color);
+  background-color: var(--mark-bg);
+  background-image: var(--mark-image);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 0.42em;
+  padding: var(--mark-padding);
+  border-radius: 0;
+}
+
+/* ---------------------------------------------------------------------------
+   Motion
+   ---------------------------------------------------------------------------
+
+   Everything below is CSS only — no scroll listeners. The scrubbed animations
+   are driven by `animation-timeline`, which is Chromium-only today, so they sit
+   behind an @supports guard: without it the browser would drop the timeline,
+   run each animation once on the document timeline, and leave the header
+   permanently compacted and the progress bar permanently full. Unsupported
+   browsers get the static end-state layout instead, which is correct on its
+   own. */
+@keyframes v-rise {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes v-compact {
+  to { padding-top: 0.625rem; padding-bottom: 0.625rem; }
+}
+@keyframes v-shrink {
+  to { font-size: 20px; }
+}
+@keyframes v-bar {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+@keyframes v-draw {
+  from { background-size: 0% 0.42em; }
+  to { background-size: 100% 0.42em; }
+}
+@keyframes v-nav-in {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes v-teal-rule {
+  from { transform: scaleX(0); opacity: 0; }
+  to { transform: scaleX(1); opacity: 1; }
+}
+
+/* Time-based, so it needs no guard. 60ms stagger is applied per element. */
+.v-nav-in {
+  animation: v-nav-in 0.5s cubic-bezier(0.22, 0.8, 0.2, 1) both;
+}
+
+@supports (animation-timeline: scroll()) {
+  .v-compact {
+    animation: v-compact linear both;
+    animation-timeline: scroll(nearest);
+    animation-range: 0 160px;
+  }
+  .v-shrink {
+    animation: v-shrink linear both;
+    animation-timeline: scroll(nearest);
+    animation-range: 0 160px;
+  }
+  .v-teal-rule {
+    animation: v-teal-rule linear both;
+    animation-timeline: scroll(nearest);
+    animation-range: 0 160px;
+  }
+  .v-bar {
+    animation: v-bar linear both;
+    animation-timeline: scroll(nearest);
+  }
+  .v-rise {
+    animation: v-rise linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 70%;
+  }
+  .v-draw {
+    animation: v-draw linear both;
+    animation-timeline: view();
+    animation-range: entry 15% entry 85%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
 }

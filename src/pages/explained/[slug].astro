@@ -1,17 +1,31 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
+import ShareRail from '../../components/ShareRail.astro';
 import { getCollection } from 'astro:content';
+import { categorySlug, readingMinutes, sortExplainers } from '../../utils';
+import { CONTACT_EMAIL } from '../../consts';
 
 export async function getStaticPaths() {
-  const explainers = await getCollection('explainers');
-  return explainers.map((entry) => ({
+  const explainers = sortExplainers(await getCollection('explainers'));
+
+  // "Read next" is the two entries after this one in the site's own ordering,
+  // wrapping at the end. Computed here rather than in the template so the whole
+  // sorted run is in scope — an explainer page otherwise has no way to know
+  // what comes after it.
+  return explainers.map((entry, index) => ({
     params: { slug: entry.id },
-    props: { entry },
+    props: {
+      entry,
+      readNext: [
+        explainers[(index + 1) % explainers.length],
+        explainers[(index + 2) % explainers.length],
+      ].filter((next) => next && next.id !== entry.id),
+    },
   }));
 }
 
-const { entry } = Astro.props;
+const { entry, readNext } = Astro.props;
 const {
   title,
   description,
@@ -34,98 +48,343 @@ const dateline = publishedAt
     }).format(publishedAt)
   : null;
 
+const minutes = readingMinutes(entry.data);
+
 // Panels are authored as blank-line-separated paragraphs; HTML collapses the
 // newlines, so they have to be split into real elements here.
 const paragraphs = (body: string) =>
   body.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
+
+// Section ids for the contents rail. Derived from the heading so the anchors
+// are readable in the URL bar, with the index appended because two sections
+// can legitimately share a heading.
+const sectionId = (heading: string, index: number) =>
+  `${categorySlug(heading) || 'section'}-${index + 1}`;
+
+// The sources list is long by design — 17 entries on the longest piece — and
+// printing all of them inline buries the read-next block. The first four stay
+// open and the rest go behind a native <details>, which needs no JavaScript.
+const SOURCES_SHOWN = 4;
+const shownSources = sources.slice(0, SOURCES_SHOWN);
+const hiddenSources = sources.slice(SOURCES_SHOWN);
+
+const canonical = new URL(Astro.url.pathname, Astro.site).toString();
 ---
 <Layout title={title} description={description}>
-  <Header />
-  <article class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">{category}</p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-3">{title}</h1>
+  <Header progress nowReading={`${title} · ${category}`} />
 
-    {subtitle && (
-      <p class="text-lg text-paper/60 leading-snug mb-5">{subtitle}</p>
-    )}
-
-    {(dateline || author) && (
-      <p class="text-[13px] text-paper/50 border-b border-paper/10 pb-5 mb-6">
-        {author}{author && dateline ? ' · ' : ''}{dateline && <time datetime={publishedAt?.toISOString()}>{dateline}</time>}
+  <div class="mx-auto max-w-[1200px] px-6 sm:px-10 py-11 grid gap-10 justify-center lg:grid-cols-[210px_minmax(0,672px)_190px]">
+    {/* Contents rail. Hidden below lg — on a narrow screen it would push the
+        article down a screenful to list what is right underneath it. */}
+    <aside class="hidden lg:block sticky top-28 self-start" data-pagefind-ignore>
+      <p class="text-[10.5px] font-semibold text-content/50 uppercase tracking-[0.09em] mb-3">
+        In this explainer
       </p>
-    )}
-
-    <p class="text-lg leading-relaxed text-paper/80 mb-4">{leadParagraph}</p>
-
-    {drivers.map((driver) => (
-      <section>
-        <h2 class="text-xl font-display font-bold text-paper mt-8 mb-3">{driver.heading}</h2>
-
-        {paragraphs(driver.body).map((p) => (
-          <p class="text-base leading-relaxed text-paper/70 mb-4">{p}</p>
+      <nav class="flex flex-col gap-0.5 border-l-2 border-content/12" data-toc>
+        {drivers.map((driver, index) => (
+          <a
+            href={`#${sectionId(driver.heading, index)}`}
+            class="toc-link py-1.5 pl-3.5 -ml-0.5 border-l-2 border-transparent text-[13px] leading-snug text-content/60 no-underline transition-colors"
+          >{driver.heading}</a>
         ))}
+        {sources.length > 0 && (
+          <a
+            href="#sources"
+            class="toc-link py-1.5 pl-3.5 -ml-0.5 border-l-2 border-transparent text-[13px] leading-snug text-content/60 no-underline transition-colors"
+          >Sources</a>
+        )}
+      </nav>
+    </aside>
 
-        {driver.bullets && (
-          <ul class="list-disc pl-5 mb-4 space-y-1.5">
-            {driver.bullets.map((item) => (
-              <li class="text-base leading-relaxed text-paper/70">{item}</li>
+    <article>
+      {/* Pagefind reads the category off this link and the date off the <time>
+          below. Doing it here rather than in a meta tag keeps the indexed value
+          and the printed value the same string by construction — a search
+          result can't claim a category the page doesn't show. */}
+      <a
+        href={`/category/${categorySlug(category)}`}
+        data-pagefind-filter="category"
+        data-pagefind-meta="category"
+        class="inline-block mb-3.5 text-[11px] font-semibold text-accent uppercase tracking-[0.08em] no-underline border-b border-accent/30 pb-0.5 hover:border-accent transition-colors"
+      >{category}</a>
+
+      <h1 class="text-4xl sm:text-[46px] font-display font-bold text-content leading-[1.02] tracking-[-0.02em] mb-3.5">{title}</h1>
+
+      {subtitle && (
+        <p class="text-xl sm:text-[21px] leading-snug text-content/60 mb-5">{subtitle}</p>
+      )}
+
+      <div class="flex flex-wrap items-center gap-x-3.5 gap-y-1 py-3.5 border-y border-content/12 mb-6 text-[13px] text-content/55">
+        {author && <span class="font-medium text-content">{author}</span>}
+        {author && dateline && <span>·</span>}
+        {dateline && (
+          <time datetime={publishedAt?.toISOString()} data-pagefind-meta="date">{dateline}</time>
+        )}
+        <span>·</span>
+        <span>{minutes} min read</span>
+      </div>
+
+      {/* Plain text, not the highlight device. A single accent-highlighted
+          phrase inside a full paragraph of body copy reads as odd rather than
+          as signal — the device stays scoped to FactPost. */}
+      <p class="text-lg sm:text-xl leading-relaxed text-content/80 mb-7">{leadParagraph}</p>
+
+      {drivers.map((driver, index) => (
+        <section id={sectionId(driver.heading, index)} class="scroll-mt-32">
+          <h2 class="text-2xl sm:text-[26px] font-display font-bold text-content leading-tight mt-9 mb-3">{driver.heading}</h2>
+
+          {driver.stats && driver.stats.length > 0 && (
+            <div
+              class:list={[
+                'mb-7',
+                driver.stats.length === 1
+                  ? 'bg-surface border border-content/10 rounded-2xl p-7 flex flex-col sm:flex-row items-start gap-7'
+                  : 'grid gap-4 sm:grid-cols-2',
+              ]}
+            >
+              {driver.stats.map((stat) => (
+                <Fragment>
+                  {driver.stats!.length === 1 ? (
+                    <Fragment>
+                      <div class="shrink-0">
+                        <div class="text-5xl sm:text-[68px] font-display font-bold text-accent leading-[0.9] tracking-[-0.03em]" data-countup>{stat.value}</div>
+                        <div class="mt-2 text-[11px] font-semibold text-content/50 uppercase tracking-[0.09em]">{stat.label}</div>
+                      </div>
+                      <div class="sm:border-l sm:border-content/12 sm:pl-7">
+                        {stat.note && <p class="text-[17px] leading-relaxed text-content/78 mb-2.5">{stat.note}</p>}
+                        {stat.sourceNote && <p class="text-[12.5px] leading-relaxed text-content/45">{stat.sourceNote}</p>}
+                      </div>
+                    </Fragment>
+                  ) : (
+                    <div class="bg-surface border border-content/10 rounded-xl p-5">
+                      <div class="text-[40px] font-display font-bold text-accent leading-none" data-countup>{stat.value}</div>
+                      <div class="mt-1.5 text-[11px] font-semibold text-content/50 uppercase tracking-[0.09em]">{stat.label}</div>
+                      {stat.note && <p class="mt-2 text-[13.5px] leading-relaxed text-content/65">{stat.note}</p>}
+                    </div>
+                  )}
+                </Fragment>
+              ))}
+            </div>
+          )}
+
+          {paragraphs(driver.body).map((p) => (
+            <p class="text-[17px] leading-relaxed text-content/75 mb-4">{p}</p>
+          ))}
+
+          {driver.bullets && (
+            <ul class="list-disc pl-5 mb-4 space-y-1.5">
+              {driver.bullets.map((item) => (
+                <li class="text-[17px] leading-relaxed text-content/75">{item}</li>
+              ))}
+            </ul>
+          )}
+
+          {driver.table && (
+            <div class="bg-surface border border-content/10 rounded-2xl overflow-hidden mb-3.5">
+              <div class="overflow-x-auto">
+                <table class="w-full border-collapse text-left">
+                  <thead>
+                    <tr class="bg-teal-dark">
+                      {driver.table.rows.some((r) => r.label) && <th class="w-px"></th>}
+                      {driver.table.columns.map((column) => (
+                        <th class="text-[11px] font-semibold uppercase tracking-[0.08em] text-teal-light align-bottom px-5 py-3">
+                          {column}
+                        </th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {driver.table.rows.map((row) => (
+                      <tr class="border-t border-content/10">
+                        {row.label !== undefined && (
+                          <th class="text-[13px] font-medium text-content/50 align-top whitespace-nowrap px-5 py-4 text-left">
+                            {row.label}
+                          </th>
+                        )}
+                        {row.cells.map((cell) => (
+                          <td class="text-[15px] leading-relaxed text-content/75 align-top px-5 py-4">{cell}</td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          )}
+
+          {driver.coda && (
+            <p class="text-[17px] leading-relaxed text-content/75 mb-4">{driver.coda}</p>
+          )}
+
+          {driver.sourceNote && (
+            <p class="text-[12.5px] leading-relaxed text-content/45 mb-4">{driver.sourceNote}</p>
+          )}
+        </section>
+      ))}
+
+      {sources.length > 0 && (
+        <section id="sources" class="border-t border-content/15 mt-12 pt-7 scroll-mt-32">
+          <div class="flex items-baseline justify-between mb-3.5">
+            <h2 class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em]">Sources</h2>
+            <span class="text-xs font-mono text-content/40">
+              {sources.length} {sources.length === 1 ? 'document' : 'documents'}
+            </span>
+          </div>
+
+          <ul class="space-y-2.5">
+            {shownSources.map((source) => (
+              <li class="text-[13.5px] leading-relaxed text-content/60">{source}</li>
             ))}
           </ul>
-        )}
 
-        {driver.table && (
-          <div class="overflow-x-auto mb-4 -mx-1">
-            <table class="w-full border-collapse text-left">
-              <thead>
-                <tr>
-                  {driver.table.rows.some((r) => r.label) && <th class="w-px"></th>}
-                  {driver.table.columns.map((column) => (
-                    <th class="text-[11px] font-semibold uppercase tracking-[0.08em] text-teal-light align-bottom border-b border-paper/15 px-3 py-2">
-                      {column}
-                    </th>
-                  ))}
-                </tr>
-              </thead>
-              <tbody>
-                {driver.table.rows.map((row) => (
-                  <tr class="border-b border-paper/10">
-                    {row.label !== undefined && (
-                      <th class="text-[13px] font-medium text-paper/50 align-top whitespace-nowrap px-3 py-3">
-                        {row.label}
-                      </th>
-                    )}
-                    {row.cells.map((cell) => (
-                      <td class="text-[15px] leading-relaxed text-paper/70 align-top px-3 py-3">{cell}</td>
-                    ))}
-                  </tr>
+          {hiddenSources.length > 0 && (
+            <details class="group mt-3.5">
+              <summary class="list-none [&::-webkit-details-marker]:hidden inline-block cursor-pointer rounded-full border border-content/20 px-4 py-2 text-[12.5px] font-medium text-accent hover:bg-surface transition-colors">
+                <span class="group-open:hidden">Show all {sources.length} sources</span>
+                <span class="hidden group-open:inline">Show fewer</span>
+              </summary>
+              <ul class="space-y-2.5 mt-3.5">
+                {hiddenSources.map((source) => (
+                  <li class="text-[13.5px] leading-relaxed text-content/60">{source}</li>
                 ))}
-              </tbody>
-            </table>
+              </ul>
+            </details>
+          )}
+
+          {currentAsOf && (
+            <p class="text-[13px] text-content/45 mt-5">{currentAsOf}</p>
+          )}
+        </section>
+      )}
+
+      {readNext.length > 0 && (
+        <section class="border-t border-content/15 mt-10 pt-7" data-pagefind-ignore>
+          <p class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-3.5">Read next</p>
+          <div class="grid gap-4 sm:grid-cols-2">
+            {readNext.map((next) => (
+              <a
+                href={`/explained/${next.id}`}
+                class="block bg-surface border border-content/10 rounded-xl p-5 no-underline transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-teal"
+              >
+                <p class="text-[10.5px] font-semibold text-accent uppercase tracking-[0.08em] mb-2">{next.data.category}</p>
+                <h3 class="text-[19px] font-display font-bold text-content leading-tight mb-1.5">{next.data.title}</h3>
+                <p class="text-[13.5px] leading-relaxed text-content/65">{next.data.subtitle ?? next.data.description}</p>
+              </a>
+            ))}
           </div>
-        )}
+        </section>
+      )}
+    </article>
 
-        {driver.coda && (
-          <p class="text-base leading-relaxed text-paper/70 mb-4">{driver.coda}</p>
-        )}
+    <aside class="hidden lg:flex sticky top-28 self-start flex-col gap-[18px]" data-pagefind-ignore>
+      <ShareRail url={canonical} title={title} />
+      <div class="border-t border-content/12 pt-4">
+        <p class="text-[10.5px] font-semibold text-content/50 uppercase tracking-[0.09em] mb-1.5">Corrections</p>
+        <p class="text-[12.5px] leading-relaxed text-content/60">
+          Something wrong?{' '}
+          <a href={`mailto:${CONTACT_EMAIL}`} class="text-accent underline underline-offset-2">Tell us</a>{' '}
+          and we'll note the fix on the story.
+        </p>
+      </div>
+    </aside>
+  </div>
 
-        {driver.sourceNote && (
-          <p class="text-[13px] leading-relaxed text-paper/40 mb-4">{driver.sourceNote}</p>
-        )}
-      </section>
-    ))}
-
-    {sources.length > 0 && (
-      <section class="border-t border-paper/15 mt-12 pt-8">
-        <h2 class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-4">Sources</h2>
-        <ul class="space-y-2">
-          {sources.map((source) => (
-            <li class="text-[13px] leading-relaxed text-paper/55">{source}</li>
-          ))}
-        </ul>
-        {currentAsOf && (
-          <p class="text-[13px] text-paper/40 mt-5">{currentAsOf}</p>
-        )}
-      </section>
-    )}
-  </article>
+  {/* Below lg the share rail moves under the article rather than disappearing.
+      A story you cannot pass on is a story that ends at its sources. */}
+  <div class="lg:hidden mx-auto max-w-[672px] px-6 pb-10" data-pagefind-ignore>
+    <ShareRail url={canonical} title={title} />
+  </div>
 </Layout>
+
+<style>
+  .toc-link.is-current {
+    border-left-color: var(--color-teal);
+    color: var(--color-accent);
+    font-weight: 500;
+  }
+</style>
+
+<script>
+  // Scroll-spy for the contents rail. Purely additive: with no JavaScript the
+  // rail is still a working list of in-page links, just without a marker for
+  // where you are.
+  const links = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('[data-toc] .toc-link')
+  );
+
+  if (links.length > 0) {
+    const byId = new Map(
+      links.map((link) => [decodeURIComponent(link.hash.slice(1)), link])
+    );
+    const sections = [...byId.keys()]
+      .map((id) => document.getElementById(id))
+      .filter((section): section is HTMLElement => Boolean(section));
+
+    const mark = (id: string) => {
+      links.forEach((link) => link.classList.remove('is-current'));
+      byId.get(id)?.classList.add('is-current');
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        // The topmost section currently intersecting the band below the header
+        // wins, so scrolling up marks the section you are re-entering rather
+        // than the one you just left.
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        if (visible[0]) mark(visible[0].target.id);
+      },
+      { rootMargin: '-120px 0px -65% 0px', threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  // Count-up on the pull-out figures. The final value is what's in the HTML, so
+  // this only ever animates toward a number that is already correct and visible
+  // — with JS off, or reduced motion on, the figure simply prints.
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const figures = document.querySelectorAll<HTMLElement>('[data-countup]');
+
+  if (!reduceMotion && figures.length > 0) {
+    const run = (el: HTMLElement) => {
+      const final = el.textContent ?? '';
+      // Only the digits animate. Anything else in the string — a peso sign, a
+      // percent, "M" — is a unit, and counting up through it looks broken.
+      const digits = final.replace(/[^\d]/g, '');
+      if (!digits) return;
+
+      const target = Number(digits);
+      const prefix = final.slice(0, final.search(/\d/));
+      const suffix = final.slice(final.lastIndexOf(digits.slice(-1)) + 1);
+      const start = performance.now();
+      const DURATION = 900;
+
+      const step = (now: number) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        // Ease-out cubic: fast off the mark, settling on the real number.
+        const eased = 1 - Math.pow(1 - t, 3);
+        const value = Math.round(target * eased);
+        el.textContent = prefix + value.toLocaleString('en-US') + suffix;
+        if (t < 1) requestAnimationFrame(step);
+        else el.textContent = final;
+      };
+
+      requestAnimationFrame(step);
+    };
+
+    const observer = new IntersectionObserver(
+      (entries, self) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          self.unobserve(entry.target);
+          run(entry.target as HTMLElement);
+        });
+      },
+      { threshold: 0.6 }
+    );
+
+    figures.forEach((figure) => observer.observe(figure));
+  }
+</script>

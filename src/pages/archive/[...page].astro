@@ -30,13 +30,13 @@ const pageLabel = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
 >
   <Header />
   <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">Archive</p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-4">
+    <p class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-3">Archive</p>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-content leading-tight mb-4">
       Everything we've published
     </h1>
-    <p class="text-lg leading-relaxed text-paper/70 mb-8 max-w-xl">
+    <p class="text-lg leading-relaxed text-content/70 mb-8 max-w-xl">
       The full run, newest first. Browse by category, or{" "}
-      <a href="/search" class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors">search the archive</a>.
+      <a href="/search" class="text-accent underline underline-offset-2 hover:text-content transition-colors">search the archive</a>.
     </p>
 
     {categories.length > 0 && (
@@ -44,7 +44,7 @@ const pageLabel = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
         {categories.map((category) => (
           <a
             href={`/category/${categorySlug(category)}`}
-            class="text-[11px] font-semibold uppercase tracking-[0.08em] text-teal-light bg-ink border border-paper/15 rounded-full px-3 py-1.5 hover:border-teal transition-colors"
+            class="text-[11px] font-semibold uppercase tracking-[0.08em] text-accent bg-surface border border-content/15 rounded-full px-3 py-1.5 hover:border-teal transition-colors"
           >{category}</a>
         ))}
       </div>
@@ -64,13 +64,13 @@ const pageLabel = page.currentPage > 1 ? ` (page ${page.currentPage})` : '';
     </div>
 
     {(page.url.prev || page.url.next) && (
-      <nav class="flex items-center justify-between gap-4 border-t border-paper/10 mt-10 pt-6" aria-label="Pagination">
+      <nav class="flex items-center justify-between gap-4 border-t border-content/10 mt-10 pt-6" aria-label="Pagination">
         {page.url.prev ? (
-          <a href={page.url.prev} class="text-sm font-medium text-teal-light hover:text-paper transition-colors">← Newer</a>
+          <a href={page.url.prev} class="text-sm font-medium text-accent hover:text-content transition-colors">← Newer</a>
         ) : <span></span>}
-        <span class="text-xs text-paper/50">Page {page.currentPage} of {page.lastPage}</span>
+        <span class="text-xs text-content/50">Page {page.currentPage} of {page.lastPage}</span>
         {page.url.next ? (
-          <a href={page.url.next} class="text-sm font-medium text-teal-light hover:text-paper transition-colors">Older →</a>
+          <a href={page.url.next} class="text-sm font-medium text-accent hover:text-content transition-colors">Older →</a>
         ) : <span></span>}
       </nav>
     )}

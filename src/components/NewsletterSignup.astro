@@ -10,9 +10,19 @@ import { NEWSLETTER_BLURB, NEWSLETTER_NAME } from '../consts';
 // inline script is an enhancement on top: it intercepts the submit, posts the
 // same data as JSON, and swaps the message in place so the reader never leaves
 // the page. If the script fails to load, the form still works.
+//
+// Four variants, one form. They differ only in size and in whether they sit on
+// the page ground or carry their own:
+//
+//   hero    — the /newsletter landing block. Largest, full-width field.
+//   full    — a standalone card anywhere else.
+//   compact — the footer strip.
+//   panel   — the teal-dark box at the foot of the home page's fact column.
+//             The only variant that brings its own ground, which is why it
+//             uses the fixed brand colours rather than the semantic tokens.
 
 interface Props {
-  variant?: 'full' | 'compact';
+  variant?: 'hero' | 'full' | 'compact' | 'panel';
   // Set false where the surrounding page already names the newsletter — the
   // /newsletter landing page carries it as the <h1>, so the block repeating it
   // as an <h2> two lines later is noise, not hierarchy.
@@ -42,123 +52,145 @@ const ERROR_MESSAGE = "That didn't go through. Check the address and try again."
 // /newsletter, so the footer form doesn't teleport people mid-article.
 const action = `/api/subscribe?from=${encodeURIComponent(Astro.url.pathname)}`;
 
-const isCompact = variant === 'compact';
+const onDark = variant === 'panel';
+
+// A stable, unique id per variant so two blocks on one page (footer plus an
+// in-page one) never collide on the label's `for`.
+const fieldId = `vs-email-${variant}`;
+
+const shell = {
+  hero: '',
+  full: 'bg-surface border border-content/10 rounded-2xl px-6 py-7 sm:px-8 sm:py-9',
+  compact: '',
+  panel: 'bg-teal-dark rounded-2xl p-5',
+}[variant];
+
+const inputClass = onDark
+  ? 'flex-1 min-w-0 rounded-lg bg-paper/8 border border-teal-light/35 px-2.5 py-2 text-[13px] text-paper placeholder:text-paper/40 focus:outline-none focus:border-teal-light transition-colors'
+  : variant === 'hero'
+    ? 'flex-1 min-w-0 rounded-[10px] bg-surface border border-content/15 px-4 py-3.5 text-base text-content placeholder:text-content/40 focus:outline-none focus:border-teal transition-colors'
+    : 'flex-1 min-w-0 rounded-lg bg-surface border border-content/15 px-3.5 py-2.5 text-[15px] text-content placeholder:text-content/40 focus:outline-none focus:border-teal transition-colors';
+
+const buttonClass = onDark
+  ? 'shrink-0 rounded-lg bg-teal-light text-teal-dark font-medium text-[13px] px-3.5 py-2 hover:bg-paper transition-colors cursor-pointer'
+  : variant === 'hero'
+    ? 'shrink-0 rounded-[10px] bg-accent text-ground font-medium text-base px-6 py-3.5 transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer'
+    : 'shrink-0 rounded-lg bg-accent text-ground font-medium text-[15px] px-5 py-2.5 transition-transform duration-200 hover:-translate-y-0.5 cursor-pointer';
+
+const formWidth = variant === 'hero' ? 'max-w-[520px]' : onDark ? '' : 'max-w-md';
 ---
-{variant === 'full' && (
-  <section class="bg-ink border border-paper/10 rounded-xl px-6 py-7 sm:px-8 sm:py-9" data-pagefind-ignore>
-    {showHeading && showEyebrow && (
-      <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">
-        Newsletter
+<div class:list={[shell, onDark && 'vs-on-dark']} data-pagefind-ignore>
+  {variant === 'panel' && (
+    <>
+      <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-1.5">Newsletter</p>
+      <p class="text-[13px] leading-relaxed text-paper/80 mb-3.5">
+        Philippine politics and public money, explained.
       </p>
-    )}
-    {showHeading && (
-      <h2 class="text-2xl sm:text-3xl font-display font-bold text-paper leading-tight mb-3">
+    </>
+  )}
+
+  {variant === 'compact' && (
+    <>
+      <p class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-2">
         {NEWSLETTER_NAME}
-      </h2>
-    )}
-    <p class="text-base leading-relaxed text-paper/70 mb-6 max-w-md">
-      {NEWSLETTER_BLURB}
-    </p>
-
-    <form
-      class="vantage-subscribe max-w-md"
-      method="POST"
-      action={action}
-      data-state={initialState}
-    >
-      <div class="flex flex-col sm:flex-row gap-2">
-        <label class="sr-only" for="vs-email-full">Email address</label>
-        <input
-          id="vs-email-full"
-          type="email"
-          name="email"
-          required
-          autocomplete="email"
-          placeholder="you@example.com"
-          class="flex-1 min-w-0 rounded-lg bg-ground border border-paper/15 px-3.5 py-2.5 text-[15px] text-paper placeholder:text-paper/35 focus:outline-none focus:border-teal-light transition-colors"
-        />
-        {/* Hidden from humans and from screen readers; bots fill it in anyway. */}
-        <div class="hidden" aria-hidden="true">
-          <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
-        </div>
-        <button
-          type="submit"
-          class="shrink-0 rounded-lg bg-teal-light text-teal-dark font-medium text-[15px] px-5 py-2.5 hover:bg-paper transition-colors focus:outline-none focus:ring-2 focus:ring-teal-light focus:ring-offset-2 focus:ring-offset-ink"
-        >
-          Subscribe
-        </button>
-      </div>
-
-      <p
-        class="vantage-subscribe-message text-[13px] leading-relaxed mt-3"
-        role="status"
-        aria-live="polite"
-        data-ok={OK_MESSAGE}
-        data-error={ERROR_MESSAGE}
-      >
-        {initialState === 'ok' && <span class="text-teal-light">{OK_MESSAGE}</span>}
-        {initialState === 'error' && <span class="text-paper/70">{ERROR_MESSAGE}</span>}
       </p>
-    </form>
+      <p class="text-[12.5px] leading-relaxed text-content/60 mb-3 max-w-[340px]">
+        {NEWSLETTER_BLURB}
+      </p>
+    </>
+  )}
 
-    <p class="text-[12.5px] leading-relaxed text-paper/40 mt-3 max-w-md">
+  {(variant === 'full' || variant === 'hero') && (
+    <>
+      {showHeading && showEyebrow && (
+        <p class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-3">
+          Newsletter
+        </p>
+      )}
+      {showHeading && (
+        <h2 class="text-2xl sm:text-3xl font-display font-bold text-content leading-tight mb-3">
+          {NEWSLETTER_NAME}
+        </h2>
+      )}
+      {variant === 'full' && (
+        <p class="text-base leading-relaxed text-content/70 mb-6 max-w-md">
+          {NEWSLETTER_BLURB}
+        </p>
+      )}
+    </>
+  )}
+
+  <form
+    class:list={['vantage-subscribe', formWidth]}
+    method="POST"
+    action={action}
+    data-state={initialState}
+  >
+    <div class:list={['flex gap-2', variant === 'full' && 'flex-col sm:flex-row']}>
+      <label class="sr-only" for={fieldId}>Email address</label>
+      <input
+        id={fieldId}
+        type="email"
+        name="email"
+        required
+        autocomplete="email"
+        placeholder="you@example.com"
+        class={inputClass}
+      />
+      {/* Hidden from humans and from screen readers; bots fill it in anyway. */}
+      <div class="hidden" aria-hidden="true">
+        <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
+      </div>
+      <button type="submit" class={buttonClass}>Subscribe</button>
+    </div>
+
+    <p
+      class="vantage-subscribe-message text-[13px] leading-relaxed mt-2.5"
+      role="status"
+      aria-live="polite"
+      data-ok={OK_MESSAGE}
+      data-error={ERROR_MESSAGE}
+    >
+      {initialState === 'ok' && <span class="vs-ok">{OK_MESSAGE}</span>}
+      {initialState === 'error' && <span class="vs-err">{ERROR_MESSAGE}</span>}
+    </p>
+  </form>
+
+  {variant === 'hero' && (
+    <div class="flex flex-wrap gap-x-[18px] gap-y-1.5 text-[13px] text-content/60 mt-1">
+      <span>One confirmation email, then nothing until you confirm.</span>
+      <span>One-click unsubscribe.</span>
+      <span>Never sold, never shared.</span>
+    </div>
+  )}
+
+  {variant === 'full' && (
+    <p class="text-[12.5px] leading-relaxed text-content/45 mt-3 max-w-md">
       You'll get one email asking you to confirm, and nothing after that until
       you do. Your address is used to send the newsletter and nothing else, and
       every issue carries a one-click unsubscribe.
     </p>
-  </section>
-)}
+  )}
+</div>
 
-{isCompact && (
-  <div data-pagefind-ignore>
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-2">
-      {NEWSLETTER_NAME}
-    </p>
-    <p class="text-[12.5px] leading-relaxed text-paper/60 mb-3 max-w-[340px]">
-      {NEWSLETTER_BLURB}
-    </p>
-
-    <form
-      class="vantage-subscribe max-w-[340px]"
-      method="POST"
-      action={action}
-      data-state={initialState}
-    >
-      <div class="flex gap-2">
-        <label class="sr-only" for="vs-email-compact">Email address</label>
-        <input
-          id="vs-email-compact"
-          type="email"
-          name="email"
-          required
-          autocomplete="email"
-          placeholder="you@example.com"
-          class="flex-1 min-w-0 rounded-lg bg-ground border border-paper/15 px-3 py-2 text-[14px] text-paper placeholder:text-paper/35 focus:outline-none focus:border-teal-light transition-colors"
-        />
-        <div class="hidden" aria-hidden="true">
-          <label>Company<input type="text" name="company" tabindex="-1" autocomplete="off" /></label>
-        </div>
-        <button
-          type="submit"
-          class="shrink-0 rounded-lg bg-teal-light text-teal-dark font-medium text-[14px] px-4 py-2 hover:bg-paper transition-colors focus:outline-none focus:ring-2 focus:ring-teal-light focus:ring-offset-2 focus:ring-offset-ink"
-        >
-          Subscribe
-        </button>
-      </div>
-
-      <p
-        class="vantage-subscribe-message text-[12.5px] leading-relaxed mt-2"
-        role="status"
-        aria-live="polite"
-        data-ok={OK_MESSAGE}
-        data-error={ERROR_MESSAGE}
-      >
-        {initialState === 'ok' && <span class="text-teal-light">{OK_MESSAGE}</span>}
-        {initialState === 'error' && <span class="text-paper/70">{ERROR_MESSAGE}</span>}
-      </p>
-    </form>
-  </div>
-)}
+<style is:global>
+  /* Outcome colours live in CSS rather than in the script's class strings so
+     the panel variant — the only block with its own dark ground — can restate
+     them once instead of the script having to know which variant it is in. */
+  .vs-ok {
+    color: var(--color-teal);
+    font-weight: 500;
+  }
+  .vs-err {
+    color: color-mix(in oklab, var(--color-content) 70%, transparent);
+  }
+  .vs-on-dark .vs-ok {
+    color: var(--color-teal-light);
+  }
+  .vs-on-dark .vs-err {
+    color: color-mix(in oklab, var(--color-paper) 70%, transparent);
+  }
+</style>
 
 <style>
   /* Tailwind's sr-only, written out so the label works even if the utility is
@@ -190,7 +222,7 @@ const isCompact = variant === 'compact';
     const show = (text: string, ok: boolean) => {
       message.innerHTML = '';
       const span = document.createElement('span');
-      span.className = ok ? 'text-teal-light' : 'text-paper/70';
+      span.className = ok ? 'vs-ok' : 'vs-err';
       span.textContent = text;
       message.appendChild(span);
     };

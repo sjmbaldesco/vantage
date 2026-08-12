@@ -37,30 +37,30 @@ const isExternal = (href: string) => /^https?:\/\//i.test(href);
 <Layout title={title} description={description}>
   <Header />
   <article class="max-w-2xl mx-auto px-6 py-12 sm:py-16">
-    <p class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-3">
+    <p class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-3">
       {NEWSLETTER_NAME}
     </p>
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-tight mb-3">{title}</h1>
+    <h1 class="text-3xl sm:text-4xl font-display font-bold text-content leading-tight mb-3">{title}</h1>
 
-    <p class="text-[13px] text-paper/50 border-b border-paper/10 pb-5 mb-6">
+    <p class="text-[13px] text-content/50 border-b border-content/10 pb-5 mb-6">
       {issue !== undefined && <>Issue {issue} · </>}
       <time datetime={sentAt.toISOString()}>{dateline}</time>
     </p>
 
-    <p class="text-lg leading-relaxed text-paper/80 mb-4">{intro}</p>
+    <p class="text-lg leading-relaxed text-content/80 mb-4">{intro}</p>
 
     {items.map((item) => (
       <section>
-        <h2 class="text-xl font-display font-bold text-paper mt-8 mb-3">{item.heading}</h2>
+        <h2 class="text-xl font-display font-bold text-content mt-8 mb-3">{item.heading}</h2>
 
         {paragraphs(item.body).map((p) => (
-          <p class="text-base leading-relaxed text-paper/70 mb-4">{p}</p>
+          <p class="text-base leading-relaxed text-content/70 mb-4">{p}</p>
         ))}
 
         {item.bullets && (
           <ul class="list-disc pl-5 mb-4 space-y-1.5">
             {item.bullets.map((bullet) => (
-              <li class="text-base leading-relaxed text-paper/70">{bullet}</li>
+              <li class="text-base leading-relaxed text-content/70">{bullet}</li>
             ))}
           </ul>
         )}
@@ -71,7 +71,7 @@ const isExternal = (href: string) => /^https?:\/\//i.test(href);
               href={item.link.href}
               target={isExternal(item.link.href) ? '_blank' : undefined}
               rel={isExternal(item.link.href) ? 'noopener noreferrer' : undefined}
-              class="text-[15px] text-teal-light underline underline-offset-2 hover:text-paper transition-colors"
+              class="text-[15px] text-accent underline underline-offset-2 hover:text-content transition-colors"
             >
               {item.link.label}
             </a>
@@ -81,17 +81,17 @@ const isExternal = (href: string) => /^https?:\/\//i.test(href);
     ))}
 
     {signOff && (
-      <p class="text-base leading-relaxed text-paper/70 border-t border-paper/10 mt-10 pt-6">
+      <p class="text-base leading-relaxed text-content/70 border-t border-content/10 mt-10 pt-6">
         {signOff}
       </p>
     )}
 
     {sources.length > 0 && (
-      <section class="border-t border-paper/15 mt-12 pt-8">
-        <h2 class="text-[11.5px] font-semibold text-teal-light uppercase tracking-[0.09em] mb-4">Sources</h2>
+      <section class="border-t border-content/15 mt-12 pt-8">
+        <h2 class="text-[11.5px] font-semibold text-accent uppercase tracking-[0.09em] mb-4">Sources</h2>
         <ul class="space-y-2">
           {sources.map((source) => (
-            <li class="text-[13px] leading-relaxed text-paper/55">{source}</li>
+            <li class="text-[13px] leading-relaxed text-content/55">{source}</li>
           ))}
         </ul>
       </section>
@@ -101,10 +101,10 @@ const isExternal = (href: string) => /^https?:\/\//i.test(href);
       <NewsletterSignup />
     </div>
 
-    <p class="text-[13px] text-paper/45 mt-8">
+    <p class="text-[13px] text-content/45 mt-8">
       <a
         href="/newsletter"
-        class="text-teal-light underline underline-offset-2 hover:text-paper transition-colors"
+        class="text-accent underline underline-offset-2 hover:text-content transition-colors"
       >All issues</a>
     </p>
   </article>

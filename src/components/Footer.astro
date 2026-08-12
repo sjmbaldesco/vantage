@@ -19,13 +19,13 @@ const showFooterSignup = !Astro.url.pathname.startsWith('/newsletter');
 // article. It renders nothing until beehiiv is configured in consts.ts, so the
 // footer keeps its current shape until then.
 ---
-<footer class="bg-ink border-t border-paper/10 mt-16" data-pagefind-ignore>
-  <div class="mx-auto max-w-5xl px-6 py-9 sm:py-11">
+<footer class="bg-surface border-t border-content/10 mt-16" data-pagefind-ignore>
+  <div class="mx-auto max-w-[1200px] px-6 sm:px-10 py-9 sm:py-11">
     <div class="flex flex-col gap-7 sm:flex-row sm:items-center sm:justify-between">
       <div>
-        <div class="text-2xl font-display font-black tracking-[-0.045em] text-paper leading-none">VANTAGE</div>
+        <div class="text-2xl font-display font-black tracking-[-0.045em] text-content leading-none">VANTAGE</div>
         <div class="h-[3px] w-11 bg-teal mt-2"></div>
-        <p class="text-[12.5px] leading-relaxed text-teal-light/80 mt-4 max-w-[280px]">
+        <p class="text-[12.5px] leading-relaxed text-content/60 mt-4 max-w-[280px]">
           News Explained
         </p>
       </div>
@@ -40,10 +40,10 @@ const showFooterSignup = !Astro.url.pathname.startsWith('/newsletter');
               aria-label={social.placeholder ? `${social.label} — coming soon` : social.label}
               aria-disabled={social.placeholder ? 'true' : undefined}
               class:list={[
-                'inline-flex items-center justify-center w-10 h-10 rounded-lg border border-paper/15 transition-colors',
+                'inline-flex items-center justify-center w-10 h-10 rounded-lg border border-content/15 transition-colors',
                 social.placeholder
-                  ? 'text-paper/30 hover:border-paper/25'
-                  : 'text-teal-light hover:text-ink hover:bg-teal-light hover:border-teal-light',
+                  ? 'text-content/30 hover:border-content/25'
+                  : 'text-accent hover:bg-teal-light hover:text-teal-dark hover:border-teal-light',
               ]}
             >
               {social.icon === 'facebook' && (
@@ -75,13 +75,13 @@ const showFooterSignup = !Astro.url.pathname.startsWith('/newsletter');
     </div>
 
     {showFooterSignup && (
-      <div class="border-t border-paper/10 mt-7 pt-7">
+      <div class="border-t border-content/10 mt-7 pt-7">
         <NewsletterSignup variant="compact" />
       </div>
     )}
 
-    <div class="border-t border-paper/10 mt-7 pt-4">
-      <span class="text-[11.5px] text-teal-light/60">© 2026 Vantage</span>
+    <div class="border-t border-content/10 mt-7 pt-4">
+      <span class="text-[11.5px] text-content/45">© 2026 Vantage</span>
     </div>
   </div>
 </footer>

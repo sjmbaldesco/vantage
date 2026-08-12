@@ -1,8 +1,17 @@
 ---
 // The single card used for an explainer anywhere it appears in a listing —
-// home feed, archive, category page, /explained index. Extracted so the four
-// listings can't drift apart in styling the way four copies of the markup
-// would.
+// home feed, archive, category page, /explained index. Extracted so the
+// listings can't drift apart in styling the way copies of the markup would.
+//
+// The redesign gave the listings a hierarchy instead of a flat grid, so the
+// card now has three shapes. They are variants of one component rather than
+// three components because they carry identical data and identical hover
+// behaviour; only the proportions change.
+//
+//   feature — the lead story. Large hero slot, 36px title, full description.
+//   card    — the default. What every grid cell was before.
+//   row     — a full-width line in an "Also explained" list. Title, a short
+//             gloss, a date, no art.
 interface Props {
   slug: string;
   category: string;
@@ -10,8 +19,25 @@ interface Props {
   description: string;
   image?: string;
   publishedAt?: Date;
+  variant?: 'feature' | 'card' | 'row';
+  // Set on cards below the fold so they rise in as they enter view. Off for
+  // anything already on screen at first paint — animating those just delays
+  // the page.
+  rise?: boolean;
+  // Shown on the feature card only, next to the category.
+  badge?: string;
 }
-const { slug, category, title, description, image, publishedAt } = Astro.props;
+const {
+  slug,
+  category,
+  title,
+  description,
+  image,
+  publishedAt,
+  variant = 'card',
+  rise = false,
+  badge,
+} = Astro.props;
 
 const dateline = publishedAt
   ? new Intl.DateTimeFormat('en-PH', {
@@ -21,33 +47,78 @@ const dateline = publishedAt
       timeZone: 'UTC',
     }).format(publishedAt)
   : null;
+
+const href = `/explained/${slug}`;
+
+// Hover is a lift plus a teal hairline on every variant, so the three shapes
+// still feel like one control.
+const lift =
+  'transition-[transform,box-shadow,border-color] duration-200 hover:-translate-y-[3px] hover:border-teal hover:shadow-[0_14px_30px_-18px_rgba(44,44,42,0.4)]';
 ---
-<a
-  href={`/explained/${slug}`}
-  class="block bg-ink border border-paper/15 rounded-xl overflow-hidden hover:border-teal transition-colors"
->
-  {image && (
-    <div class="h-[150px] bg-black/40">
-      <img
-        src={image}
-        alt=""
-        class="w-full h-full object-cover block saturate-[0.9] brightness-90"
-      />
-    </div>
-  )}
-  <div class="p-5">
-    <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-2">
-      {category}
-    </p>
-    <h2 class="text-lg font-display font-bold text-paper leading-tight mb-2">{title}</h2>
-    <p class="text-sm leading-relaxed text-paper/60 mb-3">{description}</p>
-    <div class="flex items-center gap-3">
-      <span class="text-[13px] font-medium text-teal-light">Read explainer →</span>
-      {dateline && (
-        <span class="text-[12px] text-paper/40">
-          <time datetime={publishedAt?.toISOString()}>{dateline}</time>
+{variant === 'row' ? (
+  <a
+    href={href}
+    class="group grid sm:grid-cols-[1fr_auto_auto] items-center gap-2 sm:gap-6 py-[18px] no-underline transition-[padding] duration-200 hover:pl-2"
+  >
+    <span class="text-xl font-display font-bold text-content leading-tight">{title}</span>
+    <span class="text-[13px] leading-relaxed text-content/60 sm:max-w-[460px]">{description}</span>
+    {dateline && (
+      <span class="text-[12px] text-content/45 whitespace-nowrap">
+        <time datetime={publishedAt?.toISOString()}>{dateline}</time>
+      </span>
+    )}
+  </a>
+) : (
+  <a
+    href={href}
+    class:list={[
+      'block bg-surface border border-content/10 rounded-2xl overflow-hidden no-underline',
+      lift,
+      rise && 'v-rise',
+    ]}
+  >
+    {/* Hero art is optional and no licensed images exist yet, so cards render
+        text-only until one is supplied rather than reserving an empty slot. */}
+    {image && (
+      <div class:list={['bg-ground', variant === 'feature' ? 'h-[300px]' : 'h-[170px]']}>
+        <img src={image} alt="" class="w-full h-full object-cover block" />
+      </div>
+    )}
+
+    <div class:list={[variant === 'feature' ? 'p-7 sm:px-[30px] sm:pb-[30px]' : 'p-6']}>
+      <div class="flex items-center gap-2.5 mb-3">
+        <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.08em]">{category}</p>
+        {variant === 'feature' && badge && (
+          <span class="text-[10px] font-medium text-teal-dark bg-teal-light rounded-full px-2 py-[3px] uppercase tracking-[0.07em]">
+            {badge}
+          </span>
+        )}
+      </div>
+
+      <h2
+        class:list={[
+          'font-display font-bold text-content mb-3',
+          variant === 'feature'
+            ? 'text-3xl sm:text-4xl leading-[1.08] tracking-[-0.015em]'
+            : 'text-2xl leading-[1.12]',
+        ]}
+      >{title}</h2>
+
+      <p
+        class:list={[
+          'leading-relaxed text-content/70 mb-4',
+          variant === 'feature' ? 'text-[17px] max-w-[620px]' : 'text-[15px]',
+        ]}
+      >{description}</p>
+
+      <div class="flex items-center gap-3 text-[12.5px] text-content/50">
+        <span class="font-medium text-accent">
+          {variant === 'feature' ? 'Read explainer →' : 'Read →'}
         </span>
-      )}
+        {dateline && (
+          <span><time datetime={publishedAt?.toISOString()}>{dateline}</time></span>
+        )}
+      </div>
     </div>
-  </div>
-</a>
+  </a>
+)}

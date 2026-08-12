@@ -2,45 +2,114 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import ExplainerCard from '../components/ExplainerCard.astro';
+import FactPost from '../components/FactPost.astro';
+import NewsletterSignup from '../components/NewsletterSignup.astro';
 import { getCollection } from 'astro:content';
 import { sortExplainers } from '../utils';
 
-// The home page is the latest explainers only — /archive ("Articles" in the
-// nav) is the complete run. Without this cap the two pages would be the same
-// list.
-//
-// This reads from `explainers`, not `posts`. The posts collection still exists
-// for short single-fact items, but Vantage publishes long-form explainers and
-// nothing else right now, so pointing the feed at posts left it empty.
-const LATEST_COUNT = 6;
+// The home page is a wall of stories with a hierarchy, not a flat grid: one
+// lead explainer, a column of single-fact posts beside it, three cards under
+// it, and the rest as a list. /archive is still the complete run — without a
+// cap here the two pages would be the same list.
+const FEATURED_COUNT = 1;
+const CARD_COUNT = 3;
+const ROW_COUNT = 3;
+const FACT_COUNT = 3;
 
 const allExplainers = sortExplainers(await getCollection('explainers'));
-const explainers = allExplainers.slice(0, LATEST_COUNT);
+const [lead, ...rest] = allExplainers;
+const cards = rest.slice(0, CARD_COUNT);
+const rows = rest.slice(CARD_COUNT, CARD_COUNT + ROW_COUNT);
+
+// The one-highlight-per-post device, which is the brand's signature and went
+// unused for as long as this feed pointed only at explainers. Every fact here
+// is lifted from a published explainer and links back to it.
+const facts = (await getCollection('posts'))
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, FACT_COUNT);
 ---
 <Layout title="Feed">
   <Header />
-  <main class="max-w-5xl mx-auto px-6 py-12 sm:py-16">
-    {/*
-      "Latest" is now the page's only heading — the standfirst under it and the
-      two links under the grid were both removed as clutter, so this carries
-      the page on its own and is set as a display heading rather than the
-      small teal eyebrow it used to be. The teal moved to the rule beneath it
-      so the accent survives the promotion.
-    */}
-    <h1 class="text-3xl sm:text-4xl font-display font-bold text-paper leading-none">Latest</h1>
-    <div class="h-[3px] w-14 bg-teal mt-3 mb-8"></div>
+  <main class="max-w-[1200px] mx-auto px-6 py-10 sm:px-10">
+    <div class="flex flex-wrap items-end justify-between gap-6 mb-7">
+      <div>
+        <h1 class="text-4xl sm:text-[46px] font-display font-bold text-content leading-[0.95] tracking-[-0.02em]">Latest</h1>
+        <div class="h-[3px] w-14 bg-teal mt-3"></div>
+      </div>
+      <a
+        href="/archive"
+        class="text-[13px] font-medium text-accent border-b border-accent/30 pb-0.5 hover:border-accent transition-colors"
+      >Everything we've published →</a>
+    </div>
 
-    <div class="grid gap-4 sm:grid-cols-2">
-      {explainers.map((entry) => (
-        <ExplainerCard
-          slug={entry.id}
-          category={entry.data.category}
-          title={entry.data.title}
-          description={entry.data.description}
-          image={entry.data.image}
-          publishedAt={entry.data.publishedAt}
-        />
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+      {lead && (
+        <div class="lg:col-span-8">
+          <ExplainerCard
+            slug={lead.id}
+            category={lead.data.category}
+            title={lead.data.title}
+            description={lead.data.description}
+            image={lead.data.image}
+            publishedAt={lead.data.publishedAt}
+            variant="feature"
+            badge="Latest"
+          />
+        </div>
+      )}
+
+      {/* The fact column. Renders nothing at all when the posts collection is
+          empty, so the grid falls back to a plain card wall rather than showing
+          an empty rail with a heading over it. */}
+      {facts.length > 0 && (
+        <div class="lg:col-span-4 flex flex-col gap-3.5">
+          <div class="flex items-baseline justify-between">
+            <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.08em]">One fact each</p>
+          </div>
+          {facts.map((fact) => (
+            <FactPost
+              category={fact.data.category}
+              headline={fact.data.headline}
+              highlight={fact.data.highlight}
+              href={fact.data.source ? `/explained/${fact.data.source}` : undefined}
+              animate
+            />
+          ))}
+          <NewsletterSignup variant="panel" />
+        </div>
+      )}
+
+      {cards.map((entry) => (
+        <div class="lg:col-span-4">
+          <ExplainerCard
+            slug={entry.id}
+            category={entry.data.category}
+            title={entry.data.title}
+            description={entry.data.description}
+            image={entry.data.image}
+            publishedAt={entry.data.publishedAt}
+            rise
+          />
+        </div>
       ))}
+
+      {rows.length > 0 && (
+        <div class="lg:col-span-12 bg-surface border border-content/10 rounded-2xl px-6 pb-3 v-rise">
+          <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.08em] mt-4 mb-1">Also explained</p>
+          {rows.map((entry) => (
+            <div class="border-t border-content/10">
+              <ExplainerCard
+                slug={entry.id}
+                category={entry.data.category}
+                title={entry.data.title}
+                description={entry.data.description}
+                publishedAt={entry.data.publishedAt}
+                variant="row"
+              />
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   </main>
 </Layout>

@@ -3,12 +3,24 @@
 // per post. This is intentionally a hard build error, not a lint warning —
 // the whole point of the device is that it stays rare. If a story needs two
 // facts called out, it should be two posts.
+//
+// The device changes shape with the theme (see .v-mark in global.css): a thick
+// teal-light rule drawn under teal-dark text on cream, the filled block on
+// near-black. It is the only element in the system that does that, and it does
+// it because a pale rule under pale text stops reading as a highlight at all.
 interface Props {
   headline: string;
   highlight: string;
   category?: string;
+  // Where the post came from. Optional because a post is a standalone item;
+  // set it when the fact is lifted from a published explainer so a reader can
+  // get to the reporting behind it.
+  href?: string;
+  // Draw the rule in as the card enters view, rather than rendering it done.
+  // The one place motion carries meaning rather than decoration.
+  animate?: boolean;
 }
-const { headline, highlight, category = "Explained" } = Astro.props;
+const { headline, highlight, category = 'Explained', href, animate = false } = Astro.props;
 
 const parts = headline.split(highlight);
 if (parts.length !== 2) {
@@ -17,10 +29,15 @@ if (parts.length !== 2) {
     `Found ${parts.length - 1} occurrence(s) of "${highlight}" in "${headline}".`
   );
 }
+
+const Tag = href ? 'a' : 'article';
 ---
-<article class="bg-ink border border-paper/15 rounded-lg p-5">
-  <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-2">{category}</p>
-  <p class="text-base font-medium leading-snug text-paper">
-    {parts[0]}<mark class="bg-teal-light text-teal-dark px-1 rounded-none">{highlight}</mark>{parts[1]}
+<Tag
+  href={href}
+  class="block bg-surface border border-content/10 rounded-2xl p-5 no-underline transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-teal"
+>
+  <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.08em] mb-2.5">{category}</p>
+  <p class="text-[17px] font-medium leading-snug text-content">
+    {parts[0]}<mark class:list={['v-mark', animate && 'v-draw']}>{highlight}</mark>{parts[1]}
   </p>
-</article>
+</Tag>
