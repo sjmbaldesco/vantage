@@ -2,10 +2,11 @@ title: "Brain Drain"
 subtitle: "The country's largest export is its own workforce"
 category: "Explained"
 description: "Filipino workers abroad sent home a record $35.63 billion in 2025. The same system that produces that money is why hospitals cannot fill their wards, and the two facts are harder to separate than either side of the argument admits."
+image: "/explainers/brain-drain.jpg"
 publishedAt: 2026-08-08
 author: "Sir Jairus Macabuhay"
 currentAsOf: "August 8, 2026"
-leadParagraph: "Human capital flight, or brain drain, is what happens when the people a country trained leave to work somewhere else. The Philippines does it at scale and by design, through a state apparatus built to place workers abroad. Overseas Filipinos sent home a record $35.63 billion in 2025, about 7.3 percent of gross domestic product. The country also has fewer than half the health workers per capita that the World Health Organization recommends. Both statements describe the same arrangement, and the second is not simply the price of the first."
+leadParagraph: "When a country trains a workforce it cannot employ, the polite name for what happens next is labor migration. The real name is a design choice. The Philippines built a state apparatus, the Department of Migrant Workers among its instruments, whose function is to place its own citizens somewhere else. Overseas Filipinos sent home a record $35.63 billion in 2025, about 7.3 percent of gross domestic product. The same country has fewer than half the health workers per capita that the World Health Organization recommends. Both numbers describe one arrangement. The second is not the price of the first. It is the same fact, counted twice."
 
 drivers:
   - heading: "The scale"
@@ -14,17 +15,17 @@ drivers:
 
       Cash remittances from overseas Filipinos reached $35.63 billion in 2025, a record, up 3.3 percent from $34.49 billion in 2024. The Bangko Sentral ng Pilipinas puts that at roughly 7.3 percent of GDP.
 
-      No other external inflow is comparable in size or in reliability. Remittances do not behave like foreign investment: they hold up in downturns, because the obligation driving them is a family one rather than a commercial one.
+      No other external inflow compares, in size or in reliability. Remittances do not behave like foreign investment. They hold up in downturns, because the obligation driving them is a family one, not a commercial one.
     sourceNote: "Sources: Deployment via Department of Migrant Workers, reported by PIA · Remittance figures via Bangko Sentral ng Pilipinas, reported by BusinessWorld, Feb. 17, 2026"
 
   - heading: "The case that this is not a drain"
     body: |
-      The strongest argument for the current arrangement is not sentimental, and it should be stated properly before it is answered.
+      The strongest argument for the current arrangement is not sentimental, and it deserves to be stated properly before it is answered.
 
       Labor migration converts a domestic surplus into foreign currency. The Philippines trains more nurses than its own health system employs, and more seafarers, engineers and domestic workers than its own labor market can absorb at wages those workers will accept. Migration does not create that gap. It monetizes it.
 
-      The money returns as household income rather than as state revenue, which means it reaches the households that sent the worker directly, without passing through a budget process. For many families it is the difference between a child finishing school and not.
-    coda: "The rebuttal is not that this is false. It is that the accounting is incomplete, because the cost does not appear in the same ledger as the benefit."
+      The money returns as household income, not as state revenue, which means it reaches the households that sent the worker directly, without passing through a budget process. For many families it is the difference between a child finishing school and not.
+    coda: "The rebuttal is not that this is false. It is that the accounting is incomplete, because the cost and the benefit never appear in the same ledger."
     sourceNote: "Sources: Bangko Sentral ng Pilipinas remittance data, 2025"
 
   - heading: "Where the loss actually lands"
@@ -35,24 +36,24 @@ drivers:
 
       The gap is not evenly spread. The Bangsamoro Autonomous Region in Muslim Mindanao, Mimaropa and Regions IV-A, V, XII and XIII operate with fewer than 15 health workers per 10,000 residents.
 
-      Roughly 27,000 Filipino health workers leave the country each year. The Department of Health separately carries about 3,300 unfilled plantilla positions, which are funded government posts with no one in them.
-    coda: "The country is among the world's largest suppliers of nurses to other health systems and cannot staff its own public hospitals. That is not a paradox. It is the same fact seen from two ends."
+      Roughly 27,000 Filipino health workers leave the country each year. The Department of Health separately carries about 3,300 unfilled plantilla positions, funded government posts with no one in them.
+    coda: "The country is among the world's largest suppliers of nurses to other health systems, and it cannot staff its own public hospitals. That is not a paradox. It is the same fact, seen from two ends."
     sourceNote: "Sources: EDCOM 2 Workforce Development Plan, January 2026 · Migration figures and DOH vacancies via Manila Bulletin, Feb. 18, 2026"
 
   - heading: "The gap that drives it"
     body: |
       A Filipino nurse can typically earn three to four times more in Saudi Arabia than at home.
 
-      No retention policy operates against a multiple of that size. Salary is the first factor named in the research literature, but it is not the only one: delayed benefits, chronic understaffing, overwork and contractual job insecurity appear consistently alongside it. A nurse leaving a short-staffed ward makes it shorter-staffed, which is how the problem accelerates on its own.
+      No retention policy operates against a multiple of that size. Salary is the first factor named in the research literature, but it is not the only one. Delayed benefits, chronic understaffing, overwork and contractual job insecurity appear consistently alongside it. A nurse leaving a short-staffed ward makes it shorter-staffed. That is how the problem accelerates on its own.
     sourceNote: "Sources: Wage comparison via The Borgen Project · Retention factors via peer-reviewed literature on nurse burnout in the Philippines, indexed in PubMed Central"
 
   - heading: "The part that is not about migration at all"
     body: |
-      This is the finding that complicates the standard story, and it deserves equal weight.
+      This is the finding that complicates the standard story, and it carries equal weight.
 
       About 59,000 students enroll in health-related degree programs each year. Roughly 56 percent of them never reach the workforce. They do not finish, do not pass licensure, or do not enter practice.
 
-      That is a loss occurring entirely inside the country, before anyone boards a plane. A policy aimed only at stopping departures would leave it untouched.
+      That loss occurs entirely inside the country, before anyone boards a plane. A policy aimed only at stopping departures would leave it untouched.
     coda: "If more than half the pipeline is lost domestically, closing the exit does not fill the wards. It only removes the remittances."
     sourceNote: "Sources: EDCOM 2 Workforce Development Plan, via Manila Bulletin, Feb. 18, 2026"
 
@@ -60,7 +61,7 @@ drivers:
     body: |
       Two things moved at once, and both are recent enough that their effects are not yet measurable.
 
-      A 1 percent tax on remittances sent from the United States took effect in 2026. Analysts noted an unusual surge in December 2025 transfers, attributed partly to families sending money ahead of the levy and partly to the peso weakening past 59 to the dollar, which made conversion more attractive.
+      A 1 percent tax on remittances sent from the United States took effect in 2026. Analysts noted an unusual surge in December 2025 transfers, attributed partly to families sending money ahead of the levy and partly to the peso weakening past 59 to the dollar, a shift that made conversion more attractive.
 
       Neither of those is a policy about health workers. Both of them change the value of the arrangement that produces the shortage.
     coda: "The unresolved question is not whether brain drain is bad. It is whether a country can remain the world's labor supplier and staff its own hospitals at the same time, and no government has yet published an answer that does both."

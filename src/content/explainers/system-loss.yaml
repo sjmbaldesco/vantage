@@ -2,10 +2,11 @@ title: "System Loss"
 subtitle: "The electricity you pay for but never receive"
 category: "Explained"
 description: "Why a line on your electricity bill charges you for power that never reached your meter, what the law says about it, and why removing it is harder than the applause suggested."
+image: "/explainers/system-loss.jpg"
 publishedAt: 2026-08-08
 author: "Sir Jairus Macabuhay"
 currentAsOf: "August 8, 2026"
-leadParagraph: "In his fifth State of the Nation Address on July 27, 2026, President Ferdinand Marcos Jr. told Congress to stop distribution utilities from charging consumers for system loss. The line drew a standing ovation. Twelve days later the Energy Regulatory Commission approved ₱595.05 million in system loss costs for Meralco to collect from those same consumers. The charge is written into a law that only Congress can change."
+leadParagraph: "In his fifth State of the Nation Address on July 27, 2026, President Ferdinand Marcos Jr. told Congress to stop distribution utilities from charging consumers for system loss. The line drew a standing ovation. Twelve days later the Energy Regulatory Commission approved ₱595.05 million in system loss costs for Meralco to collect from those same consumers. The charge is written into a law that only Congress can change, and applause on the floor does not change a statute."
 
 drivers:
   - heading: "What system loss actually is"
@@ -14,7 +15,7 @@ drivers:
 
       Send one billion kilowatt-hours into the grid, bill 940 million, and the missing 60 million kWh is the loss.
 
-      It comes from two places, and the distinction matters more than any other fact in this story.
+      It comes from two places, and that distinction matters more than any other fact in this story.
     table:
       columns:
         - "Technical loss"
@@ -30,17 +31,17 @@ drivers:
             - "Yes, in principle, with enforcement, metering, and operational discipline"
     sourceNote: "Sources: Meralco definition via GMA News, July 28, 2026 · Inquirer, July 30, 2026"
 
-  - heading: "Why it's on your bill"
+  - heading: "Why it is on your bill"
     body: |
       Because a law puts it there.
 
-      Section 43(f) of the Electric Power Industry Reform Act (EPIRA, Republic Act 9136, passed in 2001) permits distribution utilities and electric cooperatives to pass a capped share of system loss directly to end-users. Republic Act 7832, the anti-pilferage law, provides the parallel authority.
+      Section 43(f) of the Electric Power Industry Reform Act, EPIRA, Republic Act 9136, passed in 2001, permits distribution utilities and electric cooperatives to pass a capped share of system loss directly to end-users. Republic Act 7832, the anti-pilferage law, provides the parallel authority.
 
-      The Energy Regulatory Commission sets the cap. A utility that loses more than the cap absorbs the excess itself. A utility that loses less can only bill what it actually lost.
+      The Energy Regulatory Commission sets the cap. A utility that loses more than the cap absorbs the excess itself, and a utility that loses less can only bill what it actually lost.
     bullets:
       - "Private distribution utilities, including Meralco: 6.5%"
       - "Electric cooperatives: up to about 12.25%"
-    coda: "The charge is a pass-through, so the utility does not book it as profit. It recovers a cost. That is also why removing it raises the question of who absorbs that cost instead."
+    coda: "The charge is a pass-through, so the utility does not book it as profit. It recovers a cost, and that is why removing it raises the question of who absorbs that cost instead."
     sourceNote: "Sources: EPIRA (RA 9136) Sec. 43(f) · RA 7832 · ERC caps via DOE, reported by PIA, July 30, 2026, and Inquirer, July 30, 2026"
 
   - heading: "What it costs you"
@@ -49,24 +50,24 @@ drivers:
 
       Meralco's own loss rate was 5.72 percent in the first quarter of 2026, under the 6.5 percent cap.
 
-      The number is far worse outside Metro Manila. Some provincial electric cooperatives post system losses as high as 16 percent. The customers least able to absorb a high bill are served by the networks that lose the most electricity.
+      The number is far worse outside Metro Manila. Some provincial electric cooperatives post system losses as high as 16 percent, and the customers least able to absorb a high bill are served by the networks that lose the most electricity.
 
       The Department of Energy estimates that removing the charge would cut bills by 5 to 10 percent, depending on the utility.
-    coda: "Worth keeping in proportion: generation charges account for 45 to 65 percent of a Meralco bill. System loss is a real cost and a fair target, but it is not the reason Philippine electricity is expensive."
+    coda: "This is worth keeping in proportion. Generation charges account for 45 to 65 percent of a Meralco bill. System loss is a real cost and a fair target, but it is not the reason Philippine electricity is expensive."
     sourceNote: "Sources: Meralco Q1 2026 figures and DOE estimate via Inquirer, July 30, 2026 · GMA News, July 28, 2026"
 
   - heading: "What the President proposed"
     body: |
-      Marcos asked Congress to amend EPIRA so that neither the system loss charge nor its VAT can be passed to consumers.
+      Marcos asked Congress to amend EPIRA so that neither the system loss charge nor its VAT could be passed to consumers.
 
       "Hindi naman kasalanan ng konsyumer kung bakit nagkaroon ng system loss, kaya hindi naman tama na kailangan sila pa ang pagbabayarin dito," he said.
 
-      (It is not the consumer's fault that a system loss occurred, so it is not right that they should be the ones paying for it.)
+      It is not the consumer's fault that a system loss occurred, so it is not right that they should be the ones paying for it.
 
-      The DOE and the ERC both backed the proposal. The DOE has since submitted draft bills to Congress to repeal Section 43(f) outright.
+      The DOE and the ERC both backed the proposal, and the DOE has since submitted draft bills to Congress to repeal Section 43(f) outright.
     sourceNote: "Sources: SONA 2026, delivered July 27, 2026, transcript via GMA News · DOE statements via PIA, July 30, 2026"
 
-  - heading: "The part that isn't settled: who absorbs it"
+  - heading: "The part that is not settled, who absorbs it"
     body: |
       Removing the charge does not remove the loss. The electricity still disappears in the wires. Somebody still pays for it.
 
@@ -77,10 +78,10 @@ drivers:
       The Philippine Rural Electric Cooperatives Association supports scrapping the VAT but warned that removing the charge without a government subsidy could push electric cooperatives into bankruptcy, since technical loss on long rural lines is unavoidable.
 
       Malacañang has ruled out subsidies for now. Press officer Claire Castro said the President "wants to remove this extra cost from our people — not to shift the burden either to consumers or to utility companies," and that utilities are expected to cut losses through better operations and enforcement instead.
-    coda: "That leaves three possible payers: consumers, utilities, or the national government. The administration's current position is that it should be none of them. The arithmetic of that has not yet been published."
+    coda: "That leaves three possible payers, consumers, utilities, or the national government. The administration's current position is that it should be none of them. The arithmetic of that has not yet been published."
     sourceNote: "Sources: Pangilinan and Philreca via Inquirer, July 30, 2026 · Castro via Inquirer, July 30, 2026 · BusinessWorld, July 29, 2026"
 
-  - heading: "Why it can't happen fast"
+  - heading: "Why it cannot happen fast"
     body: |
       Energy Secretary Sharon Garin has been explicit that this cannot be done by executive action.
 
@@ -90,20 +91,20 @@ drivers:
 
       DOE Undersecretary Mario Marasigan pointed to automated and advanced metering infrastructure as the route to cutting the non-technical share.
 
-      One figure sets the scale of the physical problem: the ERC has estimated that cutting losses by a single percentage point inside Meralco's franchise area alone would cost roughly ₱14 billion, split into about ₱13 billion in operating expenditure and ₱1 billion in capital spending.
-    coda: "Garin has also confirmed that amending EPIRA would not touch lifeline subsidies or senior citizen discounts. Those sit in separate laws."
+      One figure sets the scale of the physical problem. The ERC has estimated that cutting losses by a single percentage point inside Meralco's franchise area alone would cost roughly ₱14 billion, split into about ₱13 billion in operating expenditure and ₱1 billion in capital spending.
+    coda: "Garin has also confirmed that amending EPIRA would not touch lifeline subsidies or senior citizen discounts, because those sit in separate laws."
     sourceNote: "Sources: Garin and Marasigan via PIA, July 30, 2026 · Garin timeline via Inquirer, July 30, 2026 · ERC cost estimate reported by Rappler, August 2026"
 
   - heading: "What has actually happened since"
     body: |
       Nothing in the law has changed yet, and the existing machinery has kept running.
 
-      In early August the ERC authorised Meralco to collect ₱8.709 billion in previously unrecovered pass-through costs: ₱7.30 billion in generation, ₱615.93 million in transmission, ₱595.05 million in system loss, and ₱228.88 million in real property taxes. Residential customers face an increase of ₱0.0803 per kWh, about ₱16.06 a month for a household using 200 kWh, spread over 36 months.
+      In early August the ERC authorised Meralco to collect ₱8.709 billion in previously unrecovered pass-through costs, ₱7.30 billion in generation, ₱615.93 million in transmission, ₱595.05 million in system loss, and ₱228.88 million in real property taxes. Residential customers face an increase of ₱0.0803 per kWh, about ₱16.06 a month for a household using 200 kWh, spread over 36 months.
 
       Separately, the ERC ordered Meralco to refund ₱9.51 billion in excess distribution rate collections over six months, and directed an inventory of system losses, which Meralco has contested.
 
       A House bill would cap recoverable system loss at 7 percent for all distribution utilities, a tightening rather than a removal.
-    coda: "The SONA line was a directive to Congress, not a change in the law. Until EPIRA is amended, the charge stays on the bill."
+    coda: "The SONA line was a directive to Congress, not a change in the law. Until EPIRA is amended, the charge stays on the bill it named."
     sourceNote: "Sources: ERC decision via Rappler, Inquirer Business, and BusinessWorld, August 4, 2026 · ERC refund order via Inquirer · House Bill 4599, congress.gov.ph"
 
 sources:

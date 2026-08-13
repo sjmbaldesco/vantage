@@ -2,15 +2,16 @@ title: "Communism and Capitalism"
 subtitle: "What the argument is actually about, and where the Philippines already sits"
 category: "Explained"
 description: "The Philippines is a market economy with protectionist clauses written into its Constitution, a communist insurgency in its sixth decade, and a live fight over both. The abstract debate obscures how specific the local one is."
+image: "/explainers/communism-capitalism.jpg"
 publishedAt: 2026-08-08
 author: "Sir Jairus Macabuhay"
 currentAsOf: "August 8, 2026"
-leadParagraph: "In Philippine argument the words communist and capitalist rarely describe economic systems. They function as accusations. But there is a real question underneath, and the country has already answered most of it in writing: the 1987 Constitution reserves whole sectors of the economy for Filipinos, Congress has spent the last five years narrowing those reserves, and the Communist Party of the Philippines has been a designated terrorist organization since 2017. Those are three separate questions, and a position on one does not settle the others."
+leadParagraph: "In Philippine argument the words communist and capitalist rarely describe economic systems. They function as accusations. There is a real question underneath that, and the country has already answered most of it in writing. The 1987 Constitution reserves whole sectors of the economy for Filipinos, Congress has spent the last five years narrowing those reserves, and the Communist Party of the Philippines has been a designated terrorist organization since 2017. Those are three separate questions, and a position on one does not settle the others."
 
 drivers:
   - heading: "The distinction, stripped of the label"
     body: |
-      The difference between the two systems is not about whether people are allowed to be rich. It is about two structural questions: who owns productive assets, and how a society decides what gets produced.
+      The difference between the two systems is not about whether people are allowed to be rich. It is about two structural questions. Who owns productive assets, and how does a society decide what gets produced.
     table:
       columns:
         - "Capitalism"
@@ -28,48 +29,48 @@ drivers:
           cells:
             - "Sets and enforces the rules of exchange"
             - "Directs production and allocation"
-    coda: "Two clarifications the shorthand loses. Socialism is not communism; social democracies keep private ownership and price signals and redistribute afterward through tax and transfer. And no large economy on earth is a pure case of either. Every real one is a mix, and the argument is always about where the line sits."
+    coda: "Two clarifications the shorthand loses. Socialism is not communism. Social democracies keep private ownership and price signals and redistribute afterward through tax and transfer. And no large economy on earth is a pure case of either. Every real one is a mix, and the argument is always about where the line sits."
     sourceNote: "Sources: Standard definitions in comparative political economy"
 
   - heading: "Where the Philippines actually sits"
     body: |
       The Philippines is a market economy with protectionist clauses written into its founding document.
 
-      Article XII of the 1987 Constitution reserves the ownership and exploitation of natural resources to the State and to Filipino citizens or to corporations at least 60 percent Filipino-owned. The same limit applies to land, mass media and traditionally defined public utilities. Direct foreign ownership of private land is prohibited outright.
+      Article XII of the 1987 Constitution reserves the ownership and exploitation of natural resources to the State and to Filipino citizens or to corporations at least 60 percent Filipino-owned. The same limit applies to land, mass media, and traditionally defined public utilities. Direct foreign ownership of private land is prohibited outright.
 
       Article XIII commits the State to social justice, to protection for labor, and to regulating the acquisition and use of property so that its benefits are equitably diffused.
 
-      Neither article is a socialist provision, and neither is a laissez-faire one. They are the terms of a bargain struck in 1986 and 1987 about how much of the economy foreigners could own.
+      Neither article is a socialist provision, and neither is a laissez-faire one. They are the terms of a bargain struck in 1986 and 1987 over how much of the economy foreigners could own.
     sourceNote: "Sources: 1987 Constitution, Art. XII and Art. XIII"
 
   - heading: "The liberalization that already happened"
     body: |
-      The 60-40 rule is often discussed as though it were untouched. It has in fact been substantially narrowed by ordinary legislation, without amending the Constitution.
+      The 60-40 rule is often discussed as though it were untouched. It has in fact been substantially narrowed by ordinary legislation, and without amending the Constitution at all.
     bullets:
       - "Republic Act 11659 amended the Public Service Act, redefining public utility so that telecommunications, domestic shipping, railways, airports, expressways and transport fall outside the 40 percent cap and may be fully foreign-owned. Water and electricity distribution remain inside it."
       - "Republic Act 11595 lowered the paid-up capital threshold for foreign-owned retail enterprises to P25 million."
       - "Republic Act 11647 amended the Foreign Investments Act, allowing foreigners to own small and medium enterprises outright at a reduced capital threshold where they hire locally and transfer technology."
       - "Amendments to the Renewable Energy Act permit full foreign ownership in solar, wind and other renewable projects."
-    coda: "This matters for how the charter change debate should be read. The economic provisions still standing are narrower than they were, so the remaining fight is over land, natural resources, mass media and the two utilities that were kept back."
+    coda: "This matters for how the charter change debate should be read. The economic provisions still standing are narrower than they were, so the remaining fight is over land, natural resources, mass media, and the two utilities that were kept back."
     sourceNote: "Sources: RA 11659, RA 11595, RA 11647, and amendments to RA 9513, summarized in Philippine foreign ownership guidance, 2026"
 
   - heading: "The insurgency, and what its legal status is"
     body: |
       The Communist Party of the Philippines and its armed wing, the New People's Army, have been fighting the state since the late 1960s.
 
-      Proclamation No. 374, signed Dec. 5, 2017, declared the CPP-NPA a designated and identified terrorist organization under Republic Act 10168, the Terrorism Financing Prevention and Suppression Act of 2012. The proclamation cited the United States designation of the group as a foreign terrorist organization in 2002. The Anti-Terrorism Council has maintained the Philippine designation.
+      Proclamation No. 374, signed Dec. 5, 2017, declared the CPP-NPA a designated and identified terrorist organization under Republic Act 10168, the Terrorism Financing Prevention and Suppression Act of 2012. The proclamation cited the United States designation of the group as a foreign terrorist organization in 2002, and the Anti-Terrorism Council has maintained the Philippine designation since.
 
-      A separate government effort to have the group judicially proscribed as a terrorist organization was dismissed by a Manila trial court in 2022. Designation by the executive and proscription by a court are different mechanisms with different standards of proof, and the distinction is routinely collapsed in public discussion.
+      A separate government effort to have the group judicially proscribed as a terrorist organization was dismissed by a Manila trial court in 2022. Designation by the executive and proscription by a court are different mechanisms with different standards of proof. That distinction is routinely collapsed in public discussion.
     sourceNote: "Sources: Proclamation No. 374, Dec. 5, 2017, Official Gazette · RA 10168 (2012) · ATC designation via Inquirer · 2022 court dismissal via Benar News, Sept. 22, 2022"
 
   - heading: "Red-tagging, and what the Supreme Court held"
     body: |
       Red-tagging is the practice of publicly labeling a person or organization as communist or as a front for the CPP-NPA.
 
-      In Deduro v. Vinoya, decided July 4, 2023 and released in 2024, the Supreme Court took up the case of Iloilo activist Siegfred Deduro, who alleged he had been red-tagged by military officers. The Court recognized red-tagging as a threat to a person's right to life, liberty and security, and as a likely precursor to abduction or extrajudicial killing, sufficient to justify the issuance of a writ of amparo.
+      In Deduro v. Vinoya, decided July 4, 2023 and released in 2024, the Supreme Court took up the case of Iloilo activist Siegfred Deduro, who alleged he had been red-tagged by military officers. The Court recognized red-tagging as a threat to a person's right to life, liberty, and security, and as a likely precursor to abduction or extrajudicial killing, sufficient to justify the issuance of a writ of amparo.
 
       What the Court did not do is rule on the merits of Deduro's allegations. It reversed a dismissal and ordered a summary hearing. The ruling establishes that the courts are open to such claims. It does not establish that any particular accusation was made or was false.
-    coda: "Designation is a legal status with a procedure attached. Red-tagging is an accusation without one. Treating them as the same thing is the error that the Court's language is most often used to commit."
+    coda: "Designation is a legal status with a procedure attached. Red-tagging is an accusation without one. Treating them as the same thing is the error that the Court's language is most often invoked to commit."
     sourceNote: "Sources: Deduro v. Vinoya, G.R. No. 254753, July 4, 2023, Supreme Court of the Philippines · Rappler analysis of the ruling"
 
   - heading: "Why the label fight is not the real fight"
@@ -78,10 +79,10 @@ drivers:
 
       The Philippine Statistics Authority put poverty incidence at 22.4 percent in the first semester of 2023, about 25.24 million Filipinos, reversing a long decline from 33 percent in 2006 to 18.1 percent in 2021.
 
-      Social Weather Stations found in March 2026 that 52 percent of families, about 14.5 million, rated themselves poor, up from 51 percent in November 2025. Self-rated food poverty was 42 percent. Self-rated poverty was highest in the Visayas at 66 percent and Mindanao at 63 percent, against 42 percent in Metro Manila.
+      Social Weather Stations found in March 2026 that 52 percent of families, about 14.5 million, rated themselves poor, up from 51 percent in November 2025. Self-rated food poverty was 42 percent, and self-rated poverty was highest in the Visayas at 66 percent and Mindanao at 63 percent, against 42 percent in Metro Manila.
 
-      Self-rated poverty measures perception and official poverty measures income against a threshold. They are different instruments and are not interchangeable, which is why both are given here.
-    coda: "The abstract question of which system is better has no answer that survives contact with a specific case. The Philippine questions are narrower and answerable: whether the remaining 60-40 reserves should stay, what the state owes a worker under Article XIII, and whether an accusation should carry the consequences of a legal finding. None of those is settled, and none of them turns on the word."
+      Self-rated poverty measures perception, and official poverty measures income against a threshold. They are different instruments and are not interchangeable, which is why both are given here.
+    coda: "The abstract question of which system is better has no answer that survives contact with a specific case. The Philippine questions are narrower and answerable. Whether the remaining 60-40 reserves should stay, what the state owes a worker under Article XIII, and whether an accusation should carry the consequences of a legal finding. None of those is settled, and none of them turns on the word."
     sourceNote: "Sources: Philippine Statistics Authority poverty statistics, first semester 2023 · Social Weather Stations, Self-Rated Poverty survey, March 24-31, 2026"
 
 sources:

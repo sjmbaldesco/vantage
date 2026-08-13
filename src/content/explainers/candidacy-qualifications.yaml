@@ -2,6 +2,7 @@ title: "Who Gets to Run"
 subtitle: "The qualifications for Philippine office, and the arguments for changing them"
 category: "Explained"
 description: "The Constitution asks a candidate for president to be 40, a natural-born citizen, a resident, and able to read and write. No degree, no experience, no exam. Whether that should change is an older argument than it looks."
+image: "/explainers/candidacy-qualifications.jpg"
 publishedAt: 2026-08-08
 author: "Sir Jairus Macabuhay"
 currentAsOf: "August 8, 2026"
@@ -10,7 +11,7 @@ leadParagraph: "To run for president of the Philippines a person must be a natur
 drivers:
   - heading: "What the Constitution actually requires"
     body: |
-      The qualifications are set out in the 1987 Constitution itself, which is why they cannot be changed by ordinary legislation.
+      The qualifications are set out in the 1987 Constitution itself, and that placement is the reason ordinary legislation cannot touch them.
     table:
       columns:
         - "President and Vice President"
@@ -36,21 +37,21 @@ drivers:
           cells:
             - "None required"
             - "None required"
-    coda: "Members of the House face a lower floor still: 25 years old, a resident of the district for one year, and the same literacy and citizenship requirements. Because all of these sit in the Constitution rather than in statute, Congress cannot add to them on its own."
+    coda: "Members of the House face a lower floor still, 25 years old, a resident of the district for one year, and the same literacy and citizenship requirements. All of these sit in the Constitution rather than in statute, so Congress cannot add to them on its own."
     sourceNote: "Sources: 1987 Constitution, Art. VII, Sec. 2; Art. VI, Sec. 3; Art. VI, Sec. 6"
 
   - heading: "Why the list is short on purpose"
     body: |
       Article II, Section 26 of the same Constitution says the State "shall guarantee equal access to opportunities for public service."
 
-      The framers were writing a year after the end of a dictatorship, and against a longer regional history in which literacy tests, property qualifications and education requirements were the standard instruments for keeping the poor and the colonized out of elected office. A qualification that sounds like a competence filter and functions as a class filter is not a hypothetical failure mode. It is the historical default.
+      The framers were writing a year after the end of a dictatorship, and against a longer regional history in which literacy tests, property qualifications, and education requirements were the standard instruments for keeping the poor and the colonized out of elected office. A qualification that sounds like a competence filter and functions as a class filter is not a hypothetical failure mode. It is the historical default.
 
       That is the case for the short list. Ability to read and write survived as the floor because it is the minimum needed to do the job at all, not because it measures fitness.
     sourceNote: "Sources: 1987 Constitution, Art. II, Sec. 26"
 
   - heading: "The filter that exists instead"
     body: |
-      Because the qualifications are thin, the screening happens elsewhere: Section 69 of the Omnibus Election Code, which lets the Commission on Elections refuse or cancel a certificate of candidacy filed by a nuisance candidate.
+      Because the qualifications are thin, the screening happens elsewhere. Section 69 of the Omnibus Election Code lets the Commission on Elections refuse or cancel a certificate of candidacy filed by a nuisance candidate.
 
       The grounds are three.
     bullets:
@@ -64,7 +65,7 @@ drivers:
     body: |
       The leading case is Pamatong v. Comelec. The Comelec had declared Rev. Elly Velez Pamatong and 35 others nuisance candidates in the 2004 presidential race for lacking the capacity to wage a nationwide campaign, and he challenged the ruling.
 
-      The Court held that there is no constitutional right to run for public office. What exists is a privilege, subject to limitations imposed by law. It also held that the equal access clause in Article II, Section 26 is not self-executing: it is a guideline for legislative and executive action, not a positive right a would-be candidate can enforce.
+      The Court held that there is no constitutional right to run for public office. What exists is a privilege, subject to limitations imposed by law. It also held that the equal access clause in Article II, Section 26 is not self-executing. It is a guideline for legislative and executive action, not a positive right a would-be candidate can enforce.
 
       That is a wide grant of authority to the Comelec, and later rulings have trimmed its edges rather than its center. The Court has since made clear that financial capacity alone cannot establish that a candidate is a nuisance.
     coda: "So the current settlement is this: the Constitution sets an intentionally low bar, and the Comelec is given discretion to police it, with the courts reviewing that discretion after the fact."
@@ -76,7 +77,7 @@ drivers:
 
       Printing had already begun. The Comelec reprinted about 6 million ballots, the first time in Philippine electoral history that it ordered a reprint back to zero to comply with a Supreme Court order. At least P13 million worth of paper was shredded, at roughly P22 a ballot.
 
-      Read one way, this is judicial review working: a citizen wrongly excluded from the ballot was restored to it. Read the other way, it is the cost of a screening rule vague enough that the Comelec and the Court can reach opposite conclusions about the same person weeks before an election.
+      Read one way, this is judicial review working. A citizen wrongly excluded from the ballot was restored to it. Read the other way, it is the cost of a screening rule vague enough that the Comelec and the Court can reach opposite conclusions about the same person weeks before an election.
     coda: "Both readings are available from the same facts, which is itself the argument for rewriting Section 69 rather than the Constitution."
     sourceNote: "Sources: Rappler and Inquirer, January 2025"
 
@@ -86,9 +87,9 @@ drivers:
 
       The first would loosen the rules. A House resolution calling for a constitutional convention would lower the minimum age for president and vice president from 40 to 35, and for senator from 35 to 30. Its authors, a group of younger House members, argue that more than half the population is now under 30 and that the age floors no longer match the electorate.
 
-      The second would tighten them, most often by requiring a college degree or a minimum educational attainment. Proposals along these lines have been filed repeatedly and none has become law. For national elective posts they would require amending the Constitution, not passing a statute.
+      The second would tighten them, most often by requiring a college degree or a minimum educational attainment. Proposals along these lines have been filed repeatedly, and none has become law. For national elective posts they would require amending the Constitution, not passing a statute.
 
-      The third avoids charter change entirely: amend Section 69 to define nuisance candidacy more precisely, which Congress can do by ordinary legislation.
+      The third avoids charter change entirely. It would amend Section 69 to define nuisance candidacy more precisely, which Congress can do by ordinary legislation.
     coda: "The choice between them is not technical. Age floors, degree requirements and nuisance rules are all answers to the same question, which is who counts as a serious candidate, and in each case the answer is written by people who already hold office."
     sourceNote: "Sources: House resolution for a constitutional convention via Philippine News Agency and PhilSTAR Life · Omnibus Election Code, Sec. 69"
 

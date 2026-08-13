@@ -2,14 +2,15 @@ title: "Confidential Funds"
 subtitle: "Behind the public's naked eye"
 category: "Accountability"
 description: "What confidential funds are, the disclosure law that was never written, and how ₱612.5 million left Land Bank in cash across seven cheques."
+image: "/explainers/confidential-funds.jpg"
 publishedAt: 2026-08-07
 author: "Sir Jairus Macabuhay"
-leadParagraph: "Seven cheques moved ₱612.5 million in cash out of Land Bank between December 2022 and July 2023: ₱500 million from the Office of the Vice President, ₱112.5 million from the Department of Education. That total is the sum named in Impeachment Article 1."
+leadParagraph: "Seven cheques moved ₱612.5 million in cash out of Land Bank between December 2022 and July 2023, ₱500 million from the Office of the Vice President and ₱112.5 million from the Department of Education. That total is the sum named in Impeachment Article 1."
 
 drivers:
   - heading: "What are 'confidential' funds?"
     body: |
-      A lump sum in the national budget for expenses the government says it cannot disclose. This covers buying information, surveillance transport, safehouses, and informant rewards.
+      A confidential fund is a lump sum in the national budget for expenses the government says it cannot disclose. It covers buying information, surveillance transport, safehouses, and informant rewards.
 
       It is not the same as an intelligence fund.
     table:
@@ -37,7 +38,7 @@ drivers:
 
       The circular permits these funds for purchasing information, maintaining safehouses, and paying informants who are not government employees.
 
-      You cannot file a receipt that tells a surveillance target they are being watched.
+      No agency can file a receipt that tells a surveillance target he is being watched.
     sourceNote: "Source: Permitted uses under Joint Circular No. 2015-01"
 
   - heading: "Not every agency is allowed one"
@@ -49,7 +50,7 @@ drivers:
       - "Salaries, wages, overtime, allowances or other fringe benefits of government officials and employees, except when authorized by law"
       - "Representation, consultancy fees or entertainment expenses"
       - "Construction or acquisition of buildings or housing structures"
-    coda: "And who approves the spending? The agency head."
+    coda: "The agency head approves the spending."
     sourceNote: "Source: Joint Circular No. 2015-01, Sec. 4.11 and Sec. 6.1.2"
 
   - heading: "The missing law"
@@ -60,16 +61,16 @@ drivers:
 
       Everything above comes from a circular signed by agency heads in 2015, not a statute passed by Congress.
 
-      In November 2023, retired Justice Antonio Carpio petitioned the Supreme Court to void the circular.
+      In November 2023, retired Justice Antonio Carpio petitioned the Supreme Court to void that circular.
     sourceNote: "Sources: 1987 Constitution, Art. II Sec. 28 and Art. III Sec. 7 · Carpio et al. petition, filed Nov. 15, 2023, via Rappler"
 
   - heading: "How the money moves"
     body: |
       The money is drawn as cash advances and liquidated with acknowledgment receipts, a signature saying money was received.
 
-      Within seven days of the cheque being released, the cash advance voucher goes to COA's audit team leader in a sealed envelope. Liquidation is separate and slower: due within 30 days after every quarter, and sent not to the regular auditors but to a single body, the Intelligence and Confidential Fund Audit Unit, by registered mail, courier or authorized liaison officer.
+      Within seven days of the cheque being released, the cash advance voucher goes to COA's audit team leader in a sealed envelope. Liquidation is separate and slower. It is due within 30 days after every quarter, and it goes not to the regular auditors but to a single body, the Intelligence and Confidential Fund Audit Unit, by registered mail, courier, or authorized liaison officer.
 
-      ICFAU staff open the envelope in front of whoever delivered it and check that every document named on the transmittal letter is actually inside. If anything is missing, it is not stamped received and goes back sealed.
+      ICFAU staff open the envelope in front of whoever delivered it and check that every document named on the transmittal letter is actually inside. If anything is missing, it is not stamped received, and it goes back sealed.
 
       That completeness check is the part the public can picture. What follows is a post-audit conducted by that one unit, on records nobody else sees. For intelligence funds, COA does not even receive the evidence. It stays in a sealed envelope in the disbursing officer's own vault, inspected only if ICFAU demands it.
     sourceNote: "Sources: Joint Circular No. 2015-01, Secs. 4.12–4.13, 6.1.8.4 and 6.2.2 · former COA Commissioner Heidi Mendoza, via Rappler"
@@ -78,18 +79,18 @@ drivers:
     body: |
       In its entire history, DepEd had never received confidential funds. That changed in 2023.
 
-      A COA auditor testified that he served at the Intelligence and Confidential Funds Audit Office from 2014 to 2024. Three vice presidents held office in that time: Binay, Robredo, Duterte.
+      A COA auditor testified that he served at the Intelligence and Confidential Funds Audit Office from 2014 to 2024. Three vice presidents held office in that time: Binay, Robredo, and Duterte.
 
-      Duterte was Vice President and Education Secretary at once, making her the agency head for both offices holding the money.
+      Duterte was Vice President and Education Secretary at once, which made her the agency head for both offices holding the money.
     sourceNote: "Source: Testimony of former COA-ICFAO state auditor Roderick Wamil, Senate impeachment court, Aug. 3, 2026, via Philippine News Agency and The Manila Times"
 
   - heading: "Seven cheques. ₱612.5 million in cash."
     body: |
       Two former Land Bank branch managers testified on July 29 about how the money left the bank.
 
-      Office of the Vice President: ₱500 million. Four cheques of ₱125 million each, December 2022 to July 2023, encashed by special disbursing officer Gina Acosta.
+      Office of the Vice President, ₱500 million: four cheques of ₱125 million each, December 2022 to July 2023, encashed by special disbursing officer Gina Acosta.
 
-      DepEd: ₱112.5 million. Three cheques of ₱37.5 million each, February to July 2023, encashed by special disbursing officer Edward Fajarda.
+      DepEd, ₱112.5 million: three cheques of ₱37.5 million each, February to July 2023, encashed by special disbursing officer Edward Fajarda.
 
       In 2024, Congress cut both offices' confidential funds to zero.
 
@@ -104,7 +105,7 @@ drivers:
 
       One payee, "Mary Grace Piattos," does not exist.
 
-      Across its findings, COA has ordered ₱448 million returned. The Vice President is named jointly with three other officials.
+      Across its findings, COA has ordered ₱448 million returned, with the Vice President named jointly with three other officials.
 
       One notice inside that total covers ₱73 million of the ₱125 million the OVP disbursed in 2022. COA issued it because the documents filed were not enough to show how the money was spent, and because the spending fell outside the purposes the 2015 circular allows.
 
@@ -130,7 +131,7 @@ drivers:
         - cells:
             - "\"Congress restored DepEd's allocation.\""
             - "True, the bicam put back all ₱150 million. That settles whether the office may hold it, not how it is spent."
-    coda: "Refusing to stipulate receipts and opposing judicial notice are due-process positions, not evidence of anything."
+    coda: "Refusing to stipulate receipts and opposing judicial notice are due-process positions. They are not evidence of anything."
     sourceNote: "Sources: Defense counsel Sheila Sison, Michael Poa and Kristine Ferrer · testimony of Roderick Wamil, Aug. 3–5, 2026, via GMA News, Rappler and Daily Tribune"
 
 sources:
