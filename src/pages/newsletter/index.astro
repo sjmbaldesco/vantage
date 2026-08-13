@@ -27,13 +27,20 @@ const issueDate = (date: Date) =>
 >
   <Header />
   <main class="max-w-[1200px] mx-auto px-6 sm:px-10 py-11 sm:py-13">
-    <div class="grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-start mb-14">
-      <div>
+    <div
+      class:list={[
+        'mb-14',
+        latest
+          ? 'grid gap-10 lg:grid-cols-[1.05fr_0.95fr] items-start'
+          : 'flex flex-col items-center text-center',
+      ]}
+    >
+      <div class:list={[!latest && 'flex flex-col items-center']}>
         {NEWSLETTER_NAME !== 'Newsletter' && (
           <p class="text-[11px] font-semibold text-accent uppercase tracking-[0.09em] mb-4">Newsletter</p>
         )}
         <h1 class="text-4xl sm:text-[52px] font-display font-bold text-content leading-none tracking-[-0.025em] mb-4.5">
-          Philippine politics and public money, explained.
+          Be updated on the latest issues!
         </h1>
         <div class="h-[3px] w-14 bg-teal mb-6"></div>
         <p class="max-w-[520px] text-lg leading-[1.65] text-content/75 mb-6">
@@ -49,10 +56,11 @@ const issueDate = (date: Date) =>
         exactly the invented-news-content the standing rule in CLAUDE.md
         forbids, and a mocked-up issue on the page that asks for an address is
         the worst possible place to put fiction. So this slot shows the real
-        latest issue once one has been sent, and until then describes the
-        format rather than pretending to be an instance of it.
+        latest issue once one has been sent, and stays out of the layout
+        entirely until then — the hero centers itself on the page rather than
+        leaving a placeholder card standing in for one.
       */}
-      {latest ? (
+      {latest && (
         <a
           href={`/newsletter/${latest.id}`}
           class="block bg-surface border border-content/10 rounded-2xl overflow-hidden no-underline transition-[transform,border-color] duration-200 hover:-translate-y-0.5 hover:border-teal"
@@ -83,30 +91,6 @@ const issueDate = (date: Date) =>
             )}
           </div>
         </a>
-      ) : (
-        <div class="bg-surface border border-content/10 rounded-2xl overflow-hidden">
-          <div class="px-5 py-3.5 border-b border-content/10">
-            <span class="text-[11.5px] font-mono text-content/45">What an issue looks like</span>
-          </div>
-          <div class="px-7 py-6">
-            <div class="text-lg font-display font-black tracking-[-0.045em] text-content leading-none">VANTAGE</div>
-            <div class="h-[2.5px] w-9 bg-teal mt-1.5 mb-5"></div>
-            <p class="text-[15px] leading-[1.65] text-content/75 mb-5">
-              An opening paragraph on what happened, then a short section on each thing
-              worth knowing — the number, what it means, and a link to the full explainer
-              if there is one. It closes with the documents everything came from.
-            </p>
-            <ul class="flex flex-col gap-2.5 pt-4 border-t border-content/10">
-              <li class="text-sm leading-snug text-content/72">One long-form piece, in short</li>
-              <li class="text-sm leading-snug text-content/72">The figures worth keeping, each with its source</li>
-              <li class="text-sm leading-snug text-content/72">A full source list, same as the explainers</li>
-            </ul>
-            <p class="text-[12.5px] leading-relaxed text-content/45 mt-5">
-              No issue has been sent yet, so there is nothing here to read. This describes
-              the format rather than standing in for an issue.
-            </p>
-          </div>
-        </div>
       )}
     </div>
 

@@ -84,7 +84,7 @@ const formWidth = variant === 'hero' ? 'max-w-[520px]' : onDark ? '' : 'max-w-md
     <>
       <p class="text-[11px] font-semibold text-teal-light uppercase tracking-[0.08em] mb-1.5">Newsletter</p>
       <p class="text-[13px] leading-relaxed text-paper/80 mb-3.5">
-        Philippine politics and public money, explained.
+        Be updated on the latest issues!
       </p>
     </>
   )}
@@ -155,14 +155,6 @@ const formWidth = variant === 'hero' ? 'max-w-[520px]' : onDark ? '' : 'max-w-md
       {initialState === 'error' && <span class="vs-err">{ERROR_MESSAGE}</span>}
     </p>
   </form>
-
-  {variant === 'hero' && (
-    <div class="flex flex-wrap gap-x-[18px] gap-y-1.5 text-[13px] text-content/60 mt-1">
-      <span>One confirmation email, then nothing until you confirm.</span>
-      <span>One-click unsubscribe.</span>
-      <span>Never sold, never shared.</span>
-    </div>
-  )}
 
   {variant === 'full' && (
     <p class="text-[12.5px] leading-relaxed text-content/45 mt-3 max-w-md">
