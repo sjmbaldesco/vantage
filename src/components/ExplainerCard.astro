@@ -60,7 +60,7 @@ const lift =
     href={href}
     class="group grid sm:grid-cols-[1fr_auto_auto] items-center gap-2 sm:gap-6 py-[18px] no-underline transition-[padding] duration-200 hover:pl-2"
   >
-    <span class="text-xl font-display font-bold text-content leading-tight">{title}</span>
+    <span class="v-title-rule justify-self-start text-xl font-display font-bold text-content leading-tight">{title}</span>
     <span class="text-[13px] leading-relaxed text-content/60 sm:max-w-[460px]">{description}</span>
     {dateline && (
       <span class="text-[12px] text-content/45 whitespace-nowrap">
@@ -130,3 +130,20 @@ const lift =
     </div>
   </a>
 )}
+
+<style>
+  /* A thicker, paler rule than .v-rule-link's nav underline — reads as the
+     highlight device's hover cousin rather than a link underline. Triggered
+     from anywhere on the row, not just the title, via the parent's .group. */
+  .v-title-rule {
+    background-image: linear-gradient(var(--color-teal-light), var(--color-teal-light));
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 7px;
+    transition: background-size 0.28s ease, color 0.28s ease;
+  }
+  .group:hover .v-title-rule {
+    background-size: 100% 7px;
+    color: var(--color-accent);
+  }
+</style>
