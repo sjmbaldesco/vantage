@@ -30,7 +30,7 @@ const mailto = `mailto:${CONTACT_EMAIL}`;
     <div class="h-[3px] w-14 bg-teal mb-9"></div>
 
     <div class="grid gap-9 md:grid-cols-2 mb-14">
-      <div class="flex flex-col gap-4 text-[17px] leading-[1.72] text-content/78">
+      <div class="flex flex-col gap-4 text-[17px] leading-[1.72] text-content/78 text-justify">
         <p>
           Vantage is a Philippine news and media company built on the idea contained in
           its name. We cover the issues the country is arguing about right now, and our
@@ -48,7 +48,7 @@ const mailto = `mailto:${CONTACT_EMAIL}`;
           after it runs.
         </p>
       </div>
-      <div class="flex flex-col gap-4 text-[17px] leading-[1.72] text-content/78">
+      <div class="flex flex-col gap-4 text-[17px] leading-[1.72] text-content/78 text-justify">
         <p>
           It also means treating our readers as participants rather than traffic: people
           with their own vantage points, whose questions shape what we pursue next.
@@ -78,13 +78,13 @@ const mailto = `mailto:${CONTACT_EMAIL}`;
       />
       <div>
         <h2 class="text-[30px] font-display font-bold text-content leading-tight mb-1.5">Sir Jairus Macabuhay</h2>
-        <p class="text-[15px] font-medium text-accent mb-4">Founder and Editor-in-Chief</p>
-        <p class="text-base leading-relaxed text-content/72 mb-4 max-w-[620px]">
+        <p class="text-[15px] font-medium text-accent mb-2">Founder & Editor-in-Chief</p>
+        <a href={mailto} class="masthead-mail inline-block text-sm font-medium text-accent no-underline pb-1 mb-4">{CONTACT_EMAIL}</a>
+        <p class="text-base leading-relaxed text-content/72 max-w-[620px]">
           Vantage is a one-person newsroom. Every explainer on this site was reported,
           written, checked and published by the same person, and the byline says so on
           purpose.
         </p>
-        <a href={mailto} class="masthead-mail text-sm font-medium text-accent no-underline pb-1">{CONTACT_EMAIL}</a>
       </div>
     </div>
 

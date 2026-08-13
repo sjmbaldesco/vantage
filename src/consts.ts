@@ -1,6 +1,7 @@
 // Shared site constants. Swap CONTACT_EMAIL for a dedicated inbox
-// (editorial@ / tips@ / corrections@) once the real domain is live.
-export const CONTACT_EMAIL = 'sirjairus@macabuhay.asia';
+// (editorial@ / tips@ / corrections@) once those exist — one shared address
+// is still simpler than three that all resolve to the same mailbox.
+export const CONTACT_EMAIL = 'contact@vantageph.com';
 export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61592073608643';
 export const INSTAGRAM_URL = 'https://www.instagram.com/vanta.ge.ph/';
 
@@ -55,7 +56,7 @@ export const NEWSLETTER_NAME = 'Newsletter';
 // Describe the contents instead; add a rhythm here only once the publication
 // has actually kept one for a while.
 export const NEWSLETTER_BLURB =
-  'Philippine politics and public money, explained — what happened, and why it matters. Free, and one click to leave.';
+  "It's your right to be rightfully informed. Hear from us!";
 
 // Facebook and Instagram are live. YouTube and X are placeholders so the row
 // is laid out and styled — swap `href` as each account is created, and drop
