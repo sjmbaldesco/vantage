@@ -105,12 +105,18 @@ const lift =
 
       <h2
         class:list={[
-          'font-display font-bold text-content mb-3',
+          'font-display font-bold text-content',
           variant === 'feature'
-            ? 'text-3xl sm:text-4xl leading-[1.08] tracking-[-0.015em]'
-            : 'text-2xl leading-[1.12]',
+            ? 'text-3xl sm:text-4xl leading-[1.08] tracking-[-0.015em] mb-2'
+            : 'text-2xl leading-[1.12] mb-1.5',
         ]}
       >{title}</h2>
+
+      {dateline && (
+        <p class="text-[12.5px] text-content/50 mb-3">
+          <time datetime={publishedAt?.toISOString()}>{dateline}</time>
+        </p>
+      )}
 
       <p
         class:list={[
@@ -123,9 +129,6 @@ const lift =
         <span class="font-medium text-accent">
           {variant === 'feature' ? 'Read explainer →' : 'Read →'}
         </span>
-        {dateline && (
-          <span><time datetime={publishedAt?.toISOString()}>{dateline}</time></span>
-        )}
       </div>
     </div>
   </a>
