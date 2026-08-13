@@ -1,6 +1,6 @@
 title: "The Wage Hike TRO"
 subtitle: "How one trial court stopped a raise for 1.1 million workers"
-category: "Explained"
+category: "Livelihood"
 description: "A Pasig judge halted the P85 Metro Manila minimum wage increase. The Labor Code appears to forbid exactly that, and the reason it may not is a single word in the statute."
 image: "/explainers/wage-hike-tro.jpg"
 publishedAt: 2026-08-08
@@ -18,6 +18,13 @@ drivers:
       On July 30, Pasig City Regional Trial Court Branch 152 issued a 20-day temporary restraining order stopping it. Judge Marie Joyce P. Manongsong signed the eight-page order, which bars the Regional Tripartite Wages and Productivity Board for the NCR and the National Wages and Productivity Commission from implementing the wage order until Aug. 13.
 
       The petitioners were two construction firms, Readycon Trading and Construction Corp. and R-II Builders Inc., and they were ordered to post a P1 million bond.
+    stats:
+      - value: "₱85"
+        label: "daily wage hike, NCR"
+        note: "In two tranches — ₱60 took effect July 25, 2026; the remaining ₱25 is due Jan. 20, 2027."
+      - value: "₱780"
+        label: "new daily minimum wage"
+        note: "Up from ₱695 for non-agricultural workers — about 1.1 million minimum wage earners covered, per DOLE's June 2026 approval."
     coda: "Branch 152 is a trial court. Which court acted determines what remedies are available next, and that is the detail most often lost in the retelling."
     sourceNote: "Sources: Court order via DOLE, reported by BusinessWorld, July 30, 2026 · Wage figures via GMA News, July 31, 2026"
 
@@ -75,6 +82,10 @@ drivers:
       Twenty-one senators have urged the court to lift it, and so has Malacañang.
 
       The sharpest development is that the opposition is no longer one-sided. At an Aug. 7 meeting of the National Tripartite Industrial Peace Council, DOLE, the labor federations, and the Employers Confederation of the Philippines agreed on a joint call to dissolve the TRO. Labor Secretary Francis Tolentino called it a breakthrough. The employers' peak body is now on the same side as the unions, against a petition filed by two employers.
+    stats:
+      - value: "21"
+        label: "senators"
+        note: "Have urged the Pasig court to lift the TRO, joined by Malacañang and, as of Aug. 7, the tripartite council of DOLE, labor federations and employers."
     coda: "Two questions remain open. Whether workers who already received the first P60 can have it withdrawn has been reported inconsistently, and Vantage has not been able to verify it. And a court is not bound by a tripartite consensus. Every party to the wage-setting system now wants the order gone, which is precisely the situation Article 126 was written to prevent from arising in the first place."
     sourceNote: "Sources: Aug. 3 hearing via DZRH, Aug. 3, 2026 · OSG and NTIPC via The Philippine Star, Aug. 8, 2026 · TUCP via BusinessWorld, Aug. 4, 2026 · Senators via BusinessWorld, Aug. 5, 2026"
 

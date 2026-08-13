@@ -1,6 +1,6 @@
 title: "Charter Change"
 subtitle: "Is the Philippines ready?"
-category: "Governance"
+category: "Government & Politics"
 description: "How the 1987 Constitution can be changed, why no attempt has ever reached a ratification plebiscite, and what each route would cost."
 image: "/explainers/charter-change.jpg"
 publishedAt: 2026-07-27
@@ -29,6 +29,13 @@ drivers:
       Congress has never passed that law. The Supreme Court has ruled the provision is not self-executing, so without an enabling statute it does nothing at all.
 
       Roughly 70% of House members and 80% of senators come from political families. The party-list system, created to seat the marginalized, is now a documented route into Congress for the very families it was written to keep out.
+    stats:
+      - value: "70%"
+        label: "of House members"
+        note: "Come from political families, on published estimates."
+      - value: "80%"
+        label: "of senators"
+        note: "Come from political families — the same families the party-list system was created to keep out of Congress."
 
   - heading: "The Philippines has done this before"
     body: |
@@ -37,6 +44,10 @@ drivers:
       That charter is what gave martial law its legal clothing.
 
       The name is on both sides of the question again. The 2024 economic amendments carried the sitting president's endorsement, and the 2026 term-extension allegations came from his sister. His palace denied them.
+    stats:
+      - value: "95%"
+        label: "claimed approval"
+        note: "The result Marcos Sr. proclaimed from the 1973 show-of-hands 'citizens' assemblies,' after the promised plebiscite was called off four days out."
 
   - heading: "Recent attempts"
     body: |
