@@ -122,6 +122,9 @@ body {
 @keyframes v-compact {
   to { padding-top: 0.625rem; padding-bottom: 0.625rem; }
 }
+@keyframes v-translucent {
+  to { background-color: color-mix(in oklab, var(--color-surface) 72%, transparent); }
+}
 @keyframes v-shrink {
   to { font-size: 20px; }
 }
@@ -163,6 +166,11 @@ body {
   }
   .v-shrink {
     animation: v-shrink linear both;
+    animation-timeline: scroll(nearest) !important;
+    animation-range: 0 160px;
+  }
+  .v-translucent {
+    animation: v-translucent linear both;
     animation-timeline: scroll(nearest) !important;
     animation-range: 0 160px;
   }

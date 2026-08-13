@@ -38,14 +38,8 @@ const isActive = (href: string) =>
   global.css for why the scrubbed pieces sit behind an @supports guard.
 */}
 <div class="sticky top-0 z-40" data-pagefind-ignore>
-  {progress && (
-    <div class="h-[3px] bg-content/10">
-      <div class="h-[3px] bg-teal origin-left v-bar"></div>
-    </div>
-  )}
-
   <header
-    class="relative bg-surface/92 backdrop-blur-md border-b border-content/10 px-6 py-5 sm:px-10 sm:py-[22px] v-compact"
+    class="relative bg-surface/92 backdrop-blur-md border-b border-content/10 px-6 py-5 sm:px-10 sm:py-[22px] v-compact v-translucent"
   >
     <div class="mx-auto max-w-[1200px] flex flex-wrap items-center justify-between gap-x-8 gap-y-4">
       <a href="/" class="inline-block shrink-0 v-nav-in">
@@ -157,9 +151,20 @@ const isActive = (href: string) =>
       </div>
     </div>
 
-    {/* Draws across the foot of the bar as the page scrolls. Purely decorative
-        — the border-b above already separates the bar from the page. */}
-    <div class="absolute inset-x-0 bottom-0 h-[2px] bg-teal origin-left v-teal-rule"></div>
+    {/* On article pages the header's own bottom edge doubles as the reading-
+        progress bar — a track the width of the bar, filled left-to-right as
+        the reader scrolls the whole document. No separate strip above the
+        bar, and no gap for one to leave behind. Everywhere else it's the
+        same decorative teal rule that draws in over the first 160px of
+        scroll — the border-b above already separates the bar from the page,
+        so this is ornament, not a progress readout. */}
+    {progress ? (
+      <div class="absolute inset-x-0 bottom-0 h-[3px] bg-content/10">
+        <div class="h-full bg-teal origin-left v-bar"></div>
+      </div>
+    ) : (
+      <div class="absolute inset-x-0 bottom-0 h-[2px] bg-teal origin-left v-teal-rule"></div>
+    )}
   </header>
 </div>
 
