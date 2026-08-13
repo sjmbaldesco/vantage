@@ -148,33 +148,41 @@ body {
 }
 
 @supports (animation-timeline: scroll()) {
+  /* animation-timeline carries !important here for a reason: Chrome supports
+     it as a standalone property but not folded into the `animation` shorthand
+     (CSS.supports('animation', '… scroll()') is false even where the longhand
+     works). The production CSS minifier doesn't know that and merges these
+     declarations into the shorthand anyway, which Chrome then treats as one
+     invalid value and drops silently — the animation runs in dev (unminified)
+     and does nothing on the deployed site. Differing !important blocks the
+     minifier's shorthand merge, keeping animation-timeline a separate rule. */
   .v-compact {
     animation: v-compact linear both;
-    animation-timeline: scroll(nearest);
+    animation-timeline: scroll(nearest) !important;
     animation-range: 0 160px;
   }
   .v-shrink {
     animation: v-shrink linear both;
-    animation-timeline: scroll(nearest);
+    animation-timeline: scroll(nearest) !important;
     animation-range: 0 160px;
   }
   .v-teal-rule {
     animation: v-teal-rule linear both;
-    animation-timeline: scroll(nearest);
+    animation-timeline: scroll(nearest) !important;
     animation-range: 0 160px;
   }
   .v-bar {
     animation: v-bar linear both;
-    animation-timeline: scroll(nearest);
+    animation-timeline: scroll(nearest) !important;
   }
   .v-rise {
     animation: v-rise linear both;
-    animation-timeline: view();
+    animation-timeline: view() !important;
     animation-range: entry 0% entry 70%;
   }
   .v-draw {
     animation: v-draw linear both;
-    animation-timeline: view();
+    animation-timeline: view() !important;
     animation-range: entry 15% entry 85%;
   }
 }
