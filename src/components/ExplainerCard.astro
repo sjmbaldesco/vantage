@@ -77,11 +77,19 @@ const lift =
       rise && 'v-rise',
     ]}
   >
-    {/* Hero art is optional and no licensed images exist yet, so cards render
-        text-only until one is supplied rather than reserving an empty slot. */}
+    {/* Hero art is optional, so cards render text-only until one is supplied
+        rather than reserving an empty slot. The onerror handler extends that
+        same fallback to a request that fails at runtime — a transient CDN
+        miss right after deploy, a moved file — so a reader gets a clean
+        text-only card instead of a broken-image icon in a 300px box. */}
     {image && (
       <div class:list={['bg-ground', variant === 'feature' ? 'h-[300px]' : 'h-[170px]']}>
-        <img src={image} alt="" class="w-full h-full object-cover block" />
+        <img
+          src={image}
+          alt=""
+          class="w-full h-full object-cover block"
+          onerror="this.closest('div').style.display='none'"
+        />
       </div>
     )}
 
