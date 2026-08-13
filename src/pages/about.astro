@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
-import { CONTACT_EMAIL } from '../consts';
+import { AUTHOR_EMAIL, CONTACT_EMAIL } from '../consts';
 
 // About and Contact are one page, in that order. A one-person masthead and a
 // way to reach that person are the same disclosure — splitting them across two
@@ -79,7 +79,7 @@ const mailto = `mailto:${CONTACT_EMAIL}`;
       <div>
         <h2 class="text-[30px] font-display font-bold text-content leading-tight mb-1.5">Sir Jairus Macabuhay</h2>
         <p class="text-[15px] font-medium text-accent mb-2">Founder & Editor-in-Chief</p>
-        <a href={mailto} class="masthead-mail inline-block text-sm font-medium text-accent no-underline pb-1 mb-4">{CONTACT_EMAIL}</a>
+        <a href={`mailto:${AUTHOR_EMAIL}`} class="masthead-mail inline-block text-sm font-medium text-accent no-underline pb-1 mb-4">{AUTHOR_EMAIL}</a>
         <p class="text-base leading-relaxed text-content/72 max-w-[620px]">
           Vantage is a one-person newsroom. Every explainer on this site was reported,
           written, checked and published by the same person, and the byline says so on

@@ -2,6 +2,10 @@
 // (editorial@ / tips@ / corrections@) once those exist — one shared address
 // is still simpler than three that all resolve to the same mailbox.
 export const CONTACT_EMAIL = 'contact@vantageph.com';
+// The masthead's byline address — a real person's inbox, not the general
+// tips/corrections one. Used on /about only; everywhere else on the site
+// that asks for an address, CONTACT_EMAIL is the right one.
+export const AUTHOR_EMAIL = 'sirjairus@macabuhay.asia';
 export const FACEBOOK_URL = 'https://www.facebook.com/profile.php?id=61592073608643';
 export const INSTAGRAM_URL = 'https://www.instagram.com/vanta.ge.ph/';
 
